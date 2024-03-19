@@ -1,0 +1,7 @@
+html {
+    cursor: url('../images/cursor.png'), auto !important;
+}
+
+button:hover {
+    cursor: url('../images/cursorhover.png'), auto !important;
+}
