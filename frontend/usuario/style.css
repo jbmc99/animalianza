@@ -1,7 +1,3 @@
-html {
-    cursor: url('../images/cursor.png'), auto !important;
-}
-
-.navbar *:hover {
-    cursor: url('../images/cursorhover.png'), auto !important;
+.body {
+    background-color: lightpink;
 }
