@@ -9,3 +9,7 @@ button:hover {
 a:hover {
     cursor: url('../images/cursorhover.png'), auto !important;
 }
+
+.navbar {
+    background-color: #DBFBCA !important; 
+  }
