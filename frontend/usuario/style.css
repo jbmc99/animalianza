@@ -10,6 +10,10 @@ a:hover {
     cursor: url('../images/cursorhover.png'), auto !important;
 }
 
-.navbar {
-    background-color: #DBFBCA !important; 
-  }
+.navbar.bg-body-tertiary {
+    background-color: #8BAA92 !important;
+}
+
+body {
+    background-color: #dcd8bc !important;
+}
