@@ -17,3 +17,22 @@ a:hover {
 body {
     background-color: #dcd8bc !important;
 }
+
+#logueto {
+    transition: transform 0.3s ease;
+  }
+#logueto:hover {
+    transform: scale(1.1);
+  }
+.center-caro {
+    margin: auto;
+    width: 50%; 
+}
+
+#primerarazon {
+   background-color: #d1ceb1;
+}
+
+#segundarazon {
+    background-color: #d1ceb1;
+}
