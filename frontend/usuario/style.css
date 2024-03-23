@@ -41,11 +41,15 @@ body {
 }
 
 #card1 {
-    width: 17rem;
+    width: 17rem; 
 }
 #card2 {
     width: 17rem;
 }
 #card3 {
     width: 17rem;
+}
+.card-img-top {
+    height: 200px !important;
+    object-fit: cover !important; 
 }
