@@ -53,3 +53,10 @@ body {
     height: 200px !important;
     object-fit: cover !important; 
 }
+.card-body a {
+    transition: transform 0.3s ease-in-out; 
+}
+
+.card-body a:hover {
+    transform: scale(1.1); 
+}
