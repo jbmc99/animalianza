@@ -46,55 +46,169 @@
   </div>
 </div>
 
-
-  <div id="page-content" class="container">
-    <!-- Fichas de Protectoras -->
-    <div class="row mt-5">
-      <!-- Protectora 1 -->
-      <div class="col-lg-6">
-        <div class="card mb-3 me-3 bg-transparent border-0">
-          <img src="../images/ejemploprote1.jpg" class="card-img-top" id="prote1" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Rescate Animal Granada</h5>
-            <a href="#" class="btn btn-success btn-block">Más información</a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Protectora 2 -->
-      <div class="col-lg-6">
-        <div class="card mb-3 bg-transparent border-0">
-          <img src="../images/ejemploprote2.jpg" class="card-img-top" id="prote2" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Amigos de los Animales Granada</h5>
-            <a href="#" class="btn btn-success btn-block">Más información</a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Protectora 3 -->
-      <div class="col-lg-6">
-        <div class="card mb-3 bg-transparent border-0">
-          <img src="../images/ejemploprote3.png" class="card-img-top" id="prote3" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Sociedad de Animales y Plantas</h5>
-            <a href="#" class="btn btn-success btn-block">Más información</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="card mb-3 bg-transparent border-0">
-          <img src="../images/ejemploprote4.png" class="card-img-top" id="prote4" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Asociación Por Patas</h5>
-            <a href="#" class="btn btn-success btn-block">Más información</a>
-          </div>
+<div id="page-content" class="container">
+  <!-- Fichas de Protectoras -->
+  <div class="row mt-5">
+    <!-- Protectora 1 -->
+    <div class="col-lg-6">
+      <div class="card mb-3 me-3 bg-transparent border-0">
+        <img src="../images/ejemploprote1.jpg" class="card-img-top" id="prote1" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title">Rescate Animal Granada</h5>
+          <a href="#" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#modalProte1">Más información</a>
         </div>
       </div>
     </div>
-    <!-- Fin de las Fichas de Protectoras -->
+    
+    <!-- Protectora 2 -->
+    <div class="col-lg-6">
+      <div class="card mb-3 bg-transparent border-0">
+        <img src="../images/ejemploprote2.jpg" class="card-img-top" id="prote2" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title">Amigos de los Animales Granada</h5>
+          <a href="#" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#modalProte2">Más información</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Protectora 3 -->
+    <div class="col-lg-6">
+      <div class="card mb-3 bg-transparent border-0">
+        <img src="../images/ejemploprote3.png" class="card-img-top" id="prote3" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title">Sociedad de Animales y Plantas</h5>
+          <a href="#" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#modalProte3">Más información</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card mb-3 bg-transparent border-0">
+        <img src="../images/ejemploprote4.png" class="card-img-top" id="prote4" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title">Asociación Por Patas</h5>
+          <a href="#" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#modalProte4">Más información</a>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- Fin de las Fichas de Protectoras -->
+</div>
+
+
+<div class="modal fade" id="modalProte1" tabindex="-1" aria-labelledby="modalProte1Label" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalProte1Label">Rescate Animal Granada</h5>
+        <button type="button" class="btn-close btn btn-success align-self-start" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="../images/imgmodal1.png" class="d-block w-100" alt="Imagen 1">
+                </div>
+                <div class="carousel-item">
+                  <img src="../images/imgmodal12.png" class="d-block w-100" alt="Imagen 2">
+                </div>
+                <!-- Agrega más imágenes según sea necesario -->
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <p>En el refugio siempre nos esforzamos por que nuestros perros estén en las mejores condiciones posibles. 
+              Nos aseguramos de que todos los días estén bien acompañados, alimentados y manteniendo un buen nivel de 
+              higiene en sus zonas de descanso. Su seguridad y bienestar es lo primero. Muchos llegan con malnutrición, 
+              falta de pelo, con heridas físicas o emocionales... Y ver cómo se recuperan y renacen nos da la vida.</p>
+            <p>FACEBOOK:
+
+              @RescateAnimalGranada </p>
+              
+             <p>INSTAGRAM:
+              
+              rescate_animal_granada </p>
+              
+             <p> EMAIL(solo comunicaciones, no solicitudes): 
+              
+              rescateanimalgranada2019@hotmail.com </p>
+              
+              <p>EMAIL (apadrinar):
+              
+              padrinosrescate@gmail.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="modalProte2" tabindex="-1" aria-labelledby="modalProte2Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalProte2Label">Amigos de los Animales Granada</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalProte3" tabindex="-1" aria-labelledby="modalProte3Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalProte3Label">Sociedad de Animales y Plantas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Contenido del modal para Sociedad de Animales y Plantas...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalProte4" tabindex="-1" aria-labelledby="modalProte4Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalProte4Label">Asociación Por Patas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Contenido del modal para Asociación Por Patas...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
   
