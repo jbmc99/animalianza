@@ -69,3 +69,7 @@ body {
 .h1 {
     font-weight:bold !important;
 }
+
+.modal-content {
+    background-color:#a8bfae !important;
+}
