@@ -78,4 +78,10 @@ body {
     opacity: 0.7;
     border-color:black;
 }
+#desplegableNavbar .dropdown-menu {
+    background-color: #8BAA92;
+}
 
+#voluntariadoCarrusel1, #voluntariadoCarrusel2, #voluntariadoCarrusel3 {
+    height: 350px;
+}
