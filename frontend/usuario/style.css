@@ -95,3 +95,6 @@ body {
 .card-body {
     background-color:#caddcf;
 }
+#casaacogida {
+    max-width: 500px;
+}
