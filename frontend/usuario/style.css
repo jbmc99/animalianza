@@ -85,3 +85,13 @@ body {
 #voluntariadoCarrusel1, #voluntariadoCarrusel2, #voluntariadoCarrusel3 {
     height: 350px;
 }
+
+#logopaypal, #logoteaming, #logoamazon {
+    max-width:50px;
+}
+.card-header {
+    background-color:#9bc0a3 !important;
+}
+.card-body {
+    background-color:#caddcf;
+}
