@@ -21,95 +21,82 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/index.html">Inicio</a>
+            <a class="nav-link" href="#">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/adopciones.html">Adopciones</a>
+            <a class="nav-link" href="#">Adopciones</a>
           </li>
-          <li class="nav-item dropdown" id="desplegableNavbar">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                ¿Cómo ayudar?
-            </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="../usuario/voluntariado.html">Voluntariado</a></li>
-        <li><a class="dropdown-item" href="../usuario/donaciones.html">Donaciones</a></li>
-        <li><a class="dropdown-item" href="../usuario/casaacogida.html">Casa de acogida</a></li>
-
-    </ul>
-</li>
-        <li class="nav-item">
-          <a class="nav-link" href="../usuario/tiendasolidaria.html">Tienda solidaria</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../usuario/nuestrasprotectoras.html">Nuestras protectoras</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-  
- 
-<div class="container">
-  <div class="row">
-    <div class="col-12 text-center mb-5 mt-5">
-      <h1>NUESTRAS PROTECTORAS</h1>
-    </div>
-  </div>
-</div>
-
-<div id="page-content" class="container">
-  <!-- Fichas de Protectoras -->
-  <div class="row mt-5">
-    <!-- Protectora 1 -->
-    <div class="col-6 mb-5">
-      <div class="card bg-transparent border-0">
-        <img src="../images/ejemploprote1.jpg" class="card-img-top img-fluid" id="prote1" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Rescate Animal Granada</h5>
-          <a href="prote1.html" class="btn btn-success btn-block">Más información</a>
-        </div>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Voluntariado</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Donaciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Nuestras protectoras</a>
+          </li>
+        </ul>
       </div>
     </div>
-    
-    <!-- Protectora 2 -->
-    <div class="col-6 mb-5">
-      <div class="card bg-transparent border-0">
-        <img src="../images/ejemploprote2.jpg" class="card-img-top img-fluid" id="prote2" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Amigos de los Animales Granada</h5>
-          <a href="pagina2.html" class="btn btn-success btn-block">Más información</a>
+  </nav>
+    <!--formulario de adopción-->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <h2 class="text-center mb-4">FORMULARIO PROTECTORAS</h2>
+            <p class="text-center mt-2 mb-5">¿Deseas unirte a nuestra asociación? ¡Rellena el siguiente formulario y recibirás noticias nuestras!</p>
+            <form>
+              <div class="form-group row mb-4">
+                <label for="nombreProte" class="col-sm-4 col-form-label">Nombre completo de la protectora</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="nombreProte" placeholder="Introduzca el nombre completo de la protectora">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label for="emailContacto" class="col-sm-4 col-form-label">E-mail de contacto</label>
+                <div class="col-sm-8">
+                  <input type="emailContacto" class="form-control" id="email" placeholder="Introduzca un correo electrónico de contacto">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label for="numeroRegistro" class="col-sm-4 col-form-label">Número de registro como organización sin fines de lucro</label>
+                <div class="col-sm-8">
+                  <input type="number" class="form-control" id="numeroRegistro" placeholder="Introduzca el número de registro">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label for="direccion" class="col-sm-4 col-form-label">Dirección Completa</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="nombreApellidos" placeholder="Introduzca su dirección">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label for="infoProte" class="col-sm-4 col-form-label">Introduzca información sobre su protectora</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" id="motivacionesAdoptar" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="form-group row mb-4">
+                <label for="infoFamilia" class="col-sm-4 col-form-label">Proporcione algún dato relevante (redes sociales, teléfono de contacto...)</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" id="infoFamilia" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlFile1">¿Una foto?</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+              </div>
+            
+
+              <div class="form-group row text-center mt-5">
+                <div class="col-sm-12">
+                  <button type="submit" class="btn btn-success">¡Registrate!</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Protectora 3 -->
-    <div class="col-6 mb-4">
-      <div class="card bg-transparent border-0">
-        <img src="../images/ejemploprote3.png" class="card-img-top img-fluid" id="prote3" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Sociedad de Animales y Plantas</h5>
-          <a href="pagina3.html" class="btn btn-success btn-block">Más información</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Protectora 4 -->
-    <div class="col-6 mb-4">
-    <div class="card bg-transparent border-0">
-        <img src="../images/ejemploprote4.png" class="card-img-top img-fluid" id="prote4" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Asociación Por Patas</h5>
-          <a href="pagina4.html" class="btn btn-success btn-block">Más información</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
- 
-
-
   
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
