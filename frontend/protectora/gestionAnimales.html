@@ -43,24 +43,41 @@
   
   <!-- Contenido principal -->
   <div class="container mt-5">
-    <h2 class="mb-4">Tus animales:</h2>
+    <h2 class="mb-4 text-center">Tus animales:</h2>
     <div class="row">
-      <!-- Card ejemplo -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
+      <div class="d-flex flex-wrap justify-content-center ms-5 me-2 text-center">
+        <div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center" id="card1">
+          <a  href="../usuario/fichagato1.html"> <img src="../images/gatoadop1.jpg" class="card-img-top img-fluid" alt="..."> </a>
           <div class="card-body">
-            <h5 class="card-title">Nombre del animal</h5>
-            <p class="card-text">Descripción del animal.</p>
-            <button class="btn btn-primary mr-2">Editar</button>
-            <button class="btn btn-danger">Borrar</button>
+            <a href="../usuario/fichagato1.html" class="btn btn-link text-dark text-decoration-none">
+              <h3>ARYA</h3>
+            </a>
+          </div>
+        </div>
+      
+        <div class="card ms-3 mb-5 me-5 bg-transparent border-0 text-center" id="card2">
+          <img src="../images/gatoadop2.jpg" class="card-img-top img-fluid" alt="...">
+          <div class="card-body">
+            <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+              <h3>CANDY</h3>
+            </a>
+          </div>
+        </div>
+      
+        <div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center" id="card3">
+          <img src="../images/gatoadop3.jpg" class="card-img-top img-fluid" alt="...">
+          <div class="card-body">
+            <a href="perrosgatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+              <h3>HUGO Y NEO</h3>
+            </a>
           </div>
         </div>
       </div>
       <!-- Puedes repetir este bloque de card para cada animal -->
     </div>
-    <div class="text-center mt-4">
+    <div class="text-center mt-1">
       <p>¿Deseas añadir un animal?</p>
-      <button class="btn btn-success">Añadir</button>
+      <a href="constructorAnimal.html" class="btn btn-success">Añadir</a>
     </div>
   </div>
 
