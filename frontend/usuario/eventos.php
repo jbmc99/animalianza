@@ -66,7 +66,7 @@
           <h5 class="card-title">Nombre del Evento 1</h5>
           <p class="card-text">Descripción del evento.</p>
           <p class="card-text"><strong>Fecha:</strong> 10 de mayo de 2024</p>
-          <a href="#" class="btn btn-success">Más detalles</a>
+          <a href="../usuario/fichaEvento.html" class="btn btn-success">Más detalles</a>
         </div>
       </div>
     </div>

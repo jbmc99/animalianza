@@ -40,79 +40,63 @@
     </div>
   </nav>
 
-  
-  <!-- Contenido principal -->
-  <div class="container mt-5">
-    <h2 class="mb-4 text-center">Tus animales:</h2>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">¡Bienvenid@!</h1>
+    <h3 class="text-center mb-4">¿Qué deseas hacer hoy?</h3>
     <div class="row">
-      <div class="d-flex flex-wrap justify-content-center ms-5 me-2 text-center">
-        <div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center" id="card1">
-          <a  href="../usuario/fichagato1.html"> <img src="../images/gatoadop1.jpg" class="card-img-top img-fluid" alt="..."> </a>
+      <!-- Card: Gestionar Animales -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 text-center bg-transparent border-2">
           <div class="card-body">
-            <a href="../usuario/fichagato1.html" class="btn btn-link text-dark text-decoration-none">
-              <h3>ARYA</h3>
-            </a>
+            <h5 class="card-title">Gestionar Animales</h5>
+            <p class="card-text">Añadir un animal nuevo o eliminar uno existente.</p>
           </div>
-        </div>
-      
-        <div class="card ms-3 mb-5 me-5 bg-transparent border-0 text-center" id="card2">
-          <img src="../images/gatoadop2.jpg" class="card-img-top img-fluid" alt="...">
-          <div class="card-body">
-            <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
-              <h3>CANDY</h3>
-            </a>
-          </div>
-        </div>
-      
-        <div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center" id="card3">
-          <img src="../images/gatoadop3.jpg" class="card-img-top img-fluid" alt="...">
-          <div class="card-body">
-            <a href="perrosgatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
-              <h3>HUGO Y NEO</h3>
-            </a>
+          <div class="card-footer">
+            <a href="../protectora/gestionAnimales.html" class="btn btn-success">Ir a la gestión</a>
           </div>
         </div>
       </div>
-      <!-- Puedes repetir este bloque de card para cada animal -->
-    </div>
-    <div class="text-center mt-1">
-      <p>¿Qué deseas hacer?</p>
-      <a href="constructorAnimal.html" class="btn btn-success">Añadir animal</a>
-      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarAnimalModal">
-        Eliminar Animal
-    </button>
+      <!-- Card: Adopciones -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 text-center bg-transparent border-2">
+          <div class="card-body">
+            <h5 class="card-title">Adopciones</h5>
+            <p class="card-text">Ver y gestionar procesos de adopción de animales.</p>
+          </div>
+          <div class="card-footer">
+            <a href="../protectora/gestionAdopciones.html" class="btn btn-success">Ir a adopciones</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card: Casa de Acogida -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 text-center bg-transparent border-2">
+          <div class="card-body">
+            <h5 class="card-title">Casa de Acogida</h5>
+            <p class="card-text">Administrar animales en casa de acogida.</p>
+          </div>
+          <div class="card-footer">
+            <a href="../protectora/gestionCasaAcogida.html" class="btn btn-success">Ir a casa de acogida</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card: Eventos -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 text-center bg-transparent border-2">
+          <div class="card-body">
+            <h5 class="card-title">Eventos</h5>
+            <p class="card-text">Agregar o finalizar eventos relacionados con la protectora.</p>
+          </div>
+          <div class="card-footer">
+            <a href="../protectora/gestionEventos.html" class="btn btn-success">Ir a eventos</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="modal fade" id="eliminarAnimalModal" tabindex="-1" aria-labelledby="eliminarAnimalModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="eliminarAnimalModalLabel">¿A qué animal deseas eliminar?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="animalSelect">Selecciona el animal a eliminar:</label>
-                    <select class="form-select" id="animalSelect">
-                        <option selected>Seleccione un animal...</option>
-                        <option value="arya">Arya</option>
-                        <option value="candy">Candy</option>
-                        <option value="hugo_neo">Hugo y Neo</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Eliminar</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
- <!--FOOTER-->
- <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
+  <!--FOOTER-->
+<footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
     <!-- Redes sociales-->
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
       <div class="me-5 d-none d-lg-block">

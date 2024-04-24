@@ -8,7 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-
   <!--NAVBAR-->
   <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
     <div class="container-fluid">
@@ -48,51 +47,40 @@
     </div>
   </div>
 </nav>
-  
 
-  <!--Cards de los productos-->
-  <div class="container mt-5">
-    <h1 class="text-center mb-5">Productos benéficos</h1>
-    <div class="row justify-content-center">
-      <div class="col-lg-3 mb-4 me-5">
-        <div class="card border-0 rounded-3 shadow-sm">
-          <img src="../images/producto1.png" class="card-img-top" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Tote bags</h5>
-            <p class="card-text">Descripción del producto.</p>
-            <h6 class="card-subtitle mb-2 text-muted">$XX.XX</h6>
-            <a href="../usuario/infoproducto.html" class="btn btn-success">Más información</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 mb-4 me-5">
-        <div class="card border-0 rounded-3 shadow-sm">
-          <img src="../images/producto3.png" class="card-img-top" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Blocs de notas</h5>
-            <p class="card-text">Descripción del producto.</p>
-            <h6 class="card-subtitle mb-2 text-muted">$XX.XX</h6>
-            <a href="#" class="btn btn-success">Más información</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 mb-4 me-5">
-        <div class="card border-0 rounded-3 shadow-sm">
-          <img src="../images/producto5.png" class="card-img-top" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Llaveros de madera</h5>
-            <p class="card-text">Descripción del producto.</p>
-            <h6 class="card-subtitle mb-2 text-muted">$XX.XX</h6>
-            <a href="#" class="btn btn-success">Más información</a>
-          </div>
-        </div>
+
+<?php 
+  include "backend/conexion.php";
+  $sql = $conexion->query("SELECT * FROM evento");
+  while ($datos = $sql->fetch_object()) { 
+?>
+<div class="container mt-5">
+  <div class="row">
+    <!-- Foto fija a la izquierda -->
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+      <img src="../images/evento1.png" class="d-block w-50 mx-auto" alt="Evento">
+    </div>
+    <!-- Información del evento a la derecha -->
+    <div class="col-md-6">
+      <h2><?php echo $datos->nombre; ?></h2>
+      <p><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
+      <p><strong>Fecha:</strong> <?php echo $datos->fecha; ?></p>
+      <!-- Botón para más detalles o acción -->
+      <div class="text-center mt-5">
+        <!-- Aquí puedes poner el enlace o botón correspondiente para más detalles o acción -->
       </div>
     </div>
   </div>
+</div>
+<?php 
+  } // Fin del bucle while
+?>
 
 
 
-  
+
+
+
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
   <!-- Redes sociales-->

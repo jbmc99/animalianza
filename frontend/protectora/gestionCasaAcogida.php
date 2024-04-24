@@ -40,63 +40,77 @@
     </div>
   </nav>
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">¡Bienvenid@!</h1>
-    <h3 class="text-center mb-4">¿Qué deseas hacer hoy?</h3>
-    <div class="row">
-      <!-- Card: Gestionar Animales -->
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100 text-center bg-transparent border-2">
-          <div class="card-body">
-            <h5 class="card-title">Gestionar Animales</h5>
-            <p class="card-text">Añadir un animal nuevo o eliminar uno existente.</p>
-          </div>
-          <div class="card-footer">
-            <a href="../protectora/gestionAnimales.html" class="btn btn-success">Ir a la gestión</a>
-          </div>
+
+<!-- Title -->
+<div class="container mt-5 mb-5 text-center">
+  <h1>Gestión de casas de acogida</h1>
+</div>
+
+<!-- Content -->
+<div class="container mt-3">
+  <div class="row">
+    <!-- Sección para aceptar adopciones -->
+    <div class="col-md-6 mb-4">
+      <h2 class="text-center mb-3">¿Aceptáis acogidas en este momento?</h2>
+      <div class="d-flex justify-content-center mb-3">
+        <div class="dropdown me-2">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="acceptDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Seleccionar
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="acceptDropdown">
+            <li><a class="dropdown-item" href="#">Sí</a></li>
+            <li><a class="dropdown-item" href="#">No</a></li>
+          </ul>
         </div>
+        <button class="btn btn-success">Confirmar</button>
       </div>
-      <!-- Card: Adopciones -->
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100 text-center bg-transparent border-2">
-          <div class="card-body">
-            <h5 class="card-title">Adopciones</h5>
-            <p class="card-text">Ver y gestionar procesos de adopción de animales.</p>
-          </div>
-          <div class="card-footer">
-            <a href="../protectora/gestionAdopciones.html" class="btn btn-success">Ir a adopciones</a>
-          </div>
-        </div>
+    </div>
+    <!-- Sección para ver solicitudes de adopción -->
+    <div class="col-md-6">
+      <h2 class="text-center mb-3">Solicitudes de casa de acogida</h2>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
+          Nombre de la mascota
+          <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
+          Nombre de la mascota
+          <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
+          Nombre de la mascota
+          <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="solicitudModal" tabindex="-1" aria-labelledby="solicitudModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="solicitudModalLabel">Detalles de la solicitud</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <!-- Card: Casa de Acogida -->
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100 text-center bg-transparent border-2">
-          <div class="card-body">
-            <h5 class="card-title">Casa de Acogida</h5>
-            <p class="card-text">Administrar animales en casa de acogida.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-success">Ir a casa de acogida</a>
-          </div>
-        </div>
+      <div class="modal-body">
+        <!-- Aquí puedes añadir los datos sobre la solicitud -->
+        <p>Datos sobre la solicitud...</p>
+        <p>Blablablabla</p>
+        <p>Aquí se pasa la info recogida por los formulariooo</p>
       </div>
-      <!-- Card: Eventos -->
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100 text-center bg-transparent border-2">
-          <div class="card-body">
-            <h5 class="card-title">Eventos</h5>
-            <p class="card-text">Agregar o finalizar eventos relacionados con la protectora.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-success">Ir a eventos</a>
-          </div>
-        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success">Aceptar</button>
+        <button type="button" class="btn btn-danger">Denegar</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!--FOOTER-->
-<footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
+ <!--FOOTER-->
+ <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
     <!-- Redes sociales-->
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
       <div class="me-5 d-none d-lg-block">
