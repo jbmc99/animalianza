@@ -49,11 +49,6 @@
 </nav>
 
 
-<?php 
-  include "backend/conexion.php";
-  $sql = $conexion->query("SELECT * FROM evento");
-  while ($datos = $sql->fetch_object()) { 
-?>
 <div class="container mt-5">
   <div class="row">
     <!-- Foto fija a la izquierda -->
@@ -72,9 +67,6 @@
     </div>
   </div>
 </div>
-<?php 
-  } // Fin del bucle while
-?>
 
 
 

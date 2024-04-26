@@ -43,30 +43,40 @@
   <!-- Contenido principal -->
   <div class="container mt-3">
     <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="text-center">Iniciar Sesión</h3>
-          </div>
-          <div class="card-body">
-            <form>
-              <div class="mb-3">
-                <label for="username" class="form-label">Nombre de usuario</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-success">Iniciar Sesión</button>
-              </div>
-            </form>
-          </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Iniciar Sesión</h3>
+                </div>
+                <div class="card-body">
+                    <form action="../protectora/procesar_login.php" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre de usuario</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipo_login" class="form-label">Tipo de Login</label>
+                            <select class="form-select" id="tipo_login" name="tipo_login" required>
+                               <option value="usuario">Usuario</option>
+                               <option value="protectora">Protectora</option>
+</select>
+
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+
+
 
   <div class="container">
     <div class="row">
