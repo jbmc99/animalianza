@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link rel="stylesheet" href="../usuario/style.css">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -39,64 +40,97 @@
       </div>
     </div>
   </nav>
-    <!--formulario de adopción-->
+    <!--formulario de registro-->
     <div class="container mt-4">
-        <div class="row justify-content-center">
-          <div class="col-md-8">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
             <h2 class="text-center mb-4">FORMULARIO PROTECTORAS</h2>
             <p class="text-center mt-2 mb-5">¿Deseas unirte a nuestra asociación? ¡Rellena el siguiente formulario y recibirás noticias nuestras!</p>
-            <form>
-              <div class="form-group row mb-4">
-                <label for="nombreProte" class="col-sm-4 col-form-label">Nombre completo de la protectora</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="nombreProte" placeholder="Introduzca el nombre completo de la protectora">
+            <form action="procesar_registro_protectora.php" method="post">
+                <div class="form-group row mb-4">
+                    <label for="nombreUsuarioProte" class="col-sm-4 col-form-label">Nombre de usuario</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="nombreUsuarioProte" name="nombreUsuarioProte" placeholder="Introduzca el nombre de usuario" required>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group row mb-4">
-                <label for="emailContacto" class="col-sm-4 col-form-label">E-mail de contacto</label>
-                <div class="col-sm-8">
-                  <input type="emailContacto" class="form-control" id="email" placeholder="Introduzca un correo electrónico de contacto">
+                <div class="form-group row mb-4">
+                    <label for="passwordProte" class="col-sm-4 col-form-label">Contraseña</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" id="passwordProte" name="passwordProte" placeholder="Introduzca una contraseña" required>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group row mb-4">
-                <label for="numeroRegistro" class="col-sm-4 col-form-label">Número de registro como organización sin fines de lucro</label>
-                <div class="col-sm-8">
-                  <input type="number" class="form-control" id="numeroRegistro" placeholder="Introduzca el número de registro">
+                <div class="form-group row mb-4">
+                    <label for="nombreProte" class="col-sm-4 col-form-label">Nombre completo de la protectora</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="nombreProte" name="nombreProte" placeholder="Introduzca el nombre completo de la protectora" required>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group row mb-4">
-                <label for="direccion" class="col-sm-4 col-form-label">Dirección Completa</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="nombreApellidos" placeholder="Introduzca su dirección">
+                <div class="form-group row mb-4">
+                    <label for="emailContacto" class="col-sm-4 col-form-label">E-mail de contacto</label>
+                    <div class="col-sm-8">
+                        <input type="email" class="form-control" id="emailContacto" name="emailContacto" placeholder="Introduzca un correo electrónico de contacto" required>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group row mb-4">
-                <label for="infoProte" class="col-sm-4 col-form-label">Introduzca información sobre su protectora</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" id="motivacionesAdoptar" rows="4"></textarea>
+                <div class="form-group row mb-4">
+                    <label for="numeroRegistro" class="col-sm-4 col-form-label">Número de registro como organización sin fines de lucro</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-control" id="numeroRegistro" name="numeroRegistro" placeholder="Introduzca el número de registro" required>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row mb-4">
-                <label for="infoFamilia" class="col-sm-4 col-form-label">Proporcione algún dato relevante (redes sociales, teléfono de contacto...)</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" id="infoFamilia" rows="4"></textarea>
+                <div class="form-group row mb-4">
+                    <label for="direccion" class="col-sm-4 col-form-label">Dirección Completa</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Introduzca su dirección" required>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlFile1">¿Una foto?</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1">
-              </div>
-            
+                <div class="form-group row mb-4">
+                    <label for="infoProte" class="col-sm-4 col-form-label">Introduzca información sobre su protectora</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="infoProte" name="infoProte" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="infoFamilia" class="col-sm-4 col-form-label">Proporcione algún dato relevante (redes sociales, teléfono de contacto...)</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="infoFamilia" name="infoFamilia" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">¿Una foto?</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="foto">
+                </div>
 
-              <div class="form-group row text-center mt-5">
-                <div class="col-sm-12">
-                  <button type="submit" class="btn btn-success">¡Registrate!</button>
+                <!-- Modal -->
+                <div class="modal fade" id="registroExitosoModal" tabindex="-1" role="dialog" aria-labelledby="registroExitosoModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="registroExitosoModalLabel">Registro Exitoso</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Te has registrado correctamente.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+
+                <div class="form-group row text-center mt-5">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success">¡Regístrate!</button>
+                    </div>
+                </div>
             </form>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
+
+
   
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
@@ -127,6 +161,13 @@
     </div>
   </section>
 
+
+  <script>
+    // Función para mostrar el modal
+    function mostrarModalRegistroExitoso() {
+        $('#registroExitosoModal').modal('show'); // Mostrar el modal
+    }
+</script>
   <!-- Links  -->
   <section class="">
     <div class="container text-center text-md-start mt-5">

@@ -66,7 +66,7 @@
         <img src="../images/ejemploprote1.jpg" class="card-img-top img-fluid" id="prote1" alt="...">
         <div class="card-body text-center">
           <h5 class="card-title">Rescate Animal Granada</h5>
-          <a href="prote1.html" class="btn btn-success btn-block">Más información</a>
+          <a href="prote1.php" class="btn btn-success btn-block">Más información</a>
         </div>
       </div>
     </div>
@@ -77,7 +77,7 @@
         <img src="../images/ejemploprote2.jpg" class="card-img-top img-fluid" id="prote2" alt="...">
         <div class="card-body text-center">
           <h5 class="card-title">Amigos de los Animales Granada</h5>
-          <a href="pagina2.html" class="btn btn-success btn-block">Más información</a>
+          <a href="prote1.php" class="btn btn-success btn-block">Más información</a>
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@
         <img src="../images/ejemploprote3.png" class="card-img-top img-fluid" id="prote3" alt="...">
         <div class="card-body text-center">
           <h5 class="card-title">Sociedad de Animales y Plantas</h5>
-          <a href="pagina3.html" class="btn btn-success btn-block">Más información</a>
+          <a href="prote1.php" class="btn btn-success btn-block">Más información</a>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@
         <img src="../images/ejemploprote4.png" class="card-img-top img-fluid" id="prote4" alt="...">
         <div class="card-body text-center">
           <h5 class="card-title">Asociación Por Patas</h5>
-          <a href="pagina4.html" class="btn btn-success btn-block">Más información</a>
+          <a href="prote1.php" class="btn btn-success btn-block">Más información</a>
         </div>
       </div>
     </div>

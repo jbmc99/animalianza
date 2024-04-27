@@ -22,27 +22,27 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/index.html">Inicio</a>
+            <a class="nav-link" href="../usuario/index.php">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/adopciones.html">Adopciones</a>
+            <a class="nav-link" href="../usuario/adopciones.php">Adopciones</a>
           </li>
           <li class="nav-item dropdown" id="desplegableNavbar">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 ¿Cómo ayudar?
             </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="../usuario/voluntariado.html">Voluntariado</a></li>
-        <li><a class="dropdown-item" href="../usuario/donaciones.html">Donaciones</a></li>
-        <li><a class="dropdown-item" href="../usuario/casaacogida.html">Casa de acogida</a></li>
+        <li><a class="dropdown-item" href="../usuario/voluntariado.php">Voluntariado</a></li>
+        <li><a class="dropdown-item" href="../usuario/donaciones.php">Donaciones</a></li>
+        <li><a class="dropdown-item" href="../usuario/casaacogida.php">Casa de acogida</a></li>
 
     </ul>
 </li>
         <li class="nav-item">
-          <a class="nav-link" href="../usuario/tiendasolidaria.html">Tienda solidaria</a>
+          <a class="nav-link" href="../usuario/tiendasolidaria.php">Tienda solidaria</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../usuario/nuestrasprotectoras.html">Nuestras protectoras</a>
+          <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
         </li>
       </ul>
     </div>
@@ -113,7 +113,7 @@
               <img src="../images/ejemploprote1.jpg" class="card-img-top img-fluid" id="prote1" alt="...">
               <div class="card-body text-center">
                 <h5 class="card-title">Rescate Animal Granada</h5>
-                <a href="prote1.html" class="btn btn-success btn-block">Solicitar voluntariado</a>
+                <a href="prote1.php" class="btn btn-success btn-block">Solicitar voluntariado</a>
               </div>
             </div>
           </div>
@@ -124,7 +124,7 @@
               <img src="../images/ejemploprote2.jpg" class="card-img-top img-fluid" id="prote2" alt="...">
               <div class="card-body text-center">
                 <h5 class="card-title">Amigos de los Animales Granada</h5>
-                <a href="pagina2.html" class="btn btn-success btn-block">Solicitar voluntariado</a>
+                <a href="prote1.php" class="btn btn-success btn-block">Solicitar voluntariado</a>
               </div>
             </div>
           </div>

@@ -21,27 +21,27 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/index.html">Inicio</a>
+            <a class="nav-link" href="../usuario/index.php">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/adopciones.html">Adopciones</a>
+            <a class="nav-link" href="../usuario/adopciones.php">Adopciones</a>
           </li>
           <li class="nav-item dropdown" id="desplegableNavbar">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 ¿Cómo ayudar?
             </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="../usuario/voluntariado.html">Voluntariado</a></li>
-        <li><a class="dropdown-item" href="../usuario/donaciones.html">Donaciones</a></li>
-        <li><a class="dropdown-item" href="../usuario/casaacogida.html">Casa de acogida</a></li>
+        <li><a class="dropdown-item" href="../usuario/voluntariado.php">Voluntariado</a></li>
+        <li><a class="dropdown-item" href="../usuario/donaciones.php">Donaciones</a></li>
+        <li><a class="dropdown-item" href="../usuario/casaacogida.php">Casa de acogida</a></li>
 
     </ul>
 </li>
         <li class="nav-item">
-          <a class="nav-link" href="../usuario/tiendasolidaria.html">Tienda solidaria</a>
+          <a class="nav-link" href="../usuario/tiendasolidaria.php">Tienda solidaria</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../usuario/nuestrasprotectoras.html">Nuestras protectoras</a>
+          <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
         </li>
       </ul>
     </div>
@@ -56,7 +56,7 @@
       <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card1">
         <img src="../images/categoriagato.jpg" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
-          <a href="gatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+          <a href="gatosadopcion.php" class="btn btn-link text-dark text-decoration-none">
             <h3>GATOS</h3>
           </a>
         </div>
@@ -65,7 +65,7 @@
       <div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card2">
         <img src="../images/categoriaperro.jpg" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
-          <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+          <a href="perrosadopcion.php" class="btn btn-link text-dark text-decoration-none">
             <h3>PERROS</h3>
           </a>
         </div>
@@ -74,7 +74,7 @@
       <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card3">
         <img src="../images/categoriaambos.jpg" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
-          <a href="perrosgatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+          <a href="perrosgatosadopcion.php" class="btn btn-link text-dark text-decoration-none">
             <h3>VER TODO</h3>
           </a>
         </div>

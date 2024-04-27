@@ -52,7 +52,7 @@
             <p class="card-text">Añadir un animal nuevo o eliminar uno existente.</p>
           </div>
           <div class="card-footer">
-            <a href="../protectora/gestionAnimales.html" class="btn btn-success">Ir a la gestión</a>
+            <a href="../protectora/gestionAnimales.php" class="btn btn-success">Ir a la gestión</a>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
             <p class="card-text">Ver y gestionar procesos de adopción de animales.</p>
           </div>
           <div class="card-footer">
-            <a href="../protectora/gestionAdopciones.html" class="btn btn-success">Ir a adopciones</a>
+            <a href="../protectora/gestionAdopciones.php" class="btn btn-success">Ir a adopciones</a>
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@
             <p class="card-text">Administrar animales en casa de acogida.</p>
           </div>
           <div class="card-footer">
-            <a href="../protectora/gestionCasaAcogida.html" class="btn btn-success">Ir a casa de acogida</a>
+            <a href="../protectora/gestionCasaAcogida.php" class="btn btn-success">Ir a casa de acogida</a>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@
             <p class="card-text">Agregar o finalizar eventos relacionados con la protectora.</p>
           </div>
           <div class="card-footer">
-            <a href="../protectora/gestionEventos.html" class="btn btn-success">Ir a eventos</a>
+            <a href="../protectora/gestionEventos.php" class="btn btn-success">Ir a eventos</a>
           </div>
         </div>
       </div>

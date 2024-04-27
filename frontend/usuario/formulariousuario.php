@@ -21,24 +21,34 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Inicio</a>
+            <a class="nav-link" href="../usuario/index.php">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Adopciones</a>
+            <a class="nav-link" href="../usuario/adopciones.php">Adopciones</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Voluntariado</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Donaciones</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nuestras protectoras</a>
-          </li>
-        </ul>
-      </div>
+          <li class="nav-item dropdown" id="desplegableNavbar">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ¿Cómo ayudar?
+            </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="../usuario/voluntariado.php">Voluntariado</a></li>
+        <li><a class="dropdown-item" href="../usuario/donaciones.php">Donaciones</a></li>
+        <li><a class="dropdown-item" href="../usuario/casaacogida.php">Casa de acogida</a></li>
+
+    </ul>
+</li>
+        <li class="nav-item">
+          <a class="nav-link" href="../usuario/tiendasolidaria.php">Tienda solidaria</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+
+
   <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -52,9 +62,9 @@
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label for="contraUsuario" class="col-sm-4 col-form-label">Contraseña</label>
+                    <label for="passwordUsuario" class="col-sm-4 col-form-label">Contraseña</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="contraUsuario" placeholder="Introduce una contraseña">
+                        <input type="text" class="form-control" id="passwordUsuario" placeholder="Introduce una contraseña">
                     </div>
                 </div>
                 <div class="form-group row mb-4">

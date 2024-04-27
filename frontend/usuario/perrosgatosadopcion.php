@@ -21,27 +21,27 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/index.html">Inicio</a>
+            <a class="nav-link" href="../usuario/index.php">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/adopciones.html">Adopciones</a>
+            <a class="nav-link" href="../usuario/adopciones.php">Adopciones</a>
           </li>
           <li class="nav-item dropdown" id="desplegableNavbar">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 ¿Cómo ayudar?
             </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="../usuario/voluntariado.html">Voluntariado</a></li>
-        <li><a class="dropdown-item" href="../usuario/donaciones.html">Donaciones</a></li>
-        <li><a class="dropdown-item" href="../usuario/casaacogida.html">Casa de acogida</a></li>
+        <li><a class="dropdown-item" href="../usuario/voluntariado.php">Voluntariado</a></li>
+        <li><a class="dropdown-item" href="../usuario/donaciones.php">Donaciones</a></li>
+        <li><a class="dropdown-item" href="../usuario/casaacogida.php">Casa de acogida</a></li>
 
     </ul>
 </li>
         <li class="nav-item">
-          <a class="nav-link" href="../usuario/tiendasolidaria.html">Tienda solidaria</a>
+          <a class="nav-link" href="../usuario/tiendasolidaria.php">Tienda solidaria</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../usuario/nuestrasprotectoras.html">Nuestras protectoras</a>
+          <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
         </li>
       </ul>
     </div>
@@ -79,9 +79,9 @@
 <!--CARDS-->
 <div class="d-flex flex-wrap justify-content-center ms-5 me-2">
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card1">
-  <a  href="fichagato1.html"> <img src="../images/gatoadop1.jpg" class="card-img-top img-fluid" alt="..."> </a>
+  <a  href="fichagato1.php"> <img src="../images/gatoadop1.jpg" class="card-img-top img-fluid" alt="..."> </a>
   <div class="card-body">
-    <a href="fichagato1.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>ARYA</h3>
     </a>
   </div>
@@ -90,7 +90,7 @@
 <div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card2">
   <img src="../images/gatoadop2.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>CANDY</h3>
     </a>
   </div>
@@ -99,7 +99,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card3">
   <img src="../images/gatoadop3.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosgatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>HUGO Y NEO</h3>
     </a>
   </div>
@@ -108,7 +108,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card4">
   <img src="../images/gatoadop4.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="otrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>DINO</h3>
     </a>
   </div>
@@ -117,7 +117,7 @@
 <div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card5">
   <img src="../images/gatoadop5.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="roedoresadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>SIMBA</h3>
     </a>
   </div>
@@ -126,7 +126,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card6">
   <img src="../images/gatoadop6.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="caballosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>SELINA</h3>
     </a>
   </div>
@@ -135,7 +135,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card7">
   <img src="../images/gatoadop7.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>LOKI</h3>
     </a>
   </div>
@@ -144,7 +144,7 @@
 <div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card8">
   <img src="../images/gatoadop8.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosgatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>LOKETE</h3>
     </a>
   </div>
@@ -153,7 +153,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card9">
   <img src="../images/gatoadop9.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>POLLO</h3>
     </a>
   </div>
@@ -161,7 +161,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card7">
   <img src="../images/gatoadop7.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>LOKI</h3>
     </a>
   </div>
@@ -170,7 +170,7 @@
 <div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card8">
   <img src="../images/gatoadop8.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosgatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>LOKETE</h3>
     </a>
   </div>
@@ -179,7 +179,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card9">
   <img src="../images/gatoadop9.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>POLLO</h3>
     </a>
   </div>
@@ -187,7 +187,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card7">
   <img src="../images/gatoadop7.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>LOKI</h3>
     </a>
   </div>
@@ -196,7 +196,7 @@
 <div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card8">
   <img src="../images/gatoadop8.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosgatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>LOKETE</h3>
     </a>
   </div>
@@ -205,7 +205,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card9">
   <img src="../images/gatoadop9.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>POLLO</h3>
     </a>
   </div>
@@ -213,7 +213,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card7">
   <img src="../images/gatoadop7.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>LOKI</h3>
     </a>
   </div>
@@ -222,7 +222,7 @@
 <div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card8">
   <img src="../images/gatoadop8.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosgatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>LOKETE</h3>
     </a>
   </div>
@@ -231,7 +231,7 @@
 <div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card9">
   <img src="../images/gatoadop9.jpg" class="card-img-top img-fluid" alt="...">
   <div class="card-body">
-    <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
       <h3>POLLO</h3>
     </a>
   </div>

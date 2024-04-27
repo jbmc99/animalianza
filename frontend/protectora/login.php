@@ -20,7 +20,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
-          <!-- Aquí van los elementos de la navbar -->
         </ul>
       </div>
     </div>
@@ -91,7 +90,7 @@
           <li>Influencia política y defensa: Unirse fortalece la voz colectiva para abogar por leyes y políticas que beneficien a los animales y permite abordar problemas específicos en la comunidad.</li>
           <li>Formación y desarrollo profesional: Se ofrecen oportunidades de capacitación y desarrollo para mejorar habilidades y conocimientos en áreas relevantes.</li>
         </ul>
-        <a href="../protectora/formularioprote.html" class="btn btn-success mt-5">¡Únete como protectora!</a>
+        <a href="../protectora/formularioprote.php" class="btn btn-success mt-5">¡Únete como protectora!</a>
       </div>
     </div>
   </div>
@@ -109,7 +108,7 @@
           <li>Oportunidades de aprendizaje y desarrollo: Accede a recursos educativos y programas de capacitación para mejorar tus habilidades como cuidador de animales y fortalecer tu conexión con tu nueva mascota.</li>
           <li>Impacto positivo: Al adoptar, no solo cambiarás la vida de un animal, sino que también estarás contribuyendo a la reducción del problema de la sobrepoblación y el abandono de mascotas en tu comunidad.</li>
         </ul>
-        <a href="../usuario/formulariousuario.html" class="btn btn-success mt-5">¡Regístrate como posible adoptante!</a>
+        <a href="../usuario/formulariousuario.php" class="btn btn-success mt-5">¡Regístrate como posible adoptante!</a>
       </div>
     </div>
   </div>

@@ -49,7 +49,7 @@
         <div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center" id="card1">
           <a  href="../usuario/fichagato1.html"> <img src="../images/gatoadop1.jpg" class="card-img-top img-fluid" alt="..."> </a>
           <div class="card-body">
-            <a href="../usuario/fichagato1.html" class="btn btn-link text-dark text-decoration-none">
+            <a href="../usuario/fichagato1.php" class="btn btn-link text-dark text-decoration-none">
               <h3>ARYA</h3>
             </a>
           </div>
@@ -58,7 +58,7 @@
         <div class="card ms-3 mb-5 me-5 bg-transparent border-0 text-center" id="card2">
           <img src="../images/gatoadop2.jpg" class="card-img-top img-fluid" alt="...">
           <div class="card-body">
-            <a href="perrosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+            <a href="perrosadopcion.php" class="btn btn-link text-dark text-decoration-none">
               <h3>CANDY</h3>
             </a>
           </div>
@@ -67,7 +67,7 @@
         <div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center" id="card3">
           <img src="../images/gatoadop3.jpg" class="card-img-top img-fluid" alt="...">
           <div class="card-body">
-            <a href="perrosgatosadopcion.html" class="btn btn-link text-dark text-decoration-none">
+            <a href="perrosgatosadopcion.php" class="btn btn-link text-dark text-decoration-none">
               <h3>HUGO Y NEO</h3>
             </a>
           </div>
@@ -77,7 +77,7 @@
     </div>
     <div class="text-center mt-1">
       <p>¿Qué deseas hacer?</p>
-      <a href="constructorAnimal.html" class="btn btn-success">Añadir animal</a>
+      <a href="constructorAnimal.php" class="btn btn-success">Añadir animal</a>
       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarAnimalModal">
         Eliminar Animal
     </button>
