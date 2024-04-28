@@ -41,40 +41,48 @@
   </nav>
 
   
-  <!-- Contenido principal -->
-  <div class="container mt-5">
+ <!-- Contenido principal -->
+<div class="container mt-5">
     <h2 class="mb-4 text-center">Tus animales:</h2>
     <div class="row">
-      <div class="d-flex flex-wrap justify-content-center ms-5 me-2 text-center">
-        <div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center" id="card1">
-          <a  href="../usuario/fichagato1.html"> <img src="../images/gatoadop1.jpg" class="card-img-top img-fluid" alt="..."> </a>
-          <div class="card-body">
-            <a href="../usuario/fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-              <h3>ARYA</h3>
-            </a>
-          </div>
+        <div class="d-flex flex-wrap justify-content-center ms-5 me-2 text-center">
+            <?php
+   // Incluir archivo de conexión
+   require_once('conexion.php');
+            
+   // Consultar la base de datos para obtener los nombres y las imágenes de los animales
+   $sql = "SELECT id_animal, nombre FROM animal";
+   $resultado = $conn->query($sql);
+
+   // Verificar si la consulta se ejecutó correctamente
+   if ($resultado === false) {
+       die('Error en la consulta: ' . $conn->error);
+   }
+   
+            // Verificar si se encontraron resultados
+            if ($resultado->num_rows > 0) {
+                // Mostrar cada animal en una tarjeta
+                while ($fila = $resultado->fetch_assoc()) {
+                    echo '<div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center">';
+                    echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '">';
+                    echo '</a>';
+                    echo '<div class="card-body">';
+                    echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '" class="btn btn-link text-dark text-decoration-none">';
+                    echo '<h3>' . $fila['nombre'] . '</h3>';
+                    echo '</a>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            } else {
+                echo "No se encontraron animales.";
+            }
+            
+            // Cerrar la conexión a la base de datos
+            $conn->close();
+            ?>
         </div>
-      
-        <div class="card ms-3 mb-5 me-5 bg-transparent border-0 text-center" id="card2">
-          <img src="../images/gatoadop2.jpg" class="card-img-top img-fluid" alt="...">
-          <div class="card-body">
-            <a href="perrosadopcion.php" class="btn btn-link text-dark text-decoration-none">
-              <h3>CANDY</h3>
-            </a>
-          </div>
-        </div>
-      
-        <div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center" id="card3">
-          <img src="../images/gatoadop3.jpg" class="card-img-top img-fluid" alt="...">
-          <div class="card-body">
-            <a href="perrosgatosadopcion.php" class="btn btn-link text-dark text-decoration-none">
-              <h3>HUGO Y NEO</h3>
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- Puedes repetir este bloque de card para cada animal -->
     </div>
+</div>
     <div class="text-center mt-1">
       <p>¿Qué deseas hacer?</p>
       <a href="constructorAnimal.php" class="btn btn-success">Añadir animal</a>

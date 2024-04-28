@@ -48,50 +48,13 @@
   </div>
 </nav>
 
-<!-- FICHA DE PRUEBA -->
-<div class="container mt-5">
-  <div class="row">
-    <!-- Carrusel a la izquierda -->
-    <div class="col-md-6 d-flex justify-content-center align-items-center">
-      <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="../images/gatoadop1.jpg" class="d-block w-50 mx-auto" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="../images/gatoadop1.jpg" class="d-block w-50 mx-auto" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="../images/gatoadop1.jpg" class="d-block w-50 mx-auto" alt="...">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-    <!-- Descripción del gato a la derecha -->
-    <div class="col-md-6">
-      <h2>ARYA</h2>
-      <p>Edad: 3 años</p>
-      <p>Género: H</p>
-      <p>Raza: Negro</p>
-      <p>Descripción: Descripcion DescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescrip
-        cionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcion asjkdhaskjdhaskdjahsd
-      dkjwdnkjewdkejhdkewjdhkwedjhewkdw
-    dkjednekdjedkjedhekdjhek</p>
-      <!-- Botón para adoptar -->
-      <div class="text-center mt-5">
-        <a class="btn btn-success" href="../usuario/formularioadop.php">¡Quiero adoptar!</a>
-      </div>
-    </div>
-  </div>
-</div>
+
+<?php
+// Incluye el archivo para generar las fichas de animales
+include('../protectora/generar_fichas_animales.php');
+?>
+
+
 
   
 <!--FOOTER-->

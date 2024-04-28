@@ -39,72 +39,77 @@
       </div>
     </div>
   </nav>
-    <!--constructor para añadir animales-->
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h2 class="text-center mb-4">Añade un animal</h2>
-                <form>
-                    <div class="form-group row mb-4">
-                        <label for="nombreAnimal" class="col-sm-4 col-form-label">Nombre del Animal</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nombreAnimal" placeholder="Introduzca el nombre del animal">
+
+
+
+<!-- Constructor para añadir animales -->
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Añade un animal</h2>
+            <form action="procesar_animal.php" method="POST" enctype="multipart/form-data">
+                <div class="form-group row mb-4">
+                    <label for="nombreAnimal" class="col-sm-4 col-form-label">Nombre del Animal</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="nombreAnimal" name="nombreAnimal" placeholder="Introduzca el nombre del animal">
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="especieAnimal" class="col-sm-4 col-form-label">Especie</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="especieAnimal" name="especieAnimal">
+                            <option value="perro">Perro</option>
+                            <option value="gato">Gato</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="razaAnimal" class="col-sm-4 col-form-label">Raza</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="razaAnimal" name="razaAnimal" placeholder="Introduzca la raza del animal">
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="edadAnimal" class="col-sm-4 col-form-label">Edad</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="edadAnimal" name="edadAnimal" placeholder="Introduzca la edad del animal">
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="infoAnimal" class="col-sm-4 col-form-label">Información Adicional</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="infoAnimal" name="infoAnimal" rows="4" placeholder="Proporcione información adicional sobre el animal"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label class="col-sm-4 col-form-label">¿Es un caso especial?</label>
+                    <div class="col-sm-8">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="casoEspecial" id="siCasoEspecial" value="si">
+                            <label class="form-check-label" for="siCasoEspecial">Sí</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="casoEspecial" id="noCasoEspecial" value="no" checked>
+                            <label class="form-check-label" for="noCasoEspecial">No</label>
                         </div>
                     </div>
-                    <div class="form-group row mb-4">
-                        <label for="especieAnimal" class="col-sm-4 col-form-label">Especie</label>
-                        <div class="col-sm-8">
-                            <select class="form-select" id="especieAnimal">
-                                <option value="perro">Perro</option>
-                                <option value="gato">Gato</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="fotoAnimal">Foto del Animal</label>
+                    <input type="file" class="form-control-file" id="fotoAnimal" name="fotoAnimal">
+                </div>
+                <div class="form-group row text-center mt-5">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success">Añadir Animal</button>
                     </div>
-                    <div class="form-group row mb-4">
-                        <label for="razaAnimal" class="col-sm-4 col-form-label">Raza</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="razaAnimal" placeholder="Introduzca la raza del animal">
-                        </div>
-                    </div>
-                    <div class="form-group row mb-4">
-                        <label for="edadAnimal" class="col-sm-4 col-form-label">Edad</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="edadAnimal" placeholder="Introduzca la edad del animal">
-                        </div>
-                    </div>
-                    <div class="form-group row mb-4">
-                        <label for="infoAnimal" class="col-sm-4 col-form-label">Información Adicional</label>
-                        <div class="col-sm-8">
-                            <textarea class="form-control" id="infoAnimal" rows="4" placeholder="Proporcione información adicional sobre el animal"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row mb-4">
-                        <label class="col-sm-4 col-form-label">¿Es un caso especial?</label>
-                        <div class="col-sm-8">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="casoEspecial" id="siCasoEspecial" value="si">
-                                <label class="form-check-label" for="siCasoEspecial">Sí</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="casoEspecial" id="noCasoEspecial" value="no" checked>
-                                <label class="form-check-label" for="noCasoEspecial">No</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="fotoAnimal">Foto del Animal</label>
-                        <input type="file" class="form-control-file" id="fotoAnimal">
-                    </div>
-                    <div class="form-group row text-center mt-5">
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-success">Añadir Animal</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
-    
+</div>
+
+
+
   
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">

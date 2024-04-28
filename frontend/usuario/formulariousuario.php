@@ -48,41 +48,44 @@
   </div>
 </nav>
 
-
-  <div class="container mt-4">
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">Formulario de Registro de Adoptantes</h2>
-            <p class="text-center mt-2 mb-5">¿Listo para encontrar a tu nuevo mejor amigo? Completa el siguiente formulario y comienza tu viaje hacia la adopción.</p>
-            <form>
+            <?php
+                // Mostrar mensaje de error si hay alguno
+                if (isset($_GET['error_message'])) {
+                    echo '<div class="alert alert-danger" role="alert">' . $_GET['error_message'] . '</div>';
+                }
+            ?>
+            <form action="procesar_registro_usuario.php" method="post">
                 <div class="form-group row mb-4">
                     <label for="nombreUsuario" class="col-sm-4 col-form-label">Nombre de usuario</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="nombreUsuario" placeholder="Introduce tu nombre de usuario">
+                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Introduce tu nombre de usuario" required>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label for="passwordUsuario" class="col-sm-4 col-form-label">Contraseña</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="passwordUsuario" placeholder="Introduce una contraseña">
-                    </div>
+                    <input type="password" class="form-control" id="passwordUsuario" name="passwordUsuario" placeholder="Introduce una contraseña">                    </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label for="emailContacto" class="col-sm-4 col-form-label">Correo electrónico</label>
                     <div class="col-sm-8">
-                        <input type="email" class="form-control" id="emailContacto" placeholder="Introduce tu correo electrónico">
+                        <input type="email" class="form-control" id="emailContacto" name="emailContacto" placeholder="Introduce tu correo electrónico" required>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label for="telefonoContacto" class="col-sm-4 col-form-label">Teléfono de contacto</label>
                     <div class="col-sm-8">
-                        <input type="tel" class="form-control" id="telefonoContacto" placeholder="Introduce tu número de teléfono">
+                        <input type="tel" class="form-control" id="telefonoContacto" name="telefonoContacto" placeholder="Introduce tu número de teléfono" required>
                     </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label for="infoAdicional" class="col-sm-4 col-form-label">Información adicional</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" id="infoAdicional" rows="4" placeholder="Proporciona información adicional relevante (por ejemplo, tus redes sociales, preferencias de mascotas, etc.)"></textarea>
+                        <textarea class="form-control" id="infoAdicional" name="infoAdicional" rows="4" placeholder="Proporciona información adicional relevante (por ejemplo, tus redes sociales, preferencias de mascotas, etc.)"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
