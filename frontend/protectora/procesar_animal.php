@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $animal_id = $conn->insert_id;
 
         // Redirigir a la página de generación de fichas con el ID del animal
-        header("Location: generar_fichas_animales.php?id=$animal_id");
+        header("Location: gestionAnimales.php");
         exit();
     } else {
         // Manejar el caso de error al insertar en la base de datos
