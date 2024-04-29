@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link rel="stylesheet" href="../usuario/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -111,7 +112,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <button type="button" class="btn btn-danger" id="eliminarBtn" >Eliminar</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -221,6 +222,33 @@
   </footer>
   <!-- Footer -->
   
+  <script>
+   $('#eliminarBtn').click(function() {
+    var idAnimal = $('#animalSelect').val();
+
+    $.ajax({
+        url: 'eliminarAnimal.php',
+        type: 'POST',
+        data: {
+            id_animal: idAnimal
+        },
+        success: function(response) {
+            if(response == 'success') {
+                // Eliminar la opción seleccionada del select
+                $('#animalSelect option:selected').remove();
+                // Cierra el modal
+                $('#eliminarAnimalModal').modal('hide');
+                // Mostrar el mensaje de éxito
+                alert('Animal eliminado con éxito');
+            } else {
+                // Mostrar el mensaje de error
+                alert('Hubo un error al eliminar el animal');
+            }
+        }
+    });
+});
+</script>
+
   
   
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
