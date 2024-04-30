@@ -68,10 +68,10 @@ if (isset($_GET['id'])) {
         <div class="container mt-5">
             <div class="row">
                 <!-- Información del evento -->
-                <div class="col-md-12">
-                    <h2><?php echo $datos->nombre; ?></h2>
-                    <p><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
-                    <p><strong>Fecha:</strong> <?php echo $datos->fecha; ?></p>
+                <div class="card-body text-center">
+                    <h2 class="card-title"><?php echo $datos->nombre; ?></h2>
+                    <p class="card-text"><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
+                    <p class="card-text"><strong>Fecha:</strong> <?php echo $datos->fecha; ?></p>
                 </div>
             </div>
         </div>
