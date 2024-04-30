@@ -39,43 +39,45 @@
       </div>
     </div>
   </nav>
-    <!--constructor para añadir animales-->
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h2 class="text-center mb-4">Añade un evento</h2>
-                <form>
-                    <div class="form-group row mb-4">
-                        <label for="nombreEvento" class="col-sm-4 col-form-label">Nombre del Evento</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nombreEvento" placeholder="Introduzca el nombre del evento" required>
-                        </div>
+ <!--constructor para añadir eventos-->
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Añade un evento</h2>
+            <!-- Elimina la etiqueta form que envuelve todo el contenido -->
+            <form action="procesar_eventos.php" method="post">
+                <div class="form-group row mb-4">
+                    <label for="nombreEvento" class="col-sm-4 col-form-label">Nombre del Evento</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="nombreEvento" name="nombreEvento" placeholder="Introduzca el nombre del evento" required>
                     </div>
-                    <div class="form-group row mb-4">
-                        <label for="descripcionEvento" class="col-sm-4 col-form-label">Descripción del Evento</label>
-                        <div class="col-sm-8">
-                            <textarea class="form-control" id="descripcionEvento" rows="4" placeholder="Introduzca una descripción del evento" required></textarea>
-                        </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="descripcionEvento" class="col-sm-4 col-form-label">Descripción del Evento</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="descripcionEvento" name="descripcionEvento" rows="4" placeholder="Introduzca una descripción del evento" required></textarea>
                     </div>
-                    <div class="form-group row mb-4">
-                        <label for="fechaEvento" class="col-sm-4 col-form-label">Fecha del Evento</label>
-                        <div class="col-sm-8">
-                            <input type="date" class="form-control" id="fechaEvento" required>
-                        </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="fechaEvento" class="col-sm-4 col-form-label">Fecha del Evento</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" id="fechaEvento" name="fechaEvento" required>
                     </div>
-                    <div class="form-group">
-                        <label for="fotoEvento">Foto del Evento</label>
-                        <input type="file" class="form-control-file" id="fotoEvento" required>
+                </div>
+                <!-- <div class="form-group">
+                    <label for="fotoEvento">Foto del Evento</label>
+                    <input type="file" class="form-control-file" id="fotoEvento" required>
+                </div> -->
+                <div class="form-group row text-center mt-5">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success" name="submit">Añadir Evento</button>
                     </div>
-                    <div class="form-group row text-center mt-5">
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-success">Añadir Evento</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form> <!-- Cierre de la etiqueta form -->
         </div>
     </div>
+</div>
+
   
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">

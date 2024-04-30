@@ -48,27 +48,46 @@
   </div>
 </nav>
 
+<?php
+// Verificar si se ha proporcionado un ID de evento en la URL
+if (isset($_GET['id'])) {
+    // Obtener el ID del evento de la URL
+    $id_evento = $_GET['id'];
 
-<div class="container mt-5">
-  <div class="row">
-    <!-- Foto fija a la izquierda -->
-    <div class="col-md-6 d-flex justify-content-center align-items-center">
-      <img src="../images/evento1.png" class="d-block w-50 mx-auto" alt="Evento">
-    </div>
-    <!-- Información del evento a la derecha -->
-    <div class="col-md-6">
-      <h2><?php echo $datos->nombre; ?></h2>
-      <p><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
-      <p><strong>Fecha:</strong> <?php echo $datos->fecha; ?></p>
-      <!-- Botón para más detalles o acción -->
-      <div class="text-center mt-5">
-        <!-- Aquí puedes poner el enlace o botón correspondiente para más detalles o acción -->
-      </div>
-    </div>
-  </div>
-</div>
+    // Incluir archivo de conexión a la base de datos
+    require_once('../protectora/conexion.php');
 
+    // Consultar la base de datos para obtener los detalles del evento con el ID proporcionado
+    $sql = "SELECT * FROM evento WHERE id_evento = $id_evento";
+    $resultado = $conn->query($sql);
 
+    // Verificar si se encontraron datos del evento
+    if ($resultado->num_rows > 0) {
+        $datos = $resultado->fetch_object();
+?>
+        <div class="container mt-5">
+            <div class="row">
+                <!-- Información del evento -->
+                <div class="col-md-12">
+                    <h2><?php echo $datos->nombre; ?></h2>
+                    <p><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
+                    <p><strong>Fecha:</strong> <?php echo $datos->fecha; ?></p>
+                </div>
+            </div>
+        </div>
+<?php
+    } else {
+        // Mostrar un mensaje si no se encontraron datos del evento
+        echo "<p>No se encontraron detalles del evento.</p>";
+    }
+
+    // Cerrar la conexión a la base de datos
+    $conn->close();
+} else {
+    // Mostrar un mensaje si no se proporcionó un ID de evento en la URL
+    echo "<p>No se proporcionó un ID de evento.</p>";
+}
+?>
 
 
 

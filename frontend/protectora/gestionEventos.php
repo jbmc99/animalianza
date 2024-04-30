@@ -45,39 +45,44 @@
     <!-- Título -->
     <h2 class="text-center mt-5 mb-5">Gestión de eventos</h2>
   
-    <!-- Contenedor de los eventos -->
-    <h2 class="text-center mt-5 mb-5">Eventos actuales:</h2>
-    <div class="row justify-content-center">
-      <!-- Evento 1 -->
-      <div class="col-md-4 mb-5 me-5">
-        <div class="card border-1 shadow">
-          <img src="../images/evento1.png" class="card-img-top" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Nombre del Evento 1</h5>
-            <p class="card-text">Descripción del evento.</p>
-            <p class="card-text"><strong>Fecha:</strong> 10 de mayo de 2024</p>
-            <a href="../usuario/fichaEvento.html" class="btn btn-success">Más detalles</a>
-          </div>
-        </div>
-      </div>
-      <!-- Evento 2 -->
-      <div class="col-md-4 mb-5 ms-5">
-        <div class="card border-0 shadow">
-          <img src="../images/evento2.png" class="card-img-top" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Nombre del Evento 2</h5>
-            <p class="card-text">Descripción del evento.</p>
-            <p class="card-text"><strong>Fecha:</strong> 15 de mayo de 2024</p>
-            <a href="../usuario/fichaEvento.html" class="btn btn-success">Más detalles</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  <!-- Contenedor de los eventos -->
+  <h2 class="text-center mt-5 mb-5">Eventos actuales:</h2>
+  <div class="row justify-content-center">
+      <?php
+      require_once('conexion.php');
   
-    <div class="text-center mt-1">
+      $sql = "SELECT * FROM evento";
+      $resultado = $conn->query($sql);
+  
+      if ($resultado->num_rows > 0) {
+          while ($fila = $resultado->fetch_assoc()) {
+      ?>
+              <div class="col-md-4 mb-5">
+                  <div class="card border-1 shadow">
+                      <div class="card-body text-center">
+                          <h5 class="card-title"><?php echo $fila['nombre']; ?></h5>
+                          <p class="card-text"><?php echo $fila['descripcion']; ?></p>
+                          <p class="card-text"><strong>Fecha:</strong> <?php echo $fila['fecha']; ?></p>
+                          <a href="../usuario/fichaEvento.php?id=<?php echo $fila['id_evento']; ?>" class="btn btn-success">Más detalles</a>
+
+                      </div>
+                  </div>
+              </div>
+      <?php
+          }
+      } else {
+          echo "No se encontraron eventos.";
+      }
+  
+      $conn->close();
+      ?>
+  </div>
+  
+  <div class="text-center mt-1">
       <p>¿Qué deseas hacer?</p>
-      <a href="constructorEvento.html" class="btn btn-success">Añadir evento</a>
+      <a href="constructorEvento.php" class="btn btn-success">Añadir evento</a>
+  </div>
+  
       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarEventoModal">
         Eliminar evento
       </button>
@@ -86,21 +91,21 @@
       </button>
     </div>
   </div>
-  <div class="modal fade" id="eliminarAnimalModal" tabindex="-1" aria-labelledby="eliminarAnimalModalLabel" aria-hidden="true">
+  <div class="modal fade" id="eliminarEventoModal" tabindex="-1" aria-labelledby="eliminarEventoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="eliminarAnimalModalLabel">¿A qué animal deseas eliminar?</h5>
+                <h5 class="modal-title" id="eliminarEventoModalLabel">¿Qué evento deseas eliminar?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="animalSelect">Selecciona el animal a eliminar:</label>
-                    <select class="form-select" id="animalSelect">
+                    <label for="eventoSelect">Selecciona el evento a eliminar:</label>
+                    <select class="form-select" id="eventoSelect">
                         <option selected>Seleccione un animal...</option>
-                        <option value="arya">Arya</option>
-                        <option value="candy">Candy</option>
-                        <option value="hugo_neo">Hugo y Neo</option>
+                        <option value="evento1">1</option>
+                        <option value="evento2">2</option>
+                        <option value="evento3">3</option>
                     </select>
                 </div>
             </div>

@@ -79,7 +79,7 @@
             }
             
             // Cerrar la conexión a la base de datos
-            $conn->close();
+           
             ?>
         </div>
     </div>
@@ -104,11 +104,8 @@
                 <div class="form-group">
                     <label for="animalSelect">Selecciona el animal a eliminar:</label>
                     <select class="form-select" id="animalSelect">
-                        <option selected>Seleccione un animal...</option>
-                        <option value="arya">Arya</option>
-                        <option value="candy">Candy</option>
-                        <option value="hugo_neo">Hugo y Neo</option>
-                    </select>
+                    <?php include 'opciones_animal_eliminar.php'; ?>
+                </select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -221,9 +218,8 @@
     </div>
   </footer>
   <!-- Footer -->
-  
   <script>
-   $('#eliminarBtn').click(function() {
+  $('#eliminarBtn').click(function() {
     var idAnimal = $('#animalSelect').val();
 
     $.ajax({
@@ -233,23 +229,29 @@
             id_animal: idAnimal
         },
         success: function(response) {
-            if(response == 'success') {
-                // Eliminar la opción seleccionada del select
-                $('#animalSelect option:selected').remove();
-                // Cierra el modal
-                $('#eliminarAnimalModal').modal('hide');
-                // Mostrar el mensaje de éxito
-                alert('Animal eliminado con éxito');
-            } else {
-                // Mostrar el mensaje de error
-                alert('Hubo un error al eliminar el animal');
+            // Parsear la respuesta JSON
+            var animales = JSON.parse(response);
+            
+            // Limpiar el select y agregar las nuevas opciones
+            $('#animalSelect').empty();
+            for (var i = 0; i < animales.length; i++) {
+                $('#animalSelect').append('<option value="' + animales[i].id_animal + '">' + animales[i].nombre + '</option>');
             }
+
+            // Cierra el modal
+            $('#eliminarAnimalModal').modal('hide');
+            // Mostrar el mensaje de éxito
+            alert('Animal eliminado con éxito');
+        },
+        error: function() {
+            // Mostrar el mensaje de error
+            alert('Hubo un error al eliminar el animal');
         }
     });
 });
 </script>
 
-  
+
   
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
