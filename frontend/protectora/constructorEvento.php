@@ -39,7 +39,7 @@
       </div>
     </div>
   </nav>
- <!--constructor para añadir eventos-->
+<!--constructor para añadir eventos-->
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -64,6 +64,16 @@
                         <input type="date" class="form-control" id="fechaEvento" name="fechaEvento" required>
                     </div>
                 </div>
+                <!-- Agregar campo de estado -->
+                <div class="form-group row mb-4">
+                    <label for="estadoEvento" class="col-sm-4 col-form-label">Estado del Evento</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="estadoEvento" name="estadoEvento">
+                            <option value="actual">Actual</option>
+                            <option value="pasado">Pasado</option>
+                        </select>
+                    </div>
+                </div>
                 <!-- <div class="form-group">
                     <label for="fotoEvento">Foto del Evento</label>
                     <input type="file" class="form-control-file" id="fotoEvento" required>
@@ -77,6 +87,7 @@
         </div>
     </div>
 </div>
+
 
   
 <!--FOOTER-->

@@ -40,58 +40,150 @@
     </div>
   </nav>
 
- <!-- Contenido principal -->
+<!-- Contenido principal -->
 <div class="container">
     <!-- Título -->
     <h2 class="text-center mt-5 mb-5">Gestión de eventos</h2>
-  
-  <!-- Contenedor de los eventos -->
-  <h2 class="text-center mt-5 mb-5">Eventos actuales:</h2>
-  <div class="row justify-content-center">
-      <?php
-      require_once('conexion.php');
-  
-      $sql = "SELECT * FROM evento";
-      $resultado = $conn->query($sql);
-  
-      if ($resultado->num_rows > 0) {
-          while ($fila = $resultado->fetch_assoc()) {
-      ?>
-              <div class="col-md-4 mb-5">
-                  <div class="card border-1 shadow">
-                      <div class="card-body text-center">
-                          <h5 class="card-title"><?php echo $fila['nombre']; ?></h5>
-                          <p class="card-text"><?php echo $fila['descripcion']; ?></p>
-                          <p class="card-text"><strong>Fecha:</strong> <?php echo $fila['fecha']; ?></p>
-                          <a href="../usuario/fichaEvento.php?id=<?php echo $fila['id_evento']; ?>" class="btn btn-success">Más detalles</a>
 
-                      </div>
-                  </div>
-              </div>
-      <?php
-          }
-      } else {
-          echo "No se encontraron eventos.";
-      }
-  
-      $conn->close();
-      ?>
-  </div>
-  
-  <div class="text-center mt-1">
-      <p>¿Qué deseas hacer?</p>
-      <a href="constructorEvento.php" class="btn btn-success">Añadir evento</a>
-  </div>
-  
-      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarEventoModal">
-        Eliminar evento
-      </button>
-      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#marcarEventoModal">
-        Marcar evento como pasado
-      </button>
+    <!-- Contenedor de eventos actuales -->
+    <h2 class="text-center mt-5 mb-3">Eventos actuales:</h2>
+    <div class="row justify-content-center">
+        <?php
+        require_once('conexion.php');
+
+        // Consulta SQL para eventos actuales
+        $sql = "SELECT * FROM evento WHERE estado = 'actual'";
+        $resultado = $conn->query($sql);
+
+        if ($resultado->num_rows > 0) {
+            while ($fila = $resultado->fetch_assoc()) {
+                // Aquí se muestra cada evento actual
+                echo "<div class='col-md-4 mb-5'>";
+                echo "<div class='card border-1 shadow'>";
+                echo "<div class='card-body text-center'>";
+                echo "<h5 class='card-title'>" . $fila['nombre'] . "</h5>";
+                echo "<p class='card-text'>" . $fila['descripcion'] . "</p>";
+                echo "<p class='card-text'><strong>Fecha:</strong> " . $fila['fecha'] . "</p>";
+                echo "<a href='../usuario/fichaEvento.php?id=" . $fila['id_evento'] . "' class='btn btn-success me-1'>Más detalles</a>";
+                // Botón para editar evento
+                echo "<button type='button' class='btn btn-success ms-1' data-bs-toggle='modal' data-bs-target='#editarEventoModal" . $fila['id_evento'] . "'>Editar</button>";                
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+
+                // Modal para editar evento
+                echo "<div class='modal fade' id='editarEventoModal" . $fila['id_evento'] . "' tabindex='-1' aria-labelledby='editarEventoModalLabel" . $fila['id_evento'] . "' aria-hidden='true'>";
+                echo "<div class='modal-dialog'>";
+                echo "<div class='modal-content'>";
+                echo "<div class='modal-header'>";
+                echo "<h5 class='modal-title' id='editarEventoModalLabel" . $fila['id_evento'] . "'>Editar evento: " . $fila['nombre'] . "</h5>";
+                echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+                echo "</div>";
+                echo "<div class='modal-body'>";
+                // Formulario para editar el evento
+                echo "<form action='editarEvento.php' method='post'>";
+                echo "<input type='hidden' name='id_evento' value='" . $fila['id_evento'] . "'>";
+                echo "<div class='form-group'>";
+                echo "<label for='nombreEvento'>Nombre:</label>";
+                echo "<input type='text' class='form-control' id='nombreEvento' name='nombreEvento' value='" . $fila['nombre'] . "'>";
+                echo "</div>";
+                echo "<div class='form-group'>";
+                echo "<label for='descripcionEvento'>Descripción:</label>";
+                echo "<textarea class='form-control' id='descripcionEvento' name='descripcionEvento'>" . $fila['descripcion'] . "</textarea>";
+                echo "</div>";
+                echo "<div class='form-group'>";
+                echo "<label for='fechaEvento'>Fecha:</label>";
+                echo "<input type='date' class='form-control' id='fechaEvento' name='fechaEvento' value='" . $fila['fecha'] . "'>";
+                echo "</div>";
+                echo "<button type='submit' class='btn btn-primary'>Guardar cambios</button>";
+                echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            }
+        } else {
+            echo "<p class='text-center'>No se encontraron eventos actuales.</p>";
+        }
+        ?>
     </div>
-  </div>
-  <div class="modal fade" id="eliminarEventoModal" tabindex="-1" aria-labelledby="eliminarEventoModalLabel" aria-hidden="true">
+
+    <!-- Contenedor de eventos pasados -->
+    <h2 class="text-center mt-5 mb-3">Eventos pasados:</h2>
+    <div class="row justify-content-center">
+        <?php
+        // Consulta SQL para eventos pasados
+        $sql = "SELECT * FROM evento WHERE estado = 'pasado'";
+        $resultado = $conn->query($sql);
+
+        if ($resultado->num_rows > 0) {
+            while ($fila = $resultado->fetch_assoc()) {
+                // Aquí se muestra cada evento pasado
+                echo "<div class='col-md-4 mb-5'>";
+                echo "<div class='card border-1 shadow'>";
+                echo "<div class='card-body text-center'>";
+                echo "<h5 class='card-title'>" . $fila['nombre'] . "</h5>";
+                echo "<p class='card-text'>" . $fila['descripcion'] . "</p>";
+                echo "<p class='card-text'><strong>Fecha:</strong> " . $fila['fecha'] . "</p>";
+                echo "<a href='../usuario/fichaEvento.php?id=" . $fila['id_evento'] . "' class='btn btn-success me-1'>Más detalles</a>";
+                // Botón para editar evento
+                echo "<button type='button' class='btn btn-success ms-1' data-bs-toggle='modal' data-bs-target='#editarEventoModal" . $fila['id_evento'] . "'>Editar</button>";                
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+
+                // Modal para editar evento
+                echo "<div class='modal fade' id='editarEventoModal" . $fila['id_evento'] . "' tabindex='-1' aria-labelledby='editarEventoModalLabel" . $fila['id_evento'] . "' aria-hidden='true'>";
+                echo "<div class='modal-dialog'>";
+                echo "<div class='modal-content'>";
+                echo "<div class='modal-header'>";
+                echo "<h5 class='modal-title' id='editarEventoModalLabel" . $fila['id_evento'] . "'>Editar evento: " . $fila['nombre'] . "</h5>";
+                echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+                echo "</div>";
+                echo "<div class='modal-body'>";
+                // Formulario para editar el evento
+                echo "<form action='editarEvento.php' method='post'>";
+                echo "<input type='hidden' name='id_evento' value='" . $fila['id_evento'] . "'>";
+                echo "<div class='form-group'>";
+                echo "<label for='nombreEvento'>Nombre:</label>";
+                echo "<input type='text' class='form-control' id='nombreEvento' name='nombreEvento' value='" . $fila['nombre'] . "'>";
+                echo "</div>";
+                echo "<div class='form-group'>";
+                echo "<label for='descripcionEvento'>Descripción:</label>";
+                echo "<textarea class='form-control' id='descripcionEvento' name='descripcionEvento'>" . $fila['descripcion'] . "</textarea>";
+                echo "</div>";
+                echo "<div class='form-group'>";
+                echo "<label for='fechaEvento'>Fecha:</label>";
+                echo "<input type='date' class='form-control' id='fechaEvento' name='fechaEvento' value='" . $fila['fecha'] . "'>";
+                echo "</div>";
+                echo "<button type='submit' class='btn btn-primary'>Guardar cambios</button>";
+                echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            }
+        } else {
+            echo "<p class='text-center'>No se encontraron eventos pasados.</p>";
+        }
+        ?>
+    </div>
+</div>
+
+<div class="text-center mt-1">
+    <p>¿Qué deseas hacer?</p>
+    <div class="d-flex justify-content-center mt-1">
+        <a href="constructorEvento.php" class="btn btn-success me-2">Añadir evento</a>
+        <!-- Botón para eliminar evento -->
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarEventoModal">Eliminar evento</button>
+    </div>
+</div>
+
+
+<!-- Modal para eliminar evento -->
+<div class="modal fade" id="eliminarEventoModal" tabindex="-1" aria-labelledby="eliminarEventoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -99,23 +191,30 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="eventoSelect">Selecciona el evento a eliminar:</label>
-                    <select class="form-select" id="eventoSelect">
-                        <option selected>Seleccione un animal...</option>
-                        <option value="evento1">1</option>
-                        <option value="evento2">2</option>
-                        <option value="evento3">3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Eliminar</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <!-- Formulario para seleccionar el evento a eliminar -->
+                <form action="eliminarEvento.php" method="post">
+                    <div class="form-group">
+                        <label for="eventoSelect">Selecciona el evento a eliminar:</label>
+                        <select class="form-select" id="eventoSelect" name="id_evento">
+                            <option selected disabled>Seleccione un evento...</option>
+                            <?php
+                            // Mostrar opciones dinámicamente
+                            $sql = "SELECT * FROM evento";
+                            $resultado = $conn->query($sql);
+                            while ($fila = $resultado->fetch_assoc()) {
+                                echo "<option value='" . $fila['id_evento'] . "'>" . $fila['nombre'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 
  <!--FOOTER-->

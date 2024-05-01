@@ -8,10 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombreEvento = $conn->real_escape_string($_POST['nombreEvento']);
     $descripcionEvento = $conn->real_escape_string($_POST['descripcionEvento']);
     $fechaEvento = $conn->real_escape_string($_POST['fechaEvento']);
+    $estadoEvento = $conn->real_escape_string($_POST['estadoEvento']); // Nuevo campo para el estado
 
     // Insertar los datos en la base de datos
-    $sql = "INSERT INTO evento (nombre, descripcion, fecha) 
-            VALUES ('$nombreEvento', '$descripcionEvento', '$fechaEvento')";
+    $sql = "INSERT INTO evento (nombre, descripcion, fecha, estado) 
+            VALUES ('$nombreEvento', '$descripcionEvento', '$fechaEvento', '$estadoEvento')";
 
     if ($conn->query($sql) === TRUE) {
         // Redirigir a la página de gestión de eventos
