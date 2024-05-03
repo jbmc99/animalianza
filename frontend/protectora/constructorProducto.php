@@ -39,12 +39,15 @@
       </div>
     </div>
   </nav>
+
+
+
   <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">Añade un Producto</h2>
             <!-- Elimina la etiqueta form que envuelve todo el contenido -->
-            <form action="procesar_productos.php" method="post">
+            <form action="procesar_producto.php" method="post">
                 <div class="form-group row mb-4">
                     <label for="nombreProducto" class="col-sm-4 col-form-label">Nombre del Producto</label>
                     <div class="col-sm-8">

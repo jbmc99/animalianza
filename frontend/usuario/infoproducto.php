@@ -48,50 +48,50 @@
   </div>
 </nav>
 
-<!-- FICHA DE PRUEBA -->
-<div class="container mt-5">
-  <div class="row">
-    <!-- Carrusel a la izquierda -->
-    <div class="col-md-6 d-flex justify-content-center align-items-center">
-      <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="../images/producto1.png" class="d-block w-50 mx-auto" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="../images/producto2.png" class="d-block w-50 mx-auto" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="../images/gatoadop1.jpg" class="d-block w-50 mx-auto" alt="...">
-          </div>
+<?php
+// Verificar si se ha proporcionado un ID de producto en la URL
+if (isset($_GET['id_producto'])) {
+    // Obtener el ID del producto de la URL
+    $id_producto = $_GET['id_producto'];
+
+    // Incluir archivo de conexión a la base de datos
+    require_once('../protectora/conexion.php');
+
+    // Consultar la base de datos para obtener los detalles del producto con el ID proporcionado
+    $sql = "SELECT * FROM producto WHERE id_producto = $id_producto";
+    $resultado = $conn->query($sql);
+
+    // Verificar si se encontraron datos del producto
+    if ($resultado->num_rows > 0) {
+        $datos = $resultado->fetch_object();
+?>
+        <div class="container mt-5">
+            <div class="row">
+                <!-- Información del producto -->
+                <div class="col-md-6">
+                    <h2><?php echo $datos->nombre; ?></h2>
+                    <p><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
+                    <p><strong>Precio:</strong> <?php echo $datos->precio; ?></p>
+                    <!-- Botón para comprar -->
+                    <div class="text-center mt-5">
+                        <a class="btn btn-success" href="#">¡Quiero comprar!</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-    <!-- Descripción del gato a la derecha -->
-    <div class="col-md-6">
-      <h2>ARYA</h2>
-      <p>Edad: 3 años</p>
-      <p>Género: H</p>
-      <p>Raza: Negro</p>
-      <p>Descripción: Descripcion DescripcionDescripcionDescripcionDescripcionDescripcionDescripcionDescrip
-        cionDescripcionDescripcionDescripcionDescripcionDescripcionDescripcion asjkdhaskjdhaskdjahsd
-      dkjwdnkjewdkejhdkewjdhkwedjhewkdw
-    dkjednekdjedkjedhekdjhek</p>
-      <!-- Botón para adoptar -->
-      <div class="text-center mt-5">
-        <a class="btn btn-success" href="../usuario/formularioadop.php">¡Quiero adoptar!</a>
-      </div>
-    </div>
-  </div>
-</div>
+<?php
+    } else {
+        // Mostrar un mensaje si no se encontraron datos del producto
+        echo "<p>No se encontraron detalles del producto.</p>";
+    }
+
+    // Cerrar la conexión a la base de datos
+    $conn->close();
+} else {
+    // Mostrar un mensaje si no se proporcionó un ID de producto en la URL
+    echo "<p>No se proporcionó un ID de producto.</p>";
+}
+?>
 
   
 <!--FOOTER-->
