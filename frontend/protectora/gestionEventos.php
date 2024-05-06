@@ -64,6 +64,14 @@
                 echo "<h5 class='card-title'>" . $fila['nombre'] . "</h5>";
                 echo "<p class='card-text'>" . $fila['descripcion'] . "</p>";
                 echo "<p class='card-text'><strong>Fecha:</strong> " . $fila['fecha'] . "</p>";
+
+                // Mostrar la foto del evento si existe
+                if (!empty($fila['ruta_imagen'])) {
+                    echo "<img src='" . $fila['ruta_imagen'] . "' class='img-fluid mb-3' alt='Foto del Evento'>";
+                } else {
+                    echo "<p class='text-muted'>No hay foto disponible para este evento.</p>";
+                }
+
                 echo "<a href='../usuario/fichaEvento.php?id=" . $fila['id_evento'] . "' class='btn btn-success me-1'>Más detalles</a>";
                 // Botón para editar evento
                 echo "<button type='button' class='btn btn-success ms-1' data-bs-toggle='modal' data-bs-target='#editarEventoModal" . $fila['id_evento'] . "'>Editar</button>";                
@@ -126,6 +134,14 @@
                 echo "<h5 class='card-title'>" . $fila['nombre'] . "</h5>";
                 echo "<p class='card-text'>" . $fila['descripcion'] . "</p>";
                 echo "<p class='card-text'><strong>Fecha:</strong> " . $fila['fecha'] . "</p>";
+
+                // Mostrar la foto del evento si existe
+                if (!empty($fila['ruta_imagen'])) {
+                    echo "<img src='" . $fila['ruta_imagen'] . "' class='img-fluid mb-3' alt='Foto del Evento'>";
+                } else {
+                    echo "<p class='text-muted'>No hay foto disponible para este evento.</p>";
+                }
+
                 echo "<a href='../usuario/fichaEvento.php?id=" . $fila['id_evento'] . "' class='btn btn-success me-1'>Más detalles</a>";
                 // Botón para editar evento
                 echo "<button type='button' class='btn btn-success ms-1' data-bs-toggle='modal' data-bs-target='#editarEventoModal" . $fila['id_evento'] . "'>Editar</button>";                

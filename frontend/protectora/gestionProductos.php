@@ -130,10 +130,10 @@
         <a href="constructorProducto.php" class="btn btn-success mx-auto">Añadir producto</a>
     </div>
     <div class="col-lg-auto text-center">
-        <button type="button" class="btn btn-success mx-auto" data-bs-toggle="modal" data-bs-target="#eliminarProductoModal">
-            Eliminar producto
-        </button>
-    </div>
+    <button type="button" class="btn btn-danger mx-auto" data-bs-toggle="modal" data-bs-target="#eliminarProductoModal">
+        Eliminar producto
+    </button>
+</div>
 </div>
 </div>
 
@@ -141,19 +141,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="eliminarProductoModalLabel">¿Qué producto deseas eliminar?</h5>
+                <h5 class="modal-title" id="eliminarProductoModalLabel">Eliminar Producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="productoSelect">Selecciona el producto a eliminar:</label>
-                    <select class="form-select" id="productoSelect">
-                        <!-- Aquí se incluirán las opciones de productos -->
-                    </select>
-                </div>
+                <form id="eliminarProductoForm" action="eliminarProducto.php" method="post">
+                    <div class="form-group">
+                        <label for="productoSelect">Selecciona el producto a eliminar:</label>
+                        <select class="form-select" id="productoSelect" name="id_producto">
+                            <!-- Aquí se incluirán las opciones de productos -->
+                        </select>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="eliminarProductoBtn">Eliminar</button>
+                <button type="submit" class="btn btn-danger" form="eliminarProductoForm">Eliminar</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -293,44 +295,8 @@ $(document).ready(function() {
             }
         });
     });
-
-    // Eliminar producto al hacer clic en el botón "Eliminar"
-    $('#eliminarProductoBtn').click(function() {
-        // Obtener el ID del producto seleccionado
-        var idProducto = $('#productoSelect').val();
-
-        // Enviar una solicitud AJAX para eliminar el producto
-        $.ajax({
-            url: 'eliminarProducto.php',
-            type: 'POST',
-            data: {
-                id_producto: idProducto
-            },
-            success: function(response) {
-                // Parsear la respuesta JSON
-                var result = JSON.parse(response);
-
-                // Verificar si la eliminación fue exitosa
-                if (result.success) {
-                    // Mostrar mensaje de éxito
-                    alert('Producto eliminado con éxito');
-                } else {
-                    // Mostrar mensaje de error
-                    alert('Error al eliminar el producto: ' + result.error);
-                }
-
-                // Cerrar el modal
-                $('#eliminarProductoModal').modal('hide');
-            },
-            error: function() {
-                // Mostrar mensaje de error en caso de fallo de la solicitud AJAX
-                alert('Hubo un error al eliminar el producto');
-            }
-        });
-    });
 });
 </script>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

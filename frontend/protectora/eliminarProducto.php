@@ -1,7 +1,7 @@
 <?php
-// Verificar si se recibió el ID del producto a eliminar
+// Verificar si se ha seleccionado un producto para eliminar
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_producto'])) {
-    // Obtener el ID del producto a eliminar
+    // Obtener el ID del producto seleccionado
     $id_producto = $_POST['id_producto'];
 
     // Incluir archivo de conexión
@@ -12,21 +12,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_producto'])) {
 
     // Ejecutar la consulta
     if ($conn->query($sql) === TRUE) {
-        // Preparar la respuesta en formato JSON
-        $response = array('success' => true);
-        echo json_encode($response);
+        // Redireccionar a la página de gestión de productos
+        header('Location: gestionProductos.php');
+        exit();
     } else {
-        // Preparar la respuesta en formato JSON con mensaje de error
-        $response = array('success' => false, 'error' => $conn->error);
-        echo json_encode($response);
+        echo "Error al eliminar el producto: " . $conn->error;
     }
 
     // Cerrar la conexión a la base de datos
     $conn->close();
 } else {
-    // Si no se recibió el ID del producto, devolver error en formato JSON
-    $response = array('success' => false, 'error' => 'ID de producto no recibido');
-    echo json_encode($response);
+    // Si no se ha seleccionado ningún producto, redireccionar a la página de gestión de productos
+    header('Location: gestionProductos.php');
+    exit();
 }
 ?>
-

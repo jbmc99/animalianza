@@ -44,8 +44,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">Añade un evento</h2>
-            <!-- Elimina la etiqueta form que envuelve todo el contenido -->
-            <form action="procesar_eventos.php" method="post">
+            <form action="procesar_eventos.php" method="post" enctype="multipart/form-data">
                 <div class="form-group row mb-4">
                     <label for="nombreEvento" class="col-sm-4 col-form-label">Nombre del Evento</label>
                     <div class="col-sm-8">
@@ -74,20 +73,22 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="fotoEvento">Foto del Evento</label>
-                    <input type="file" class="form-control-file" id="fotoEvento" required>
-                </div> -->
+                <!-- Campo de carga de archivos para la foto del evento -->
+                <div class="form-group mb-4">
+                    <label for="fotoEvento" class="col-sm-4 col-form-label">Foto del Evento</label>
+                    <div class="col-sm-8">
+                        <input type="file" class="form-control-file" id="fotoEvento" name="fotoEvento" required>
+                    </div>
+                </div>
                 <div class="form-group row text-center mt-5">
                     <div class="col-sm-12">
                         <button type="submit" class="btn btn-success" name="submit">Añadir Evento</button>
                     </div>
                 </div>
-            </form> <!-- Cierre de la etiqueta form -->
+            </form>
         </div>
     </div>
 </div>
-
 
   
 <!--FOOTER-->
