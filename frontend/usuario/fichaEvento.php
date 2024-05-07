@@ -64,6 +64,8 @@ if (isset($_GET['id'])) {
     // Verificar si se encontraron datos del evento
     if ($resultado->num_rows > 0) {
         $datos = $resultado->fetch_object();
+        // Construir la ruta completa de la imagen
+        $ruta_imagen = '../protectora/' . $datos->ruta_imagen;
 ?>
         <div class="container mt-5">
             <div class="row">
@@ -72,6 +74,8 @@ if (isset($_GET['id'])) {
                     <h2 class="card-title"><?php echo $datos->nombre; ?></h2>
                     <p class="card-text"><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
                     <p class="card-text"><strong>Fecha:</strong> <?php echo $datos->fecha; ?></p>
+                    <!-- Mostrar la imagen -->
+                    <img src="<?php echo $ruta_imagen; ?>" width="300" class="img-fluid mb-3" alt="Imagen del Evento">
                 </div>
             </div>
         </div>
@@ -88,7 +92,6 @@ if (isset($_GET['id'])) {
     echo "<p>No se proporcionó un ID de evento.</p>";
 }
 ?>
-
 
 
 

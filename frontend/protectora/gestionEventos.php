@@ -89,7 +89,7 @@
                 echo "</div>";
                 echo "<div class='modal-body'>";
                 // Formulario para editar el evento
-                echo "<form action='editarEvento.php' method='post'>";
+                echo "<form action='editarEvento.php' method='post' enctype='multipart/form-data'>";
                 echo "<input type='hidden' name='id_evento' value='" . $fila['id_evento'] . "'>";
                 echo "<div class='form-group'>";
                 echo "<label for='nombreEvento'>Nombre:</label>";
@@ -103,6 +103,13 @@
                 echo "<label for='fechaEvento'>Fecha:</label>";
                 echo "<input type='date' class='form-control' id='fechaEvento' name='fechaEvento' value='" . $fila['fecha'] . "'>";
                 echo "</div>";
+
+                // Campo de carga de archivos para la foto del evento
+                echo "<div class='form-group'>";
+                echo "<label for='fotoEvento'>Foto del Evento:</label>";
+                echo "<input type='file' class='form-control-file' id='fotoEvento' name='fotoEvento'>";
+                echo "</div>";
+
                 echo "<button type='submit' class='btn btn-primary'>Guardar cambios</button>";
                 echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>";
                 echo "</form>";
@@ -110,6 +117,7 @@
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
+
             }
         } else {
             echo "<p class='text-center'>No se encontraron eventos actuales.</p>";
