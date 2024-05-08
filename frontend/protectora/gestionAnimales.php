@@ -42,48 +42,113 @@
   </nav>
 
   
- <!-- Contenido principal -->
+<!-- Contenido principal -->
 <div class="container mt-5">
     <h2 class="mb-4 text-center">Tus animales:</h2>
     <div class="row">
         <div class="d-flex flex-wrap justify-content-center ms-5 me-2 text-center">
             <?php
-   // Incluir archivo de conexión
-   require_once('conexion.php');
-            
-   // Consultar la base de datos para obtener los nombres y las imágenes de los animales
-   $sql = "SELECT id_animal, nombre FROM animal";
-   $resultado = $conn->query($sql);
+            // Incluir archivo de conexión
+            require_once('conexion.php');
 
-   // Verificar si la consulta se ejecutó correctamente
-   if ($resultado === false) {
-       die('Error en la consulta: ' . $conn->error);
-   }
-   
+            // Consultar la base de datos para obtener los nombres, las imágenes y los IDs de los animales
+            $sql = "SELECT id_animal, nombre, especie, raza, edad, sexo, info_adicional, ruta_imagen FROM animal";
+
+            $resultado = $conn->query($sql);
+
+            // Verificar si la consulta se ejecutó correctamente
+            if ($resultado === false) {
+                die('Error en la consulta: ' . $conn->error);
+            }
+
             // Verificar si se encontraron resultados
             if ($resultado->num_rows > 0) {
                 // Mostrar cada animal en una tarjeta
                 while ($fila = $resultado->fetch_assoc()) {
-                    echo '<div class="card ms-3 mb-3 me-5 bg-transparent border-0 text-center">';
+                    echo '<div class="card ms-3 mb-3 me-5 border bg-light text-center" style="width: 18rem;">';
                     echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '">';
+                    // Mostrar la imagen del animal
+                    echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid img-thumbnail border-0 bg-transparent" alt="Foto del animal">';
                     echo '</a>';
                     echo '<div class="card-body">';
-                    echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '" class="btn btn-link text-dark text-decoration-none">';
-                    echo '<h3>' . $fila['nombre'] . '</h3>';
-                    echo '</a>';
-                    echo '</div>';
-                    echo '</div>';
+                    echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
+                    echo '<div class="d-flex justify-content-between mt-3">';
+                    // Botón de "Más información" verde
+                    echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '" class="btn btn-success me-2">Más información</a>';
+                    // Botón de "Editar animal" verde
+                    echo '<button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#editarAnimalModal' . $fila['id_animal'] . '">Editar animal</button>';
+                    echo '</div>'; // Cierre de d-flex justify-content-between
+                    echo '</div>'; // Cierre de card-body
+                    echo '</div>'; // Cierre de card
+
+                  // Modal para editar animal
+              echo "<div class='modal fade' id='editarAnimalModal" . $fila['id_animal'] . "' tabindex='-1' aria-labelledby='editarAnimalModalLabel" . $fila['id_animal'] . "' aria-hidden='true'>";
+              echo "<div class='modal-dialog'>";
+              echo "<div class='modal-content'>";
+              echo "<div class='modal-header'>";
+              echo "<h5 class='modal-title' id='editarAnimalModalLabel" . $fila['id_animal'] . "'>Editar animal: " . $fila['nombre'] . "</h5>";
+              echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+              echo "</div>";
+              echo "<div class='modal-body'>";
+              // Formulario para editar el animal
+              echo "<form action='procesar_animal.php' method='post' enctype='multipart/form-data'>";
+              echo "<input type='hidden' name='id_animal' value='" . $fila['id_animal'] . "'>";
+              echo "<div class='form-group'>";
+              echo "<label for='nombreAnimal'>Nombre:</label>";
+              echo "<input type='text' class='form-control' id='nombreAnimal' name='nombreAnimal' value='" . $fila['nombre'] . "'>";
+              echo "</div>";
+              echo "<div class='form-group'>";
+              echo "<label for='especieAnimal'>Especie:</label>";
+              echo "<input type='text' class='form-control' id='especieAnimal' name='especieAnimal' value='" . $fila['especie'] . "'>";
+              echo "</div>";
+              echo "<div class='form-group'>";
+              echo "<label for='razaAnimal'>Raza:</label>";
+              echo "<input type='text' class='form-control' id='razaAnimal' name='razaAnimal' value='" . $fila['raza'] . "'>";
+              echo "</div>";
+              echo "<div class='form-group'>";
+              echo "<label for='edadAnimal'>Edad:</label>";
+              echo "<input type='number' class='form-control' id='edadAnimal' name='edadAnimal' value='" . $fila['edad'] . "'>";
+              echo "</div>";
+              echo "<div class='form-group'>";
+              echo "<label for='sexoAnimal'>Sexo:</label>";
+              echo "<select class='form-control' id='sexoAnimal' name='sexoAnimal'>";
+              echo "<option value='Macho' " . ($fila['sexo'] == 'Macho' ? 'selected' : '') . ">Macho</option>";
+              echo "<option value='Hembra' " . ($fila['sexo'] == 'Hembra' ? 'selected' : '') . ">Hembra</option>";
+              echo "</select>";
+              echo "</div>";
+              echo "<div class='form-group'>";
+              echo "<label for='info_adicional'>Información Adicional:</label>";
+              echo "<textarea class='form-control' id='info_adicional' name='info_adicional'>" . $fila['info_adicional'] . "</textarea>";
+              echo "</div>";
+
+              // Campo de carga de archivos para la foto del animal
+              echo "<div class='form-group'>";
+              echo "<label for='fotoAnimal'>Foto del Animal:</label>";
+              echo "<input type='file' class='form-control-file' id='fotoAnimal' name='fotoAnimal'>";
+              echo "</div>";
+
+              echo "<button type='submit' class='btn btn-primary'>Guardar cambios</button>";
+              echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>";
+              echo "</form>";
+              echo "</div>";
+              echo "</div>";
+              echo "</div>";
+              echo "</div>";
+
                 }
             } else {
                 echo "No se encontraron animales.";
             }
-            
+
             // Cerrar la conexión a la base de datos
-           
+
             ?>
         </div>
     </div>
 </div>
+
+
+
     <div class="text-center mt-1">
       <p>¿Qué deseas hacer?</p>
       <a href="constructorAnimal.php" class="btn btn-success">Añadir animal</a>

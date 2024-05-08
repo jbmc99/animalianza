@@ -23,6 +23,9 @@ if ($resultado->num_rows > 0) {
         echo "<p>Especie: " . $fila['especie'] . "</p>";
         echo "<p>Raza: " . $fila['raza'] . "</p>";
         echo "<p>Edad: " . $fila['edad'] . "</p>";
+        // Mostrar la imagen del animal
+        echo "<img src='" . $fila['ruta_imagen'] . "' alt='Foto del animal' style='max-width: 300px;'>";
+
         // Continuar con otros detalles del animal si los hay
     }
 } else {

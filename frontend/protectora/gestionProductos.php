@@ -54,75 +54,83 @@
     <h1 class="text-center mb-5">Tus productos:</h1>
     <div class="row justify-content-center">
 
-  <!-- Aquí va el código PHP para mostrar los productos -->
-  <?php
-        // Incluir archivo de conexión
-        require_once('conexion.php');
+<!-- Aquí va el código PHP para mostrar los productos -->
+<?php
+    // Incluir archivo de conexión
+    require_once('conexion.php');
 
-        // Consulta SQL para obtener todos los productos
-        $sql = "SELECT * FROM producto";
-        $result = $conn->query($sql);
+    // Consulta SQL para obtener todos los productos
+    $sql = "SELECT * FROM producto";
+    $result = $conn->query($sql);
 
-        // Verificar si se obtuvieron resultados
-        if ($result->num_rows > 0) {
-            // Mostrar los productos
-            while($row = $result->fetch_assoc()) {
-                echo '<div class="col-lg-4 mb-4 me-5">';
-                echo '<div class="card border-0 rounded-3 shadow-sm">';
-                echo '<div class="card-body text-center">';
-                echo '<h5 class="card-title">' . $row['nombre'] . '</h5>';
-                echo '<p class="card-text">' . $row['descripcion'] . '</p>';
-                echo '<h6 class="card-subtitle mb-2 text-muted">$' . $row['precio'] . '</h6>';
-                echo '<div class="d-flex justify-content-center">';
-                echo '<a href="../usuario/infoproducto.php?id_producto=' . $row['id_producto'] . '" class="btn btn-success me-2">Más información</a>';
-                // Botón para editar producto (activa el modal)
-                echo '<button type="button" class="btn btn-success editarProducto" data-bs-toggle="modal" data-bs-target="#editarProductoModal" data-id="' . $row['id_producto'] . '">Editar producto</button>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-              }
-            } else {
-                // Manejar el caso de no haber productos
-                echo '<p class="text-center">No hay productos disponibles</p>';
-            }
-        // Cerrar la conexión a la base de datos
-        $conn->close();
+    // Verificar si se obtuvieron resultados
+    if ($result->num_rows > 0) {
+        // Mostrar los productos
+        while($row = $result->fetch_assoc()) {
+            echo '<div class="col-lg-4 mb-4 ">';
+            echo '<div class="card border-0 rounded-3 shadow-sm">';
+            echo '<img src="' . $row['ruta_imagen'] . '" class="card-img-top" alt="Imagen del Producto">';
+            echo '<div class="card-body text-center">';
+            echo '<h5 class="card-title">' . $row['nombre'] . '</h5>';
+            echo '<p class="card-text">' . $row['descripcion'] . '</p>';
+            echo '<h6 class="card-subtitle mb-2 text-muted">$' . $row['precio'] . '</h6>';
+            echo '<div class="d-flex justify-content-center">';
+            echo '<a href="../usuario/infoproducto.php?id_producto=' . $row['id_producto'] . '" class="btn btn-success me-2">Más información</a>';
+            // Botón para editar producto (activa el modal)
+            echo '<button type="button" class="btn btn-success editarProducto" data-bs-toggle="modal" data-bs-target="#editarProductoModal" data-id="' . $row['id_producto'] . '">Editar producto</button>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
+    } else {
+        // Manejar el caso de no haber productos
+        echo '<p class="text-center">No hay productos disponibles</p>';
+    }
 
-        ?>
+    // Cerrar la conexión a la base de datos
+    $conn->close();
+?>
 
-                <!-- Modal para editar producto -->
-                <div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="editarProductoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editarProductoModalLabel">Editar Producto</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+               <!-- Modal para editar producto -->
+<div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="editarProductoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarProductoModalLabel">Editar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para editar producto -->
+                <form action="editarProducto.php" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nombreProducto">Nombre del Producto:</label>
+                        <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" required>
                     </div>
-                    <div class="modal-body">
-                       <!-- Formulario para editar producto -->
-                       <form action="editarProducto.php" method="post">
-                            <div class="form-group">
-                                <label for="nombreProducto">Nombre del Producto:</label>
-                                <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="descripcionProducto">Descripción del Producto:</label>
-                                <textarea class="form-control" id="descripcionProducto" name="descripcionProducto" rows="3" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="precioProducto">Precio del Producto:</label>
-                                <input type="number" step="0.01" min="0" class="form-control" id="precioProducto" name="precioProducto" required>
-                            </div>
-                            <!-- Campo oculto para almacenar el ID del producto -->
-                            <input type="hidden" id="id_producto" name="id_producto">
-                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        </form>
+                    <div class="form-group">
+                        <label for="descripcionProducto">Descripción del Producto:</label>
+                        <textarea class="form-control" id="descripcionProducto" name="descripcionProducto" rows="3" required></textarea>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="precioProducto">Precio del Producto:</label>
+                        <input type="number" step="0.01" min="0" class="form-control" id="precioProducto" name="precioProducto" required>
+                    </div>
+                    <!-- Campo de carga de archivos para la foto del producto -->
+                    <div class="form-group">
+                        <label for="fotoProducto">Foto del Producto:</label>
+                        <input type="file" class="form-control-file" id="fotoProducto" name="fotoProducto">
+                    </div>
+                    <!-- Campo oculto para almacenar el ID del producto -->
+                    <input type="hidden" id="id_producto" name="id_producto">
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
+
 
         </div>
 <div class="row justify-content-center mt-5">

@@ -41,7 +41,6 @@
   </nav>
 
 
-
 <!-- Constructor para añadir animales -->
 <div class="container mt-4">
     <div class="row justify-content-center">
@@ -94,6 +93,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Campo de carga de archivos para la foto del animal -->
                 <div class="form-group">
                     <label for="fotoAnimal">Foto del Animal</label>
                     <input type="file" class="form-control-file" id="fotoAnimal" name="fotoAnimal">
@@ -107,7 +107,6 @@
         </div>
     </div>
 </div>
-
 
 
   

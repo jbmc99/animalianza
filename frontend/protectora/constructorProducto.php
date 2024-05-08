@@ -41,13 +41,12 @@
   </nav>
 
 
-
   <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">Añade un Producto</h2>
             <!-- Elimina la etiqueta form que envuelve todo el contenido -->
-            <form action="procesar_producto.php" method="post">
+            <form action="procesar_producto.php" method="post" enctype="multipart/form-data">
                 <div class="form-group row mb-4">
                     <label for="nombreProducto" class="col-sm-4 col-form-label">Nombre del Producto</label>
                     <div class="col-sm-8">
@@ -66,6 +65,13 @@
                         <input type="number" step="0.01" min="0" class="form-control" id="precioProducto" name="precioProducto" placeholder="Introduzca el precio del producto" required>
                     </div>
                 </div>
+                <!-- Campo de carga de archivos para la foto del producto -->
+                <div class="form-group mb-4">
+                    <label for="fotoProducto" class="col-sm-4 col-form-label">Foto del Producto</label>
+                    <div class="col-sm-8">
+                        <input type="file" class="form-control-file" id="fotoProducto" name="fotoProducto" required>
+                    </div>
+                </div>
                 <div class="form-group row text-center mt-5">
                     <div class="col-sm-12">
                         <button type="submit" class="btn btn-success" name="submit">Añadir Producto</button>
@@ -75,7 +81,6 @@
         </div>
     </div>
 </div>
-
 
   
 <!--FOOTER-->

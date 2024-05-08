@@ -72,6 +72,12 @@ if (isset($_GET['id_producto'])) {
                     <h2><?php echo $datos->nombre; ?></h2>
                     <p><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
                     <p><strong>Precio:</strong> <?php echo $datos->precio; ?></p>
+                    <!-- Mostrar la imagen del producto -->
+                    <?php if (!empty($datos->ruta_imagen)) : ?>
+                      <img src="<?php echo $datos->ruta_imagen; ?>" class="img-fluid mb-3" alt="Imagen del Producto" style="max-width: 200px;">
+                    <?php else : ?>
+                        <p class="text-muted">No hay imagen disponible para este producto.</p>
+                    <?php endif; ?>
                     <!-- Botón para comprar -->
                     <div class="text-center mt-5">
                         <a class="btn btn-success" href="#">¡Quiero comprar!</a>
@@ -92,6 +98,7 @@ if (isset($_GET['id_producto'])) {
     echo "<p>No se proporcionó un ID de producto.</p>";
 }
 ?>
+
 
   
 <!--FOOTER-->
