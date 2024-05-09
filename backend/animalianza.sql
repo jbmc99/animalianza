@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2024 a las 23:42:12
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.0.25
+-- Tiempo de generación: 09-05-2024 a las 19:19:47
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,17 +36,21 @@ CREATE TABLE `animal` (
   `raza` varchar(100) DEFAULT NULL,
   `id_protectora` int(11) DEFAULT NULL,
   `info_adicional` text DEFAULT NULL,
-  `caso_especial` enum('si','no') DEFAULT NULL
+  `caso_especial` enum('si','no') DEFAULT NULL,
+  `ruta_imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `animal`
 --
 
-INSERT INTO `animal` (`id_animal`, `nombre`, `especie`, `edad`, `sexo`, `raza`, `id_protectora`, `info_adicional`, `caso_especial`) VALUES
-(41, 'a', 'perro', 12, NULL, 'a', NULL, '', NULL),
-(43, 'hola', 'perro', 92, NULL, 'hola', NULL, '', NULL),
-(44, 'hola', 'perro', 87, NULL, 'h', NULL, 'ijkjkj', NULL);
+INSERT INTO `animal` (`id_animal`, `nombre`, `especie`, `edad`, `sexo`, `raza`, `id_protectora`, `info_adicional`, `caso_especial`, `ruta_imagen`) VALUES
+(54, 'simbilla2', 'gato', 1, '', 'negro', NULL, 'kjdjkdjukdhudehfekhfehjfej', NULL, '../images/uploads/ejemplo.jpeg'),
+(55, 'ejemplo2', 'gato', 2, NULL, 'simba', NULL, 'una tia xula', NULL, '../images/uploads/ejemplo.jpeg'),
+(56, 'ejemplo3', 'gato', 5, NULL, 'simba', NULL, 'holahola', NULL, '../images/uploads/ejemplo.jpeg'),
+(57, 'ejemplo4', 'gato', 99, NULL, 'simba', NULL, 'hola', NULL, '../images/uploads/ejemplo.jpeg'),
+(58, 'ejemplo5', 'gato', 333, NULL, 'simba', NULL, 'hola', NULL, '../images/uploads/ejemplo.jpeg'),
+(59, 'simbilla2', 'perro', 1, NULL, 'negro', NULL, '', NULL, '../images/uploads/logo.png');
 
 -- --------------------------------------------------------
 
@@ -87,7 +91,9 @@ INSERT INTO `evento` (`id_evento`, `nombre`, `descripcion`, `fecha`, `estado`, `
 (13, 'holo', 'hola', '2024-05-24', NULL, NULL),
 (14, 'locuraaaaa', 'locura', '2024-05-18', 'pasado', NULL),
 (15, 'locuronnnnn', 'locuron', '2024-05-22', 'actual', NULL),
-(16, 'whatsapp 3', 'whatsapp2', '2024-05-03', 'actual', '../images/uploads/logo.png');
+(16, 'whatsapp 3', 'whatsapp2', '2024-05-03', 'actual', '../images/uploads/ejemplo.jpeg'),
+(17, 'fefsdsfd', 'fdsfsdf', '2024-05-17', 'actual', '../images/uploads/ejemplo.jpeg'),
+(18, 'fefsdsfd', 'fdsfsdf', '2024-05-17', 'actual', '../images/uploads/logo.png');
 
 -- --------------------------------------------------------
 
@@ -131,7 +137,15 @@ INSERT INTO `login` (`id_login`, `username`, `password`, `tipo_login`) VALUES
 (13, 'epa', 'epa', 'protectora'),
 (14, 'epa', '2', 'protectora'),
 (16, 'lasi', '', 'usuario'),
-(17, 'lasi2', '', 'usuario');
+(17, 'lasi2', '', 'usuario'),
+(19, 'ejemplito', 'ejemplo', 'protectora'),
+(20, 'ejemplito2', 'hola', 'protectora'),
+(21, 'ejemplito2', 'hola', 'protectora'),
+(22, 'jhsakhsakhjdskj', '123', 'protectora'),
+(23, 'jhsakhsakhjdskj', '123', 'protectora'),
+(24, 'jhsakhsakhjdskj', '12', 'protectora'),
+(25, 'ejemplo', 'ejemplo', 'protectora'),
+(26, 'ejemplo2', '123', 'protectora');
 
 -- --------------------------------------------------------
 
@@ -144,15 +158,17 @@ CREATE TABLE `producto` (
   `nombre` varchar(255) DEFAULT NULL,
   `descripcion` text DEFAULT NULL,
   `id_protectora` int(11) DEFAULT NULL,
-  `precio` decimal(10,2) DEFAULT NULL
+  `precio` decimal(10,2) DEFAULT NULL,
+  `ruta_imagen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`id_producto`, `nombre`, `descripcion`, `id_protectora`, `precio`) VALUES
-(2, 'me cago en mi puta', 'lk', NULL, '8.00');
+INSERT INTO `producto` (`id_producto`, `nombre`, `descripcion`, `id_protectora`, `precio`, `ruta_imagen`) VALUES
+(10, 'ejemplomod', 'ejemplomod', NULL, 999.00, '../images/uploads/logo.png'),
+(11, 'ejemplo', 'ejemplo', NULL, 34.00, '../images/uploads/ejemplo.jpeg');
 
 -- --------------------------------------------------------
 
@@ -169,23 +185,21 @@ CREATE TABLE `protectora` (
   `acepta_adopciones` tinyint(1) DEFAULT NULL,
   `acepta_acogidas` tinyint(1) DEFAULT NULL,
   `acepta_voluntarios` tinyint(1) DEFAULT NULL,
-  `id_login` int(11) NOT NULL
+  `id_login` int(11) NOT NULL,
+  `info_prote` text DEFAULT NULL,
+  `info_relevante` text DEFAULT NULL,
+  `ruta_imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `protectora`
 --
 
-INSERT INTO `protectora` (`id_protectora`, `nombre`, `direccion`, `telefono`, `email`, `acepta_adopciones`, `acepta_acogidas`, `acepta_voluntarios`, `id_login`) VALUES
-(1, 'wlkdjewl', 'hola', NULL, 'dkwned@kdjewkdej.com', NULL, NULL, NULL, 3),
-(2, 'paula', 'paula', NULL, 'paula@gmail.com', NULL, NULL, NULL, 7),
-(3, 'paula', 'paula', NULL, 'paula@gmail.com', NULL, NULL, NULL, 8),
-(4, 'petra catena', 'kjfkjre', NULL, 'petra@petra.com', NULL, NULL, NULL, 9),
-(5, 'juani', 'juani', NULL, 'juani@juani.com', NULL, NULL, NULL, 10),
-(6, 'juani', 'juani', NULL, 'juani@juani.com', NULL, NULL, NULL, 11),
-(7, 'juani', 'juani', NULL, 'juani@juani.com', NULL, NULL, NULL, 12),
-(8, 'epa', 'epa', NULL, 'epa@epa.com', NULL, NULL, NULL, 13),
-(9, 'epa', 'epa', NULL, 'epa@epa.com', NULL, NULL, NULL, 14);
+INSERT INTO `protectora` (`id_protectora`, `nombre`, `direccion`, `telefono`, `email`, `acepta_adopciones`, `acepta_acogidas`, `acepta_voluntarios`, `id_login`, `info_prote`, `info_relevante`, `ruta_imagen`) VALUES
+(14, 'JHSKJSKJS', 'hola', NULL, 'hola@hola.com', NULL, NULL, NULL, 23, 'adasd', '', '../images/uploads/663ca82bc113b.jpeg'),
+(15, 'JHSKJSKJS', 'hola', NULL, 'hola@hola.com', NULL, NULL, NULL, 24, 'sdfsdffssfd', '', '../images/uploads/663ca8c14e1b4.png'),
+(16, 'ejemplo', 'jdfsjfhsdj', NULL, 'ejemplo@ejemplo.com', NULL, NULL, NULL, 25, 'sñdkasflkjads', '', '../images/uploads/663cad782ea3c.jpeg'),
+(17, 'ejemplo', 'jdfsjfhsdj', NULL, 'ejemplo@ejemplo.com', NULL, NULL, NULL, 26, 'asd', '', '../images/uploads/663cad9b37ddf.png');
 
 -- --------------------------------------------------------
 
@@ -400,7 +414,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `animal`
 --
 ALTER TABLE `animal`
-  MODIFY `id_animal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_animal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT de la tabla `donaciones`
@@ -412,7 +426,7 @@ ALTER TABLE `donaciones`
 -- AUTO_INCREMENT de la tabla `evento`
 --
 ALTER TABLE `evento`
-  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
@@ -424,19 +438,19 @@ ALTER TABLE `imagenes`
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `protectora`
 --
 ALTER TABLE `protectora`
-  MODIFY `id_protectora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_protectora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitud_acogida`
