@@ -75,10 +75,12 @@
                 </div>
                 <!-- Campo de carga de archivos para la foto del evento -->
                 <div class="form-group mb-4">
-                    <label for="fotoEvento" class="col-sm-4 col-form-label">Foto del Evento</label>
-                    <div class="col-sm-8">
-                        <input type="file" class="form-control-file" id="fotoEvento" name="fotoEvento" required>
-                    </div>
+                <label for="fotoProtectora" class="col-sm-4 col-form-label">Foto de la Protectora</label>
+                <div class="col-sm-8">
+                    <input type="file" class="form-control-file" id="fotoProtectora" name="fotoProtectora" required>
+                </div>
+            </div>
+
                 </div>
                 <div class="form-group row text-center mt-5">
                     <div class="col-sm-12">

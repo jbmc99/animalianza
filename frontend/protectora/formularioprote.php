@@ -90,15 +90,15 @@
                     </div>
                 </div>
                 <div class="form-group row mb-4">
-                    <label for="infoFamilia" class="col-sm-4 col-form-label">Proporcione algún dato relevante (redes sociales, teléfono de contacto...)</label>
+                    <label for="infoRelevante" class="col-sm-4 col-form-label">Proporcione algún dato relevante (redes sociales, teléfono de contacto...)</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" id="infoFamilia" name="infoFamilia" rows="4"></textarea>
+                        <textarea class="form-control" id="infoRelevante" name="infoRelevante" rows="4"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlFile1">¿Una foto?</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="foto">
-                </div>
+                  <label for="fotoProtectora">Subir foto:</label>
+                  <input type="file" class="form-control-file" id="fotoProtectora" name="fotoProtectora">
+              </div>
 
                 <!-- Modal -->
                 <div class="modal fade" id="registroExitosoModal" tabindex="-1" role="dialog" aria-labelledby="registroExitosoModalLabel" aria-hidden="true">

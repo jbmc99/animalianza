@@ -49,68 +49,39 @@
 </nav>
   
  
-<div class="container">
-  <div class="row">
-    <div class="col-12 text-center mb-5 mt-5">
-      <h1>NUESTRAS PROTECTORAS</h1>
-    </div>
-  </div>
-</div>
+<?php
+// Incluir archivo de conexión a la base de datos
+require_once('../protectora/conexion.php');
 
-<div id="page-content" class="container">
-  <!-- Fichas de Protectoras -->
-  <div class="row mt-5">
-    <!-- Protectora 1 -->
-    <div class="col-6 mb-5">
-      <div class="card bg-transparent border-0">
-        <img src="../images/ejemploprote1.jpg" class="card-img-top img-fluid" id="prote1" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Rescate Animal Granada</h5>
-          <a href="prote1.php" class="btn btn-success btn-block">Más información</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Protectora 2 -->
-    <div class="col-6 mb-5">
-      <div class="card bg-transparent border-0">
-        <img src="../images/ejemploprote2.jpg" class="card-img-top img-fluid" id="prote2" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Amigos de los Animales Granada</h5>
-          <a href="prote1.php" class="btn btn-success btn-block">Más información</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Protectora 3 -->
-    <div class="col-6 mb-4">
-      <div class="card bg-transparent border-0">
-        <img src="../images/ejemploprote3.png" class="card-img-top img-fluid" id="prote3" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Sociedad de Animales y Plantas</h5>
-          <a href="prote1.php" class="btn btn-success btn-block">Más información</a>
-        </div>
-      </div>
-    </div>
+// Consultar la base de datos para obtener la información de las protectoras
+$sql = "SELECT nombre, info_prote, info_relevante, ruta_imagen FROM protectora";
+$resultado = $conn->query($sql);
 
-    <!-- Protectora 4 -->
-    <div class="col-6 mb-4">
-    <div class="card bg-transparent border-0">
-        <img src="../images/ejemploprote4.png" class="card-img-top img-fluid" id="prote4" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Asociación Por Patas</h5>
-          <a href="prote1.php" class="btn btn-success btn-block">Más información</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+// Verificar si se encontraron resultados
+if ($resultado->num_rows > 0) {
+    // Iterar sobre los resultados y generar el HTML para cada card
+    while ($fila = $resultado->fetch_assoc()) {
+        echo '<div class="col-6 mb-5">';
+        echo '<div class="card bg-transparent border-0">';
+        echo '<img src="../images/uploads/' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid" alt="Imagen de la protectora">';
+        echo '<div class="card-body text-center">';
+        echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
+        echo '<p class="card-text">' . $fila['info_prote'] . '</p>';
+        echo '<p class="card-text">' . $fila['info_relevante'] . '</p>';
+        echo '<a href="prote1.php" class="btn btn-success btn-block">Más información</a>';
+        echo '</div>'; // Cierre de card-body
+        echo '</div>'; // Cierre de card
+        echo '</div>'; // Cierre de col-6
+    }
+} else {
+    echo "No se encontraron protectoras.";
+}
+
+// Cerrar la conexión a la base de datos
+$conn->close();
+?>
 
 
- 
-
-
-  
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
   <!-- Redes sociales-->
