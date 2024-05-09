@@ -102,3 +102,12 @@ body {
 #experienciaVoluntario {
     background-color: #8BAA92;
 }
+
+.cardProtectora {
+    width: 300px; 
+}
+
+.imagenProtectora {
+    width: 100%; 
+    height: auto; 
+}

@@ -59,20 +59,33 @@ $resultado = $conn->query($sql);
 
 // Verificar si se encontraron resultados
 if ($resultado->num_rows > 0) {
+    echo '<h1 class="text-center mt-5 mb-5">Nuestras protectoras</h1>'; // Título centrado
+    echo '<div class="row justify-content-center">'; // Apertura de row y centrado de las tarjetas
+
     // Iterar sobre los resultados y generar el HTML para cada card
     while ($fila = $resultado->fetch_assoc()) {
-        echo '<div class="col-6 mb-5">';
-        echo '<div class="card bg-transparent border-0">';
-        echo '<img src="../images/uploads/' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid" alt="Imagen de la protectora">';
+      echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">'; // Cambiado a d-flex justify-content-center
+        echo '<div class="card border-0 rounded-3 shadow-sm cardProtectora">'; // Añadido la clase 'cardProtectora'
+        
+        // Verificar si el archivo de imagen existe
+        $image_path = $fila['ruta_imagen'];
+        if (file_exists($image_path)) {
+            echo '<img src="' . $image_path . '" class="card-img-top imagenProtectora" alt="Imagen de la protectora">'; // Añadido la clase 'imagenProtectora'
+        } else {
+            echo "File does not exist: " . $image_path;
+        }
+        
         echo '<div class="card-body text-center">';
         echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
         echo '<p class="card-text">' . $fila['info_prote'] . '</p>';
         echo '<p class="card-text">' . $fila['info_relevante'] . '</p>';
-        echo '<a href="prote1.php" class="btn btn-success btn-block">Más información</a>';
+        echo '<a href="prote1.php" class="btn btn-success me-2">Más información</a>';
         echo '</div>'; // Cierre de card-body
         echo '</div>'; // Cierre de card
-        echo '</div>'; // Cierre de col-6
+        echo '</div>'; // Cierre de col-lg-6
     }
+
+    echo '</div>'; // Cierre de row
 } else {
     echo "No se encontraron protectoras.";
 }
@@ -80,7 +93,6 @@ if ($resultado->num_rows > 0) {
 // Cerrar la conexión a la base de datos
 $conn->close();
 ?>
-
 
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">

@@ -40,13 +40,13 @@
       </div>
     </div>
   </nav>
-    <!--formulario de registro-->
-    <div class="container mt-4">
+<!--formulario de registro-->
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">FORMULARIO PROTECTORAS</h2>
             <p class="text-center mt-2 mb-5">¿Deseas unirte a nuestra asociación? ¡Rellena el siguiente formulario y recibirás noticias nuestras!</p>
-            <form action="procesar_registro_protectora.php" method="post">
+            <form action="procesar_registro_protectora.php" method="post" enctype="multipart/form-data">
                 <div class="form-group row mb-4">
                     <label for="nombreUsuarioProte" class="col-sm-4 col-form-label">Nombre de usuario</label>
                     <div class="col-sm-8">
@@ -96,30 +96,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                  <label for="fotoProtectora">Subir foto:</label>
-                  <input type="file" class="form-control-file" id="fotoProtectora" name="fotoProtectora">
-              </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="registroExitosoModal" tabindex="-1" role="dialog" aria-labelledby="registroExitosoModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="registroExitosoModalLabel">Registro Exitoso</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        Te has registrado correctamente.
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                      </div>
-                    </div>
-                  </div>
+                    <label for="fotoProtectora">Subir foto:</label>
+                    <input type="file" class="form-control-file" id="fotoProtectora" name="fotoProtectora">
                 </div>
-
                 <div class="form-group row text-center mt-5">
                     <div class="col-sm-12">
                         <button type="submit" class="btn btn-success">¡Regístrate!</button>
@@ -130,8 +109,6 @@
     </div>
 </div>
 
-
-  
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
   <!-- Redes sociales-->
