@@ -49,63 +49,57 @@
 </nav>
   
  
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-center mb-5 mt-5">
-        <h1>RESCATE ANIMAL GRANADA</h1>
-      </div>
-    </div>
-  
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8 mb-5">
-          <div class="card p-4 bg-transparent border-0">
-            <h2 class="text-center mb-4">¿Quiénes somos?</h2>
-            <p class="text-justify">La asociación es a su vez refugio, rescate y gestión de adopción/acogida de animales. Todas las acciones que llevamos a cabo no serían posibles sin los voluntarios de los que se compone la asociación y sin las ayudas que recibimos de las personas que deciden apoyarnos.</p>
-            <p class="text-justify">Es una labor dura, requiere de mucho tiempo, esfuerzo y dinero, pero las vidas de nuestros animales bien lo merecen.</p>
-            <p class="text-justify">En el refugio siempre nos esforzamos por que nuestros perros estén en las mejores condiciones posibles. Nos aseguramos de que todos los días estén bien acompañados, alimentados y manteniendo un buen nivel de higiene en sus zonas de descanso. Su seguridad y bienestar es lo primero. Muchos llegan con malnutrición, falta de pelo, con heridas físicas o emocionales... Y ver cómo se recuperan y renacen nos da la vida.</p>
-          </div>
-        </div>
-      </div>
-    
-      <div class="row mt-6 justify-content-center">
-        <div class="col-md-4 text-center mb-3">
-          <img src="../images/imgmodal1.png" class="img-fluid w-100 h-100" alt="Imagen 1">
-        </div>
-        <div class="col-md-4 text-center mb-3">
-          <img src="../images/imgmodal12.png" class="img-fluid w-100 h-100" alt="Imagen 2">
-        </div>
-      </div>
-      </div>
-    
-      <!-- Sección de ubicación en el mapa -->
-      <div class="container">
-        <div class="row mt-6">
-          <div class="col-12 text-center mt-5">
-            <h2>¿Dónde puedes encontrarnos?</h2>
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12717.11618076945!2d-3.600222661437987!3d37.16983896782022!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd71fca305aa656b%3A0xde24e4346346018!2sPalacio%20de%20Congresos%20de%20Granada!5e0!3m2!1ses!2ses!4v1711909190675!5m2!1ses!2ses" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-</div>
+<?php
+// Verificar si se ha proporcionado un ID de protectora en la URL
+if (isset($_GET['id_protectora'])) {
+    // Obtener el ID de la protectora de la URL
+    $id_protectora = $_GET['id_protectora'];
 
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center mb-5 mt-5 bg-transparent">
-          <h2>¡Contacta con nosotros!</h2>
-          <ul class="list-group bg-transparent"> 
-            <li class="list-group-item bg-transparent border-0"> FACEBOOK: @RescateAnimalGranada</li> 
-            <li class="list-group-item bg-transparent border-0">INSTAGRAM: rescate_animal_granada</li>
-            <li class="list-group-item bg-transparent border-0">EMAIL(solo comunicaciones, no solicitudes): rescateanimalgranada2019@hotmail.com</li>
-            <li class="list-group-item bg-transparent border-0">EMAIL (apadrinar): padrinosrescate@gmail.com</li>
-          </ul>
+    // Incluir archivo de conexión a la base de datos
+    require_once('../protectora/conexion.php');
+
+    // Consultar la base de datos para obtener los detalles de la protectora con el ID proporcionado
+    $sql = "SELECT * FROM protectora WHERE id_protectora = $id_protectora";
+    $resultado = $conn->query($sql);
+
+    // Verificar si se encontraron datos de la protectora
+    if ($resultado->num_rows > 0) {
+        $datos = $resultado->fetch_assoc();
+        // Construir la ruta completa de la imagen
+        $ruta_imagen = $datos['ruta_imagen']; // La ruta ya incluye la carpeta "uploads"
+
+        ?>
+        <div class="container mt-5">
+            <div class="row">
+                <!-- Información de la protectora -->
+                <div class="card-body text-center">
+                    <h2 class="card-title"><?php echo $datos['nombre']; ?></h2>
+                    <p class="card-text"><strong>Información:</strong> <?php echo $datos['info_prote']; ?></p>
+                    <p class="card-text"><strong>Información relevante:</strong> <?php echo $datos['info_relevante']; ?></p>
+                    <!-- Mostrar la imagen de la protectora -->
+                    <?php if (!empty($ruta_imagen)) : ?>
+                        <img src="<?php echo $ruta_imagen; ?>" class="img-fluid mb-3" alt="Imagen de la Protectora" style="max-width: 200px;">
+                    <?php else : ?>
+                        <p class="text-muted">No hay imagen disponible para esta protectora.</p>
+                    <?php endif; ?>
+
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    
-    
+        <?php
+    } else {
+        // Mostrar un mensaje si no se encontraron datos de la protectora
+        echo "<p>No se encontraron detalles de la protectora.</p>";
+    }
+
+    // Cerrar la conexión a la base de datos
+    $conn->close();
+} else {
+    // Mostrar un mensaje si no se proporcionó un ID de protectora en la URL
+    echo "<p>No se proporcionó un ID de protectora.</p>";
+}
+?>
+
   
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">

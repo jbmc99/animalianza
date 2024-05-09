@@ -65,7 +65,7 @@ if (isset($_GET['id'])) {
     if ($resultado->num_rows > 0) {
         $datos = $resultado->fetch_object();
         // Construir la ruta completa de la imagen
-        $ruta_imagen = '../protectora/' . $datos->ruta_imagen;
+        $ruta_imagen = '../images/uploads' . $datos->ruta_imagen;
 ?>
         <div class="container mt-5">
             <div class="row">

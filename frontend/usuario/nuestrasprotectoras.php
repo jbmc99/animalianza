@@ -54,7 +54,7 @@
 require_once('../protectora/conexion.php');
 
 // Consultar la base de datos para obtener la información de las protectoras
-$sql = "SELECT nombre, info_prote, info_relevante, ruta_imagen FROM protectora";
+$sql = "SELECT id_protectora, nombre, info_prote, info_relevante, ruta_imagen FROM protectora";
 $resultado = $conn->query($sql);
 
 // Verificar si se encontraron resultados
@@ -64,7 +64,7 @@ if ($resultado->num_rows > 0) {
 
     // Iterar sobre los resultados y generar el HTML para cada card
     while ($fila = $resultado->fetch_assoc()) {
-      echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">'; // Cambiado a d-flex justify-content-center
+        echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">'; // Cambiado a d-flex justify-content-center
         echo '<div class="card border-0 rounded-3 shadow-sm cardProtectora">'; // Añadido la clase 'cardProtectora'
         
         // Verificar si el archivo de imagen existe
@@ -72,14 +72,13 @@ if ($resultado->num_rows > 0) {
         if (file_exists($image_path)) {
             echo '<img src="' . $image_path . '" class="card-img-top imagenProtectora" alt="Imagen de la protectora">'; // Añadido la clase 'imagenProtectora'
         } else {
-            echo "File does not exist: " . $image_path;
+            echo '<p class="text-muted">No hay imagen disponible para esta protectora.</p>'; // Mensaje de imagen no disponible
         }
-        
         echo '<div class="card-body text-center">';
         echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
         echo '<p class="card-text">' . $fila['info_prote'] . '</p>';
         echo '<p class="card-text">' . $fila['info_relevante'] . '</p>';
-        echo '<a href="prote1.php" class="btn btn-success me-2">Más información</a>';
+        echo '<a href="prote1.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success me-2">Más información</a>';
         echo '</div>'; // Cierre de card-body
         echo '</div>'; // Cierre de card
         echo '</div>'; // Cierre de col-lg-6
@@ -93,6 +92,7 @@ if ($resultado->num_rows > 0) {
 // Cerrar la conexión a la base de datos
 $conn->close();
 ?>
+
 
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
