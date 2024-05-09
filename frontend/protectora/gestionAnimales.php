@@ -81,60 +81,61 @@
                     echo '</div>'; // Cierre de card-body
                     echo '</div>'; // Cierre de card
 
-                  // Modal para editar animal
-              echo "<div class='modal fade' id='editarAnimalModal" . $fila['id_animal'] . "' tabindex='-1' aria-labelledby='editarAnimalModalLabel" . $fila['id_animal'] . "' aria-hidden='true'>";
-              echo "<div class='modal-dialog'>";
-              echo "<div class='modal-content'>";
-              echo "<div class='modal-header'>";
-              echo "<h5 class='modal-title' id='editarAnimalModalLabel" . $fila['id_animal'] . "'>Editar animal: " . $fila['nombre'] . "</h5>";
-              echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
-              echo "</div>";
-              echo "<div class='modal-body'>";
-              // Formulario para editar el animal
-              echo "<form action='procesar_animal.php' method='post' enctype='multipart/form-data'>";
-              echo "<input type='hidden' name='id_animal' value='" . $fila['id_animal'] . "'>";
-              echo "<div class='form-group'>";
-              echo "<label for='nombreAnimal'>Nombre:</label>";
-              echo "<input type='text' class='form-control' id='nombreAnimal' name='nombreAnimal' value='" . $fila['nombre'] . "'>";
-              echo "</div>";
-              echo "<div class='form-group'>";
-              echo "<label for='especieAnimal'>Especie:</label>";
-              echo "<input type='text' class='form-control' id='especieAnimal' name='especieAnimal' value='" . $fila['especie'] . "'>";
-              echo "</div>";
-              echo "<div class='form-group'>";
-              echo "<label for='razaAnimal'>Raza:</label>";
-              echo "<input type='text' class='form-control' id='razaAnimal' name='razaAnimal' value='" . $fila['raza'] . "'>";
-              echo "</div>";
-              echo "<div class='form-group'>";
-              echo "<label for='edadAnimal'>Edad:</label>";
-              echo "<input type='number' class='form-control' id='edadAnimal' name='edadAnimal' value='" . $fila['edad'] . "'>";
-              echo "</div>";
-              echo "<div class='form-group'>";
-              echo "<label for='sexoAnimal'>Sexo:</label>";
-              echo "<select class='form-control' id='sexoAnimal' name='sexoAnimal'>";
-              echo "<option value='Macho' " . ($fila['sexo'] == 'Macho' ? 'selected' : '') . ">Macho</option>";
-              echo "<option value='Hembra' " . ($fila['sexo'] == 'Hembra' ? 'selected' : '') . ">Hembra</option>";
-              echo "</select>";
-              echo "</div>";
-              echo "<div class='form-group'>";
-              echo "<label for='info_adicional'>Información Adicional:</label>";
-              echo "<textarea class='form-control' id='info_adicional' name='info_adicional'>" . $fila['info_adicional'] . "</textarea>";
-              echo "</div>";
+                    // Modal para editar animal
+                    echo "<div class='modal fade' id='editarAnimalModal" . $fila['id_animal'] . "' tabindex='-1' aria-labelledby='editarAnimalModalLabel" . $fila['id_animal'] . "' aria-hidden='true'>";
+                    echo "<div class='modal-dialog'>";
+                    echo "<div class='modal-content'>";
+                    echo "<div class='modal-header'>";
+                    echo "<h5 class='modal-title' id='editarAnimalModalLabel" . $fila['id_animal'] . "'>Editar animal: " . $fila['nombre'] . "</h5>";
+                    echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+                    echo "</div>";
+                    echo "<div class='modal-body'>";
+                    // Formulario para editar el animal
+                    echo "<form action='procesar_animal.php' method='post' enctype='multipart/form-data'>";
+                    echo "<input type='hidden' name='id_animal' value='" . $fila['id_animal'] . "'>";
+                    echo "<div class='form-group'>";
+                    echo "<label for='nombreAnimal'>Nombre:</label>";
+                    echo "<input type='text' class='form-control' id='nombreAnimal' name='nombreAnimal' value='" . $fila['nombre'] . "'>";
+                    echo "</div>";
+                    echo "<div class='form-group'>";
+                    echo "<label for='especieAnimal'>Especie:</label>";
+                    echo "<input type='text' class='form-control' id='especieAnimal' name='especieAnimal' value='" . $fila['especie'] . "'>";
+                    echo "</div>";
+                    echo "<div class='form-group'>";
+                    echo "<label for='razaAnimal'>Raza:</label>";
+                    echo "<input type='text' class='form-control' id='razaAnimal' name='razaAnimal' value='" . $fila['raza'] . "'>";
+                    echo "</div>";
+                    echo "<div class='form-group'>";
+                    echo "<label for='edadAnimal'>Edad:</label>";
+                    echo "<input type='number' class='form-control' id='edadAnimal' name='edadAnimal' value='" . $fila['edad'] . "'>";
+                    echo "</div>";
+                    echo "<div class='form-group'>";
+                    echo "<label for='sexoAnimal'>Sexo:</label>";
+                    echo "<select class='form-control' id='sexoAnimal' name='sexoAnimal'>";
+                    echo "<option value='Macho' " . ($fila['sexo'] == 'Macho' ? 'selected' : '') . ">Macho</option>";
+                    echo "<option value='Hembra' " . ($fila['sexo'] == 'Hembra' ? 'selected' : '') . ">Hembra</option>";
+                    echo "</select>";
+                    echo "</div>";
+                    echo "<div class='form-group'>";
+                    echo "<label for='info_adicional'>Información Adicional:</label>";
+                    echo "<textarea class='form-control' id='info_adicional' name='info_adicional'>" . $fila['info_adicional'] . "</textarea>";
+                    echo "</div>";
+                    // Campo de carga de archivos para la foto del animal
+                    echo "<div class='form-group'>";
+                    echo "<label for='fotoAnimal'>Foto del Animal:</label>";
+                    echo "<input type='file' class='form-control-file' id='fotoAnimal' name='fotoAnimal'>";
+                    echo "</div>";
 
-              // Campo de carga de archivos para la foto del animal
-              echo "<div class='form-group'>";
-              echo "<label for='fotoAnimal'>Foto del Animal:</label>";
-              echo "<input type='file' class='form-control-file' id='fotoAnimal' name='fotoAnimal'>";
-              echo "</div>";
+                    // Campo hidden para el sexo del animal
+                    echo "<input type='hidden' name='sexoAnimal' value='" . $fila['sexo'] . "'>";
 
-              echo "<button type='submit' class='btn btn-primary'>Guardar cambios</button>";
-              echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>";
-              echo "</form>";
-              echo "</div>";
-              echo "</div>";
-              echo "</div>";
-              echo "</div>";
-
+                    echo "<button type='submit' class='btn btn-primary'>Guardar cambios</button>";
+                    echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>";
+                    echo "</form>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
                 }
             } else {
                 echo "No se encontraron animales.";
@@ -146,7 +147,6 @@
         </div>
     </div>
 </div>
-
 
 
     <div class="text-center mt-1">
