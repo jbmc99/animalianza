@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             if ($conn->query($sql_protectora)) {
                 // Registro exitoso, redirigir a una página de confirmación o a donde desees
-                header("Location: ../usuario/nuestrasprotectoras.php");
+                header("Location: inicioProtectora.php");
                 exit();
             } else {
                 // Si hay un error al insertar en la tabla protectora, eliminar el registro de la tabla login correspondiente

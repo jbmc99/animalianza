@@ -1,4 +1,5 @@
 <?php
+// Iniciar la sesión
 session_start();
 
 // Incluir archivo de conexión
@@ -16,18 +17,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $login = ($tipo_login == 'usuario') ? 'usuario' : 'protectora';
         
         // Consulta preparada para evitar la inyección SQL
-        $sql = "SELECT username, password, tipo_login FROM login WHERE username = ? AND password = ?";
-
-        // Imprimir la consulta SQL (solo para depuración)
-        echo $sql;
+        $sql = "SELECT l.username, l.password, l.tipo_login, p.id_protectora 
+                FROM login l 
+                INNER JOIN protectora p ON l.id_login = p.id_login 
+                WHERE l.username = ? AND l.password = ?";
 
         // Verificar si la preparación de la consulta tuvo éxito
         $stmt = $conn->prepare($sql);
         if (!$stmt) {
             $error_message = 'Error en la preparación de la consulta: ' . $conn->error;
-             header("Location: login.php?error_message=" . urlencode($error_message));
-             exit();
+            header("Location: login.php?error_message=" . urlencode($error_message));
+            exit();
         }
+        
         // Bind de parámetros y ejecución de la consulta
         $stmt->bind_param("ss", $username, $password);
         $stmt->execute();
@@ -35,17 +37,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Verificar si se encontró un usuario
         if ($stmt->num_rows == 1) {
-            $stmt->bind_result($username_db, $password_db, $tipo_login_db);
+            $stmt->bind_result($username_db, $password_db, $tipo_login_db, $id_protectora);
             $stmt->fetch();
 
             // Inicio de sesión exitoso
             $_SESSION['username'] = $username_db;
             $_SESSION['tipo_login'] = $tipo_login_db;
+
+            // Si el tipo de login es 'protectora', establecer la variable de sesión 'id_protectora'
+            if ($tipo_login_db == 'protectora') {
+                $_SESSION['id_protectora'] = $id_protectora;
+            }
             
             // Redirigir según el tipo de usuario
             if ($tipo_login_db == 'usuario') {
                 header("Location: ../usuario/index.php");
-                 exit();
+                exit();
             } elseif ($tipo_login_db == 'protectora') {
                 header("Location: ../protectora/inicioProtectora.php");
                 exit();
@@ -57,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         // Si 'tipo_login' no está presente, mostrar un mensaje de error
-         header("Location: login.php?error=2"); // Error genérico de inicio de sesión
-         exit();
+        header("Location: login.php?error=2"); // Error genérico de inicio de sesión
+        exit();
     }
 }
 

@@ -1,9 +1,27 @@
+<?php
+// Iniciar la sesión para acceder a las variables de sesión
+session_start();
+
+// Verificar si el id_protectora está almacenado en la sesión
+if (!isset($_SESSION['id_protectora'])) {
+    // Si no está almacenado, redirigir a la página de inicio de sesión
+    header("Location: login.php"); // Cambiar 'login.php' por la página de inicio de sesión
+    exit();
+}
+
+// Obtener el id_protectora de la sesión
+$id_protectora = $_SESSION['id_protectora'];
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Gestión de casas de acogida</title>
     <link rel="stylesheet" href="../usuario/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -40,74 +58,68 @@
     </div>
   </nav>
 
+  <div class="container mt-5 mb-5 text-center">
+    <h1>Gestión de casas de acogida</h1>
+  </div>
 
-<!-- Title -->
-<div class="container mt-5 mb-5 text-center">
-  <h1>Gestión de casas de acogida</h1>
-</div>
-
-<!-- Content -->
-<div class="container mt-3">
+  <!-- Content -->
+  <div class="container mt-3">
   <div class="row">
     <!-- Sección para aceptar adopciones -->
-    <div class="col-md-6 mb-4">
+    <div class="col-md-6 mb-4 protectora-row" data-id_protectora="<?php echo $id_protectora; ?>">
       <h2 class="text-center mb-3">¿Aceptáis acogidas en este momento?</h2>
       <div class="d-flex justify-content-center mb-3">
-        <div class="dropdown me-2">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="acceptDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            Seleccionar
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="acceptDropdown">
-            <li><a class="dropdown-item" href="#">Sí</a></li>
-            <li><a class="dropdown-item" href="#">No</a></li>
-          </ul>
-        </div>
-        <button class="btn btn-success">Confirmar</button>
+        <select class="form-select me-2 acepta_acogidas_select">
+          <option value="1">Sí</option>
+          <option value="0">No</option>
+        </select>
+        <button class="btn btn-success confirmarBtn">Confirmar</button>
       </div>
     </div>
-    <!-- Sección para ver solicitudes de adopción -->
-    <div class="col-md-6">
-      <h2 class="text-center mb-3">Solicitudes de casa de acogida</h2>
-      <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
-          Nombre de la mascota
-          <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
-          Nombre de la mascota
-          <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
-          Nombre de la mascota
-          <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="solicitudModal" tabindex="-1" aria-labelledby="solicitudModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="solicitudModalLabel">Detalles de la solicitud</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Aquí puedes añadir los datos sobre la solicitud -->
-        <p>Datos sobre la solicitud...</p>
-        <p>Blablablabla</p>
-        <p>Aquí se pasa la info recogida por los formulariooo</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success">Aceptar</button>
-        <button type="button" class="btn btn-danger">Denegar</button>
+
+      <!-- Sección para ver solicitudes de adopción -->
+      <div class="col-md-6">
+        <h2 class="text-center mb-3">Solicitudes de casa de acogida</h2>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
+            Nombre de la mascota
+            <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
+            Nombre de la mascota
+            <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
+            Nombre de la mascota
+            <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
-</div>
+  <!-- Modal -->
+  <div class="modal fade" id="solicitudModal" tabindex="-1" aria-labelledby="solicitudModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="solicitudModalLabel">Detalles de la solicitud</h5>
+          <button class="btn btn-success" id="confirmarBtn" data-id-protectora="<?php echo $id_protectora; ?>">Confirmar</button>
+        </div>
+        <div class="modal-body">
+          <!-- Aquí puedes añadir los datos sobre la solicitud -->
+          <p>Datos sobre la solicitud...</p>
+          <p>Blablablabla</p>
+          <p>Aquí se pasa la info recogida por los formulariooo</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-success">Aceptar</button>
+          <button type="button" class="btn btn-danger">Denegar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
  <!--FOOTER-->
  <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
@@ -211,8 +223,37 @@
   </footer>
   <!-- Footer -->
   
-  
-  
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-  </html>
+ <!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Obtener el valor del select y el ID de la protectora
+    $(".confirmarBtn").on("click", function() {
+        var acepta_acogidas = $(this).siblings(".acepta_acogidas_select").val();
+        var id_protectora = $(this).closest(".protectora-row").data("id_protectora");
+
+        // Imprimir los valores antes de enviar la solicitud AJAX
+        console.log("Valor de acepta_acogidas:", acepta_acogidas);
+        console.log("Valor de id_protectora:", id_protectora);
+
+        // Enviar los datos al script PHP mediante Ajax
+        $.ajax({
+            url: "actualizar_acogida.php",
+            method: "GET",
+            data: {
+                acepta_acogidas: acepta_acogidas,
+                id_protectora: id_protectora
+            },
+            success: function(response) {
+                console.log(response); // Maneja la respuesta del servidor según sea necesario
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText); // Maneja los errores de Ajax
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
+
