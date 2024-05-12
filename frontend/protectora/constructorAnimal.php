@@ -39,14 +39,29 @@
       </div>
     </div>
   </nav>
+  <?php
 
+session_start();
 
+// Establecer el id_protectora en la sesión si está disponible
+if (!isset($_SESSION['id_protectora'])) {
+    // Si id_protectora no está definida en la sesión, redirigir a alguna página donde se pueda establecer
+    header("Location: login.php");
+    exit(); // Asegúrate de detener la ejecución del script después de la redirección
+}
+
+$id_protectora = $_SESSION['id_protectora']; // Obtener el ID de la protectora de la sesión
+
+?>
 <!-- Constructor para añadir animales -->
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">Añade un animal</h2>
             <form action="procesar_animal.php" method="POST" enctype="multipart/form-data">
+                <!-- Campo oculto para el ID de la protectora -->
+                <input type="hidden" name="id_protectora" value="<?php echo $id_protectora; ?>">
+
                 <div class="form-group row mb-4">
                     <label for="nombreAnimal" class="col-sm-4 col-form-label">Nombre del Animal</label>
                     <div class="col-sm-8">
@@ -72,6 +87,15 @@
                     <label for="edadAnimal" class="col-sm-4 col-form-label">Edad</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="edadAnimal" name="edadAnimal" placeholder="Introduzca la edad del animal">
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="sexoAnimal" class="col-sm-4 col-form-label">Sexo</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="sexoAnimal" name="sexoAnimal">
+                            <option value="macho">Macho</option>
+                            <option value="hembra">Hembra</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row mb-4">

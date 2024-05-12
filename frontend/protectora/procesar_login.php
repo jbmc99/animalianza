@@ -47,6 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Si el tipo de login es 'protectora', establecer la variable de sesión 'id_protectora'
             if ($tipo_login_db == 'protectora') {
                 $_SESSION['id_protectora'] = $id_protectora;
+
+                // Consulta para obtener los animales de la protectora específica
+                $sql = "SELECT * FROM animal WHERE id_protectora = '$id_protectora'";
+                $result = $conn->query($sql);
+
+                // Verificar si la consulta se ejecutó correctamente
+                if (!$result) {
+                    $errors[] = "Error al obtener los animales de la protectora: " . $conn->error;
+                }
             }
             
             // Redirigir según el tipo de usuario
