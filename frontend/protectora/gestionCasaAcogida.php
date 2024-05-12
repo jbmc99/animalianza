@@ -245,6 +245,9 @@ $id_protectora = $_SESSION['id_protectora'];
                 id_protectora: id_protectora
             },
             success: function(response) {
+                // Mostrar un alert para notificar al usuario
+                alert("El estado se ha actualizado correctamente.");
+
                 console.log(response); // Maneja la respuesta del servidor según sea necesario
             },
             error: function(xhr, status, error) {
@@ -252,6 +255,8 @@ $id_protectora = $_SESSION['id_protectora'];
             }
         });
     });
+</script>
+
 </script>
 
 </body>

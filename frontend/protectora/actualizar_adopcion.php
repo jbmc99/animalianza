@@ -1,24 +1,32 @@
 <?php
 // Incluir el archivo de conexión a la base de datos
-include 'conexion.php';
+require_once('conexion.php');
 
-// Verificar si se ha recibido el valor de aceptación de adopciones
-if (isset($_GET['acepta_adopciones'])) {
+// Verificar si se ha recibido el valor de aceptación de adopciones y el ID de la protectora
+if (isset($_GET['acepta_adopciones']) && isset($_GET['id_protectora'])) {
     $acepta_adopciones = $_GET['acepta_adopciones'];
-    
-    // Actualizar el campo en la base de datos
-    $sql = "UPDATE protectora SET acepta_adopciones = $acepta_adopciones WHERE id_protectora = 'id_protectora'";
-    
-    if ($conn->query($sql) === TRUE) {
-        echo "Actualización exitosa";
+    $id_protectora = $_GET['id_protectora'];
+
+    // Preparar la consulta SQL
+    $stmt = $conn->prepare("UPDATE protectora SET acepta_adopciones = ? WHERE id_protectora = ?");
+    if ($stmt === false) {
+        die("Error al preparar la consulta: " . $conn->error);
+    }
+
+    // Vincular los parámetros a la consulta preparada
+    $stmt->bind_param('si', $acepta_adopciones, $id_protectora);
+
+    // Ejecutar la consulta
+    if ($stmt->execute() === false) {
+        die("Error al ejecutar la consulta: " . $stmt->error);
     } else {
-        echo "Error al actualizar la base de datos: " . $conn->error;
+        echo "Actualización exitosa";
     }
 } else {
     // Si no se recibió el valor esperado, devolver un mensaje de error
-    echo "Error: No se recibió el valor de aceptación de adopciones";
+    echo "Error: No se recibió el valor de aceptación de adopciones o el ID de la protectora";
 }
 
-// Cerrar conexión (esto está en el archivo de conexión)
+// Cerrar conexión
 $conn->close();
 ?>

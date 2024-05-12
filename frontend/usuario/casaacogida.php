@@ -22,27 +22,27 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/index.html">Inicio</a>
+            <a class="nav-link" href="../usuario/index.php">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../usuario/adopciones.html">Adopciones</a>
+            <a class="nav-link" href="../usuario/adopciones.php">Adopciones</a>
           </li>
           <li class="nav-item dropdown" id="desplegableNavbar">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 ¿Cómo ayudar?
             </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="../usuario/voluntariado.html">Voluntariado</a></li>
-        <li><a class="dropdown-item" href="../usuario/donaciones.html">Donaciones</a></li>
-        <li><a class="dropdown-item" href="../usuario/casaacogida.html">Casa de acogida</a></li>
+        <li><a class="dropdown-item" href="../usuario/voluntariado.php">Voluntariado</a></li>
+        <li><a class="dropdown-item" href="../usuario/donaciones.php">Donaciones</a></li>
+        <li><a class="dropdown-item" href="../usuario/casaacogida.php">Casa de acogida</a></li>
 
     </ul>
 </li>
         <li class="nav-item">
-          <a class="nav-link" href="../usuario/tiendasolidaria.html">Tienda solidaria</a>
+          <a class="nav-link" href="../usuario/tiendasolidaria.php">Tienda solidaria</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../usuario/nuestrasprotectoras.html">Nuestras protectoras</a>
+          <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
         </li>
       </ul>
     </div>
@@ -98,38 +98,49 @@
   
   <div class="container">
     <div class="row">
-      <div class="col-12 text-center mb-3 mt-5">
-        <h2>Protectoras que aceptan acogidas en este momento</h2>
-      </div>
+        <div class="col-12 text-center mb-3 mt-5">
+            <h2>Protectoras que aceptan acogidas en este momento</h2>
+        </div>
     </div>
-  </div>
-  
-  <div id="page-content" class="container">
+</div>
+
+<div id="page-content" class="container">
     <!-- Fichas de Protectoras -->
     <div class="row mt-5">
-      <!-- Protectora 1 -->
-      <div class="col-lg-6 mb-3">
-        <div class="card bg-transparent border-0">
-          <img src="../images/ejemploprote1.jpg" class="card-img-top img-fluid" id="prote1" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Rescate Animal Granada</h5>
-            <a href="prote1.html" class="btn btn-success btn-block">Más información</a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Protectora 2 -->
-      <div class="col-lg-6 mb-3">
-        <div class="card bg-transparent border-0">
-          <img src="../images/ejemploprote2.jpg" class="card-img-top img-fluid" id="prote2" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Amigos de los Animales Granada</h5>
-            <a href="pagina2.html" class="btn btn-success btn-block">Más información</a>
-          </div>
-        </div>
-      </div>
+
+        <?php
+        // Incluir archivo de conexión a la base de datos
+        require_once('../protectora/conexion.php');
+
+        // Consultar la base de datos para obtener las protectoras que aceptan acogidas
+        $sql = "SELECT id_protectora, nombre, info_prote, info_relevante, ruta_imagen FROM protectora WHERE acepta_acogidas = 1";
+        $resultado = $conn->query($sql);
+
+        // Verificar si se encontraron resultados
+        if ($resultado->num_rows > 0) {
+            // Iterar sobre los resultados y generar el HTML para cada card
+            while ($fila = $resultado->fetch_assoc()) {
+                echo '<div class="col-lg-6 mb-3">';
+                echo '<div class="card bg-transparent border-0">';
+                echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid" alt="Imagen de la protectora">';
+                echo '<div class="card-body text-center">';
+                echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
+                echo '<a href="prote1.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success btn-block">Más información</a>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo "No se encontraron protectoras que acepten acogidas en este momento.";
+        }
+
+        // Cerrar la conexión a la base de datos
+        $conn->close();
+        ?>
+
     </div>
-  </div>
+</div>
+
   
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
