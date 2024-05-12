@@ -78,7 +78,7 @@
             <div class="card-body">
               <img src="../images/paypal.png" id="logopaypal" class="mb-2">
               <p>Si prefieres realizar una donación monetaria puntual, puedes enviar la cantidad que desees a nuestro Paypal</p>
-              <a href="patata" class="btn btn-success">Acceder</a>
+              <a href="https://www.paypal.com/es/home" class="btn btn-success">Acceder</a>
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@
             <div class="card-body">
               <img src="../images/teaming.png" id="logoteaming" class="mb-2">
               <p>Por tan sólo 1€ al mes podrás formar parte de nuestro equipo de teaming y ayudarnos a seguir adelante.</p>
-              <a href="patata" class="btn btn-success">Acceder</a>
+              <a href="https://www.teaming.net/?lang=es_ES" class="btn btn-success">Acceder</a>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@
             <div class="card-body">
               <img src="../images/amazon.png" id="logoamazon" class="mb-2">
               <p>Desde nuestra Lista de deseos de Amazon podrás enviarnos lo que necesitan los peludos en su día a día en el refugio, ¡nosotros se lo haremos llegar de tu parte! </p>
-              <a href="patata" class="btn btn-success">Acceder</a>
+              <a href="https://www.amazon.es/" class="btn btn-success">Acceder</a>
             </div>
           </div>
         </div>

@@ -125,7 +125,7 @@
                 echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid" alt="Imagen de la protectora">';
                 echo '<div class="card-body text-center">';
                 echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
-                echo '<a href="prote1.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success btn-block">Más información</a>';
+                echo '<a href="formularioacogida.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success btn-block">Solicitar acogida</a>';
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';

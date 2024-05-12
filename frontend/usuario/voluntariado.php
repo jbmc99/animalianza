@@ -96,40 +96,59 @@
 
 
 
-      <div class="container">
-        <div class="row">
-          <div class="col-12 text-center mb-2 mt-5">
-            <h2>Protectoras que aceptan voluntarios en este momento</h2>
-          </div>
-        </div>
-      </div>
-      
-      <div id="page-content" class="container">
-        <!-- Fichas de Protectoras -->
-        <div class="row mt-5">
-          <!-- Protectora 1 -->
-          <div class="col-12 mb-3">
-            <div class="card bg-transparent border-0">
-              <img src="../images/ejemploprote1.jpg" class="card-img-top img-fluid" id="prote1" alt="...">
-              <div class="card-body text-center">
-                <h5 class="card-title">Rescate Animal Granada</h5>
-                <a href="prote1.php" class="btn btn-success btn-block">Solicitar voluntariado</a>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Protectora 2 -->
-          <div class="col-12 mb-3">
-            <div class="card bg-transparent border-0">
-              <img src="../images/ejemploprote2.jpg" class="card-img-top img-fluid" id="prote2" alt="...">
-              <div class="card-body text-center">
-                <h5 class="card-title">Amigos de los Animales Granada</h5>
-                <a href="prote1.php" class="btn btn-success btn-block">Solicitar voluntariado</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php
+// Incluir archivo de conexión a la base de datos
+require_once('../protectora/conexion.php');
+
+// Consultar la base de datos para obtener la información de las protectoras que aceptan voluntarios
+$sql = "SELECT id_protectora, nombre, info_prote, info_relevante, ruta_imagen FROM protectora WHERE acepta_voluntarios = 1";
+$resultado = $conn->query($sql);
+
+// Verificar si se encontraron resultados
+if ($resultado->num_rows > 0) {
+    echo '<div class="container">';
+    echo '<div class="row">';
+    echo '<div class="col-12 text-center mb-2 mt-5">';
+    echo '<h2>Protectoras que aceptan voluntarios en este momento</h2>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+
+    echo '<div id="page-content" class="container">';
+    echo '<div class="row mt-5">';
+
+    // Iterar sobre los resultados y generar el HTML para cada card
+    while ($fila = $resultado->fetch_assoc()) {
+        echo '<div class="col-12 mb-3">';
+        echo '<div class="card bg-transparent border-0">';
+        
+        // Verificar si el archivo de imagen existe
+        $image_path = $fila['ruta_imagen'];
+        if (file_exists($image_path)) {
+            echo '<img src="' . $image_path . '" class="card-img-top img-fluid" alt="Imagen de la protectora">';
+        } else {
+            echo '<p class="text-muted">No hay imagen disponible para esta protectora.</p>';
+        }
+        echo '<div class="card-body text-center">';
+        echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
+        echo '<p class="card-text">' . $fila['info_prote'] . '</p>';
+        echo '<p class="card-text">' . $fila['info_relevante'] . '</p>';
+        echo '<a href="formulariovoluntariado.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success btn-block">Solicitar voluntariado</a>';
+        echo '</div>'; // Cierre de card-body
+        echo '</div>'; // Cierre de card
+        echo '</div>'; // Cierre de col-12
+    }
+
+    echo '</div>'; // Cierre de row
+    echo '</div>'; // Cierre de container
+} else {
+    echo "No se encontraron protectoras que acepten voluntarios en este momento.";
+}
+
+// Cerrar la conexión a la base de datos
+$conn->close();
+?>
+
     <!-- Testimonios de voluntarios -->
     <div class="row mt-5">
       <div class="col-md-12">

@@ -47,52 +47,83 @@
     </div>
   </div>
 </nav>
-  
- 
-<?php
-// Incluir archivo de conexión a la base de datos
-require_once('../protectora/conexion.php');
-
-// Consultar la base de datos para obtener la información de las protectoras
-$sql = "SELECT id_protectora, nombre, info_prote, info_relevante, ruta_imagen FROM protectora";
-$resultado = $conn->query($sql);
-
-// Verificar si se encontraron resultados
-if ($resultado->num_rows > 0) {
-    echo '<h1 class="text-center mt-5 mb-5">Nuestras protectoras</h1>'; // Título centrado
-    echo '<div class="row justify-content-center">'; // Apertura de row y centrado de las tarjetas
-
-    // Iterar sobre los resultados y generar el HTML para cada card
-    while ($fila = $resultado->fetch_assoc()) {
-        echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">'; // Cambiado a d-flex justify-content-center
-        echo '<div class="card border-0 rounded-3 shadow-sm cardProtectora">'; // Añadido la clase 'cardProtectora'
-        
-        // Verificar si el archivo de imagen existe
-        $image_path = $fila['ruta_imagen'];
-        if (file_exists($image_path)) {
-            echo '<img src="' . $image_path . '" class="card-img-top imagenProtectora" alt="Imagen de la protectora">'; // Añadido la clase 'imagenProtectora'
-        } else {
-            echo '<p class="text-muted">No hay imagen disponible para esta protectora.</p>'; // Mensaje de imagen no disponible
-        }
-        echo '<div class="card-body text-center">';
-        echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
-        echo '<p class="card-text">' . $fila['info_prote'] . '</p>';
-        echo '<p class="card-text">' . $fila['info_relevante'] . '</p>';
-        echo '<a href="prote1.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success me-2">Más información</a>';
-        echo '</div>'; // Cierre de card-body
-        echo '</div>'; // Cierre de card
-        echo '</div>'; // Cierre de col-lg-6
-    }
-
-    echo '</div>'; // Cierre de row
-} else {
-    echo "No se encontraron protectoras.";
-}
-
-// Cerrar la conexión a la base de datos
-$conn->close();
-?>
-
+    <!-- Formulario de solicitud de casa de acogida -->
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-5">FORMULARIO DE CASA DE ACOGIDA</h2>
+            <form>
+                <div class="form-group row mb-4">
+                    <label for="nombreApellidos" class="col-sm-4 col-form-label">Nombre y apellidos</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="nombreApellidos" placeholder="Introduce tu nombre completo">
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="email" class="col-sm-4 col-form-label">E-mail</label>
+                    <div class="col-sm-8">
+                        <input type="email" class="form-control" id="email" placeholder="Introduzca su correo electrónico">
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="numeroTelefono" class="col-sm-4 col-form-label">Número de teléfono</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-control" id="numeroTelefono" placeholder="Introduzca su número de teléfono">
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="direccion" class="col-sm-4 col-form-label">Dirección Completa</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="direccion" placeholder="Introduzca su dirección">
+                    </div>
+                </div>
+                <fieldset class="form-group">
+                    <div class="row mb-5">
+                        <legend class="col-form-label col-sm-4 pt-0">¿A qué protectora desea ofrecerse como casa de acogida?</legend>
+                        <div class="col-sm-8">
+                            <select class="form-select mt-2 mb-2" aria-label="Seleccione la protectora a la que desea ofrecerse como casa de acogida">
+                                <option selected disabled>Seleccione la protectora</option>
+                                <option value="Protectora A">Protectora A</option>
+                                <option value="Protectora B">Protectora B</option>
+                                <option value="Protectora C">Protectora C</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <div class="row mb-5">
+                        <legend class="col-form-label col-sm-4 pt-0">¿A qué animal desea adoptar??</legend>
+                        <div class="col-sm-8">
+                            <select class="form-select mt-2 mb-2" aria-label="Seleccione el animal al que desea acoger">
+                                <option selected disabled>Seleccione el animal</option>
+                                <option value="Animal A">Protectora A</option>
+                                <option value="Animal B">Protectora B</option>
+                                <option value="Animal C">Protectora C</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group row mb-4">
+                    <label for="motivacionesAcogida" class="col-sm-4 col-form-label">¿Cuáles son sus motivaciones para ofrecerse como casa de acogida?</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="motivacionesAcogida" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="infoHogar" class="col-sm-4 col-form-label">Proporcione información sobre su hogar y estilo de vida</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="infoHogar" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row text-center mt-5">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success">Enviar solicitud</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
