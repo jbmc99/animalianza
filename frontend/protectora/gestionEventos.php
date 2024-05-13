@@ -50,9 +50,14 @@
     <div class="row justify-content-center">
         <?php
         require_once('conexion.php');
-
-        // Consulta SQL para eventos actuales
-        $sql = "SELECT * FROM evento WHERE estado = 'actual'";
+        // Iniciar la sesión 
+        session_start();
+        
+        // Obtener el id_protectora de la sesión 
+        $id_protectora = $_SESSION['id_protectora'];
+        
+        // Consultar la base de datos para obtener los eventos actuales que pertenecen a la protectora que ha iniciado sesión 
+        $sql = "SELECT id_evento, nombre, descripcion, fecha, estado, ruta_imagen FROM evento WHERE id_protectora = $id_protectora AND estado = 'actual'";
         $resultado = $conn->query($sql);
 
         if ($resultado->num_rows > 0) {
@@ -129,8 +134,9 @@
     <h2 class="text-center mt-5 mb-3">Eventos pasados:</h2>
     <div class="row justify-content-center">
         <?php
+
         // Consulta SQL para eventos pasados
-        $sql = "SELECT * FROM evento WHERE estado = 'pasado'";
+        $sql = "SELECT * FROM evento WHERE estado = 'pasado' AND id_protectora = $id_protectora";
         $resultado = $conn->query($sql);
 
         if ($resultado->num_rows > 0) {

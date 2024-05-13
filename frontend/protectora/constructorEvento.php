@@ -45,6 +45,7 @@
         <div class="col-md-8">
             <h2 class="text-center mb-4">Añade un evento</h2>
             <form action="procesar_eventos.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id_protectora" value="<?php echo $id_protectora; ?>">
                 <div class="form-group row mb-4">
                     <label for="nombreEvento" class="col-sm-4 col-form-label">Nombre del Evento</label>
                     <div class="col-sm-8">

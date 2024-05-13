@@ -1,9 +1,15 @@
 <?php
+
+session_start();
+
 // Incluir archivo de conexión
 require_once('conexion.php');
 
 // Verificar si se recibieron datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Obtener el id_protectora de la sesión
+    $id_protectora = $_SESSION['id_protectora'];
+
     // Obtener los datos del formulario
     $nombreEvento = $conn->real_escape_string($_POST['nombreEvento']);
     $descripcionEvento = $conn->real_escape_string($_POST['descripcionEvento']);
@@ -43,9 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if (move_uploaded_file($_FILES["fotoEvento"]["tmp_name"], $target_file)) {
             // Insertar los datos en la base de datos junto con la ruta de la imagen
-            $sql = "INSERT INTO evento (nombre, descripcion, fecha, estado, ruta_imagen) 
-                    VALUES ('$nombreEvento', '$descripcionEvento', '$fechaEvento', '$estadoEvento', '$target_file')";
-            
+            $sql = "INSERT INTO evento (nombre, descripcion, fecha, estado, ruta_imagen, id_protectora) 
+            VALUES ('$nombreEvento', '$descripcionEvento', '$fechaEvento', '$estadoEvento', '$target_file', '$id_protectora')";
+
             if ($conn->query($sql) === TRUE) {
                 // Redirigir a la página de gestión de eventos
                 header("Location: gestionEventos.php");

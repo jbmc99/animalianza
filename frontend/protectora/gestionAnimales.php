@@ -50,11 +50,15 @@
             <?php
             // Incluir archivo de conexión
             require_once('conexion.php');
+            // Iniciar la sesión
+            session_start();
 
-            // Consultar la base de datos para obtener los nombres, las imágenes y los IDs de los animales
-            $sql = "SELECT id_animal, nombre, especie, raza, edad, sexo, info_adicional, ruta_imagen FROM animal";
+            // Obtener el id_protectora de la sesión
+            $id_protectora = $_SESSION['id_protectora'];
 
-            $resultado = $conn->query($sql);
+            // Consultar la base de datos para obtener los nombres, las imágenes y los IDs de los animales que pertenecen a la protectora que ha iniciado sesión
+            $sql = "SELECT id_animal, nombre, especie, raza, edad, sexo, info_adicional, ruta_imagen FROM animal WHERE id_protectora = $id_protectora";
+                        $resultado = $conn->query($sql);
 
             // Verificar si la consulta se ejecutó correctamente
             if ($resultado === false) {

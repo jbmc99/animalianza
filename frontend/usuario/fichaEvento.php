@@ -50,46 +50,53 @@
 
 <?php
 // Verificar si se ha proporcionado un ID de evento en la URL
-if (isset($_GET['id'])) {
-    // Obtener el ID del evento de la URL
-    $id_evento = $_GET['id'];
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+  // Obtener el ID del evento de la URL
+  $id_evento = $_GET['id'];
 
-    // Incluir archivo de conexión a la base de datos
-    require_once('../protectora/conexion.php');
+  // Incluir archivo de conexión a la base de datos
+  require_once('../protectora/conexion.php');
 
-    // Consultar la base de datos para obtener los detalles del evento con el ID proporcionado
-    $sql = "SELECT * FROM evento WHERE id_evento = $id_evento";
-    $resultado = $conn->query($sql);
+  // Preparar la consulta SQL para obtener los detalles del evento con el ID proporcionado
+  $stmt = $conn->prepare("SELECT * FROM evento WHERE id_evento = ?");
+  $stmt->bind_param("i", $id_evento);
 
-    // Verificar si se encontraron datos del evento
-    if ($resultado->num_rows > 0) {
-        $datos = $resultado->fetch_object();
-        // Construir la ruta completa de la imagen
-        $ruta_imagen = '../images/uploads' . $datos->ruta_imagen;
+  // Ejecutar la consulta
+  $stmt->execute();
+
+  // Obtener el resultado
+  $resultado = $stmt->get_result();
+
+  // Verificar si se encontraron datos del evento
+  if ($resultado->num_rows > 0) {
+      $datos = $resultado->fetch_object();
+      // Construir la ruta completa de la imagen
+      $ruta_imagen = $datos->ruta_imagen;
+
 ?>
-        <div class="container mt-5">
-            <div class="row">
-                <!-- Información del evento -->
-                <div class="card-body text-center">
-                    <h2 class="card-title"><?php echo $datos->nombre; ?></h2>
-                    <p class="card-text"><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
-                    <p class="card-text"><strong>Fecha:</strong> <?php echo $datos->fecha; ?></p>
-                    <!-- Mostrar la imagen -->
-                    <img src="<?php echo $ruta_imagen; ?>" width="300" alt="Imagen del Evento">
-                </div>
-            </div>
-        </div>
+      <div class="container mt-5">
+          <div class="row">
+              <!-- Información del evento -->
+              <div class="card-body text-center">
+                  <h2 class="card-title"><?php echo $datos->nombre; ?></h2>
+                  <p class="card-text"><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
+                  <p class="card-text"><strong>Fecha:</strong> <?php echo $datos->fecha; ?></p>
+                  <!-- Mostrar la imagen -->
+                  <img src="<?php echo $ruta_imagen; ?>" width="300" alt="Imagen del Evento">
+              </div>
+          </div>
+      </div>
 <?php
-    } else {
-        // Mostrar un mensaje si no se encontraron datos del evento
-        echo "<p>No se encontraron detalles del evento.</p>";
-    }
+  } else {
+      // Mostrar un mensaje si no se encontraron datos del evento
+      echo "<p>No se encontraron detalles del evento.</p>";
+  }
 
-    // Cerrar la conexión a la base de datos
-    $conn->close();
+  // Cerrar la conexión a la base de datos
+  $conn->close();
 } else {
-    // Mostrar un mensaje si no se proporcionó un ID de evento en la URL
-    echo "<p>No se proporcionó un ID de evento.</p>";
+  // Mostrar un mensaje si no se proporcionó un ID de evento en la URL
+  echo "<p>No se proporcionó un ID de evento válido.</p>";
 }
 ?>
 
