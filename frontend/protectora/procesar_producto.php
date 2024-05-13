@@ -1,9 +1,15 @@
 <?php
+// Iniciar la sesión
+session_start();
+
 // Incluir archivo de conexión
 require_once('conexion.php');
 
 // Verificar si se recibieron datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Obtener el id_protectora de la sesión
+    $id_protectora = $_SESSION['id_protectora'];
+
     // Obtener los datos del formulario
     $nombreProducto = $conn->real_escape_string($_POST['nombreProducto']);
     $descripcionProducto = $conn->real_escape_string($_POST['descripcionProducto']);
@@ -42,8 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if (move_uploaded_file($_FILES["fotoProducto"]["tmp_name"], $target_file)) {
             // Insertar los datos en la base de datos junto con la ruta de la imagen
-            $sql = "INSERT INTO producto (nombre, descripcion, precio, ruta_imagen) 
-                    VALUES ('$nombreProducto', '$descripcionProducto', '$precioProducto', '$target_file')";
+            $sql = "INSERT INTO producto (id_protectora, nombre, descripcion, precio, ruta_imagen) 
+            VALUES ('$id_protectora', '$nombreProducto', '$descripcionProducto', '$precioProducto', '$target_file')";
             
             if ($conn->query($sql) === TRUE) {
                 // Redirigir a la página de gestión de productos

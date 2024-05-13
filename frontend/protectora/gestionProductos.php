@@ -56,11 +56,16 @@
 
 <!-- Aquí va el código PHP para mostrar los productos -->
 <?php
+
+session_start();
     // Incluir archivo de conexión
     require_once('conexion.php');
 
-    // Consulta SQL para obtener todos los productos
-    $sql = "SELECT * FROM producto";
+    // Obtener el ID de la protectora de la sesión
+    $id_protectora = $_SESSION['id_protectora'];
+
+    // Consulta SQL para obtener los productos de la protectora que ha iniciado sesión
+    $sql = "SELECT * FROM producto WHERE id_protectora = '$id_protectora'";
     $result = $conn->query($sql);
 
     // Verificar si se obtuvieron resultados
@@ -91,7 +96,6 @@
     // Cerrar la conexión a la base de datos
     $conn->close();
 ?>
-
 
                <!-- Modal para editar producto -->
 <div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="editarProductoModalLabel" aria-hidden="true">
