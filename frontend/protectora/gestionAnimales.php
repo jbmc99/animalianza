@@ -44,7 +44,7 @@
   
 <!-- Contenido principal -->
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">Tus animales:</h2>
+    <h2 class="mb-4 text-center">Tus productos:</h2>
     <div class="row">
         <div class="d-flex flex-wrap justify-content-center ms-5 me-2 text-center">
             <?php
@@ -53,104 +53,94 @@
             // Iniciar la sesión
             session_start();
 
-            // Obtener el id_protectora de la sesión
-            $id_protectora = $_SESSION['id_protectora'];
+            // Verificar si se ha iniciado sesión y si se ha establecido 'id_protectora' en la sesión
+            if (isset($_SESSION['id_protectora'])) {
+                // Obtener 'id_protectora' de la sesión
+                $id_protectora = $_SESSION['id_protectora'];
 
-            // Consultar la base de datos para obtener los nombres, las imágenes y los IDs de los animales que pertenecen a la protectora que ha iniciado sesión
-            $sql = "SELECT id_animal, nombre, especie, raza, edad, sexo, info_adicional, ruta_imagen FROM animal WHERE id_protectora = $id_protectora";
-                        $resultado = $conn->query($sql);
+                // Consulta SQL para obtener todos los productos asociados a la protectora
+                $sql = "SELECT * FROM producto WHERE id_protectora = $id_protectora";
+                $result = $conn->query($sql);
 
-            // Verificar si la consulta se ejecutó correctamente
-            if ($resultado === false) {
-                die('Error en la consulta: ' . $conn->error);
-            }
+                // Verificar si la consulta se ejecutó correctamente
+                if ($result === false) {
+                    die('Error en la consulta: ' . $conn->error);
+                }
 
-            // Verificar si se encontraron resultados
-            if ($resultado->num_rows > 0) {
-                // Mostrar cada animal en una tarjeta
-                while ($fila = $resultado->fetch_assoc()) {
-                    echo '<div class="card ms-3 mb-3 me-5 border bg-light text-center" style="width: 18rem;">';
-                    echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '">';
-                    // Mostrar la imagen del animal
-                    echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid img-thumbnail border-0 bg-transparent" alt="Foto del animal">';
-                    echo '</a>';
-                    echo '<div class="card-body">';
-                    echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
-                    echo '<div class="d-flex justify-content-between mt-3">';
-                    // Botón de "Más información" verde
-                    echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '" class="btn btn-success me-2">Más información</a>';
-                    // Botón de "Editar animal" verde
-                    echo '<button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#editarAnimalModal' . $fila['id_animal'] . '">Editar animal</button>';
-                    echo '</div>'; // Cierre de d-flex justify-content-between
-                    echo '</div>'; // Cierre de card-body
-                    echo '</div>'; // Cierre de card
+                // Verificar si se encontraron productos
+                if ($result->num_rows > 0) {
+                    // Mostrar cada producto en una tarjeta
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="card ms-3 mb-3 me-5 border bg-light text-center" style="width: 18rem;">';
+                        echo '<img src="' . $row['ruta_imagen'] . '" class="card-img-top img-fluid img-thumbnail border-0 bg-transparent" alt="Foto del Producto">';
+                        echo '<div class="card-body">';
+                        echo '<h5 class="card-title">' . $row['nombre'] . '</h5>';
+                        echo '<p class="card-text">' . $row['descripcion'] . '</p>';
+                        echo '<p class="card-text">$' . $row['precio'] . '</p>';
+                        echo '<div class="d-flex justify-content-between mt-3">';
+                        // Botón de "Más información" verde
+                        echo '<a href="../usuario/infoproducto.php?id_producto=' . $row['id_producto'] . '" class="btn btn-success me-2">Más información</a>';
+                        // Botón de "Editar producto" verde
+                        echo '<button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#editarProductoModal' . $row['id_producto'] . '">Editar producto</button>';
+                        echo '</div>'; // Cierre de d-flex justify-content-between
+                        echo '</div>'; // Cierre de card-body
+                        echo '</div>'; // Cierre de card
 
-                    // Modal para editar animal
-                    echo "<div class='modal fade' id='editarAnimalModal" . $fila['id_animal'] . "' tabindex='-1' aria-labelledby='editarAnimalModalLabel" . $fila['id_animal'] . "' aria-hidden='true'>";
-                    echo "<div class='modal-dialog'>";
-                    echo "<div class='modal-content'>";
-                    echo "<div class='modal-header'>";
-                    echo "<h5 class='modal-title' id='editarAnimalModalLabel" . $fila['id_animal'] . "'>Editar animal: " . $fila['nombre'] . "</h5>";
-                    echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
-                    echo "</div>";
-                    echo "<div class='modal-body'>";
-                    // Formulario para editar el animal
-                    echo "<form action='procesar_animal.php' method='post' enctype='multipart/form-data'>";
-                    echo "<input type='hidden' name='id_animal' value='" . $fila['id_animal'] . "'>";
-                    echo "<div class='form-group'>";
-                    echo "<label for='nombreAnimal'>Nombre:</label>";
-                    echo "<input type='text' class='form-control' id='nombreAnimal' name='nombreAnimal' value='" . $fila['nombre'] . "'>";
-                    echo "</div>";
-                    echo "<div class='form-group'>";
-                    echo "<label for='especieAnimal'>Especie:</label>";
-                    echo "<input type='text' class='form-control' id='especieAnimal' name='especieAnimal' value='" . $fila['especie'] . "'>";
-                    echo "</div>";
-                    echo "<div class='form-group'>";
-                    echo "<label for='razaAnimal'>Raza:</label>";
-                    echo "<input type='text' class='form-control' id='razaAnimal' name='razaAnimal' value='" . $fila['raza'] . "'>";
-                    echo "</div>";
-                    echo "<div class='form-group'>";
-                    echo "<label for='edadAnimal'>Edad:</label>";
-                    echo "<input type='number' class='form-control' id='edadAnimal' name='edadAnimal' value='" . $fila['edad'] . "'>";
-                    echo "</div>";
-                    echo "<div class='form-group'>";
-                    echo "<label for='sexoAnimal'>Sexo:</label>";
-                    echo "<select class='form-control' id='sexoAnimal' name='sexoAnimal'>";
-                    echo "<option value='Macho' " . ($fila['sexo'] == 'Macho' ? 'selected' : '') . ">Macho</option>";
-                    echo "<option value='Hembra' " . ($fila['sexo'] == 'Hembra' ? 'selected' : '') . ">Hembra</option>";
-                    echo "</select>";
-                    echo "</div>";
-                    echo "<div class='form-group'>";
-                    echo "<label for='info_adicional'>Información Adicional:</label>";
-                    echo "<textarea class='form-control' id='info_adicional' name='info_adicional'>" . $fila['info_adicional'] . "</textarea>";
-                    echo "</div>";
-                    // Campo de carga de archivos para la foto del animal
-                    echo "<div class='form-group'>";
-                    echo "<label for='fotoAnimal'>Foto del Animal:</label>";
-                    echo "<input type='file' class='form-control-file' id='fotoAnimal' name='fotoAnimal'>";
-                    echo "</div>";
-
-                    // Campo hidden para el sexo del animal
-                    echo "<input type='hidden' name='sexoAnimal' value='" . $fila['sexo'] . "'>";
-
-                    echo "<button type='submit' class='btn btn-primary'>Guardar cambios</button>";
-                    echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>";
-                    echo "</form>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
+                        // Modal para editar producto
+                        echo "<div class='modal fade' id='editarProductoModal" . $row['id_producto'] . "' tabindex='-1' aria-labelledby='editarProductoModalLabel" . $row['id_producto'] . "' aria-hidden='true'>";
+                        echo "<div class='modal-dialog'>";
+                        echo "<div class='modal-content'>";
+                        echo "<div class='modal-header'>";
+                        echo "<h5 class='modal-title' id='editarProductoModalLabel" . $row['id_producto'] . "'>Editar producto: " . $row['nombre'] . "</h5>";
+                        echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+                        echo "</div>";
+                        echo "<div class='modal-body'>";
+                        // Formulario para editar el producto
+                        echo "<form action='procesar_producto.php' method='post' enctype='multipart/form-data'>";
+                        echo "<input type='hidden' name='id_producto' value='" . $row['id_producto'] . "'>";
+                        echo "<div class='form-group'>";
+                        echo "<label for='nombreProducto'>Nombre:</label>";
+                        echo "<input type='text' class='form-control' id='nombreProducto' name='nombreProducto' value='" . $row['nombre'] . "'>";
+                        echo "</div>";
+                        echo "<div class='form-group'>";
+                        echo "<label for='descripcionProducto'>Descripción:</label>";
+                        echo "<textarea class='form-control' id='descripcionProducto' name='descripcionProducto'>" . $row['descripcion'] . "</textarea>";
+                        echo "</div>";
+                        echo "<div class='form-group'>";
+                        echo "<label for='precioProducto'>Precio:</label>";
+                        echo "<input type='number' class='form-control' id='precioProducto' name='precioProducto' value='" . $row['precio'] . "'>";
+                        echo "</div>";
+                        // Campo de carga de archivos para la foto del producto
+                        echo "<div class='form-group'>";
+                        echo "<label for='fotoProducto'>Foto del Producto:</label>";
+                        echo "<input type='file' class='form-control-file' id='fotoProducto' name='fotoProducto'>";
+                        echo "</div>";
+                        echo "<button type='submit' class='btn btn-primary'>Guardar cambios</button>";
+                        echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>";
+                        echo "</form>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                } else {
+                    // Si no se encontraron productos
+                    echo '<p class="text-center">No hay productos disponibles</p>';
                 }
             } else {
-                echo "No se encontraron animales.";
+                // Si no se ha iniciado sesión o 'id_protectora' no está establecida en la sesión
+                // Redirigir al usuario a una página de inicio de sesión u otra página apropiada
+                header("Location: iniciar_sesion.php");
+                exit; // Asegurar que se detenga la ejecución después de la redirección
             }
 
             // Cerrar la conexión a la base de datos
-
+            $conn->close();
             ?>
         </div>
     </div>
 </div>
+
 
 
     <div class="text-center mt-1">
