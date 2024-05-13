@@ -54,56 +54,44 @@
     <h1 class="text-center mb-5">Tus productos:</h1>
     <div class="row justify-content-center">
 
-    <!-- Aquí va el código PHP para mostrar los productos -->
-    <?php
-        // Incluir archivo de conexión
-        require_once('conexion.php');
+<!-- Aquí va el código PHP para mostrar los productos -->
+<?php
+    // Incluir archivo de conexión
+    require_once('conexion.php');
 
-        session_start();
+    // Consulta SQL para obtener todos los productos
+    $sql = "SELECT * FROM producto";
+    $result = $conn->query($sql);
 
-        // Verificar si se ha iniciado sesión y si se ha establecido 'id_protectora' en la sesión
-        if (isset($_SESSION['id_protectora'])) {
-            // Obtener 'id_protectora' de la sesión
-            $id_protectora = $_SESSION['id_protectora'];
-
-            // Consulta SQL para obtener todos los productos asociados a la protectora
-            $sql = "SELECT * FROM producto WHERE id_protectora = $id_protectora";
-            $result = $conn->query($sql);
-
-            // Verificar si se obtuvieron resultados
-            if ($result->num_rows > 0) {
-                // Mostrar los productos
-                while($row = $result->fetch_assoc()) {
-                    echo '<div class="col-lg-4 mb-4 ">';
-                    echo '<div class="card border-0 rounded-3 shadow-sm">';
-                    echo '<img src="' . $row['ruta_imagen'] . '" class="card-img-top" alt="Imagen del Producto">';
-                    echo '<div class="card-body text-center">';
-                    echo '<h5 class="card-title">' . $row['nombre'] . '</h5>';
-                    echo '<p class="card-text">' . $row['descripcion'] . '</p>';
-                    echo '<h6 class="card-subtitle mb-2 text-muted">$' . $row['precio'] . '</h6>';
-                    echo '<div class="d-flex justify-content-center">';
-                    echo '<a href="../usuario/infoproducto.php?id_producto=' . $row['id_producto'] . '" class="btn btn-success me-2">Más información</a>';
-                    // Botón para editar producto (activa el modal)
-                    echo '<button type="button" class="btn btn-success editarProducto" data-bs-toggle="modal" data-bs-target="#editarProductoModal" data-id="' . $row['id_producto'] . '">Editar producto</button>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
-                }
-            } else {
-                // Manejar el caso de no haber productos
-                echo '<p class="text-center">No hay productos disponibles</p>';
-            }
-        } else {
-            // Si no se ha iniciado sesión o 'id_protectora' no está establecida en la sesión
-            // Redirigir al usuario a una página de inicio de sesión u otra página apropiada
-            header("Location: iniciar_sesion.php");
-            exit; // Asegurar que se detenga la ejecución después de la redirección
+    // Verificar si se obtuvieron resultados
+    if ($result->num_rows > 0) {
+        // Mostrar los productos
+        while($row = $result->fetch_assoc()) {
+            echo '<div class="col-lg-4 mb-4 ">';
+            echo '<div class="card border-0 rounded-3 shadow-sm">';
+            echo '<img src="' . $row['ruta_imagen'] . '" class="card-img-top" alt="Imagen del Producto">';
+            echo '<div class="card-body text-center">';
+            echo '<h5 class="card-title">' . $row['nombre'] . '</h5>';
+            echo '<p class="card-text">' . $row['descripcion'] . '</p>';
+            echo '<h6 class="card-subtitle mb-2 text-muted">$' . $row['precio'] . '</h6>';
+            echo '<div class="d-flex justify-content-center">';
+            echo '<a href="../usuario/infoproducto.php?id_producto=' . $row['id_producto'] . '" class="btn btn-success me-2">Más información</a>';
+            // Botón para editar producto (activa el modal)
+            echo '<button type="button" class="btn btn-success editarProducto" data-bs-toggle="modal" data-bs-target="#editarProductoModal" data-id="' . $row['id_producto'] . '">Editar producto</button>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
         }
+    } else {
+        // Manejar el caso de no haber productos
+        echo '<p class="text-center">No hay productos disponibles</p>';
+    }
 
-        // Cerrar la conexión a la base de datos
-        $conn->close();
-    ?>
+    // Cerrar la conexión a la base de datos
+    $conn->close();
+?>
+
 
                <!-- Modal para editar producto -->
 <div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="editarProductoModalLabel" aria-hidden="true">
