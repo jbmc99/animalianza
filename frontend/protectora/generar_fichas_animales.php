@@ -25,7 +25,8 @@ if ($resultado->num_rows > 0) {
         echo "<p>Edad: " . $fila['edad'] . "</p>";
         // Mostrar la imagen del animal
         echo "<img src='" . $fila['ruta_imagen'] . "' alt='Foto del animal' style='max-width: 300px;'>";
-
+        // Agregar botón de adopción
+        echo "<a href='../usuario/formularioadop.php' class='btn btn-success mt-3'>Solicitar adopción</a>";
         // Continuar con otros detalles del animal si los hay
     }
 } else {

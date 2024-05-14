@@ -84,20 +84,62 @@
                   </div>
                   <div class="col-sm-4"></div>
                   <div class="col-sm-8">
-                    <select class="form-select mt-2 mb-2" aria-label="Seleccione la protectora del animal">
-                      <option selected disabled>Seleccione la protectora a la que pertenece</option>
-                      <option value="Protectora A">Protectora A</option>
-                      <option value="Protectora B">Protectora B</option>
-                      <option value="Protectora C">Protectora C</option>
-                    </select>
-                    <select class="form-select mt-2" aria-label="Seleccione el nombre del animal">
-                      <option selected disabled>Seleccione el nombre del animal</option>
-                      <option value="animal 1">Lassie</option>
-                      <option value="animal 2">Lasilla</option>
-                      <option value="animal 3">Lasito</option>
-                    </select>
-                  </div>
-                </div>
+<!-- formulario de adopción -->
+<div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="text-center mb-5">FORMULARIO DE ADOPCIÓN</h2>
+                <form id="formulario-adopcion">
+                    <div class="form-group row mb-4">
+                        <label for="nombreApellidos" class="col-sm-4 col-form-label">Nombre y apellidos</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="nombreApellidos"
+                                placeholder="Introduce tu nombre completo">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label for="email" class="col-sm-4 col-form-label">E-mail</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="email"
+                                placeholder="Introduzca su correo electrónico">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label for="select-protectora" class="col-sm-4 col-form-label">Seleccione la protectora</label>
+                        <div class="col-sm-8">
+                            <select class="form-select mt-2 mb-2" aria-label="Seleccione la protectora"
+                                id="select-protectora">
+                                <option selected disabled>Seleccione la protectora a la que pertenece</option>
+                                <?php
+                                    // Incluir archivo de conexión
+                                    require_once('../protectora/conexion.php');
+
+                                    // Consultar la base de datos para obtener todas las protectoras
+                                    $sql = "SELECT * FROM protectora";
+                                    $resultado = $conn->query($sql);
+
+                                    // Verificar si se encontraron protectoras
+                                    if ($resultado->num_rows > 0) {
+                                        // Mostrar todas las opciones de protectoras en el select
+                                        while ($fila = $resultado->fetch_assoc()) {
+                                            echo '<option value="' . $fila['id_protectora'] . '">' . $fila['nombre'] . '</option>';
+                                        }
+                                    } else {
+                                        echo "<option disabled>No se encontraron protectoras</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                        <label for="select-nombre-animal" class="col-sm-4 col-form-label">Seleccione el nombre del animal</label>
+                        <div class="col-sm-8">
+                            <select class="form-select mt-2" aria-label="Seleccione el nombre del animal"
+                                id="select-nombre-animal">
+                                <option selected disabled>Primero seleccione una protectora</option>
+                            </select>
+                        </div>
+                    </div>
               </fieldset>
               
               <div class="form-group row mb-4">
@@ -277,5 +319,22 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#select-protectora').change(function () {
+                var idProtectora = $(this).val();
+                $.ajax({
+                    url: 'obtener_animales.php',
+                    type: 'post',
+                    data: {
+                        id_protectora: idProtectora
+                    },
+                    success: function (response) {
+                        $('#select-nombre-animal').html(response);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
