@@ -49,198 +49,73 @@
 </nav>
   
   
-<!--Cards-->
 <div class="container text-center mb-5">
-  <div class="col align-self-center mt-4 mb-5">
-    <h1><b>VER TODO</b></h1>
-  </div>
-  <div class="row justify-content-center mb-4">
-      <div class="col-md-4 mb-5">
-        <select class="form-select" aria-label="Seleccione la protectora">
-          <option selected>Seleccione la protectora</option>
-          <option value="protectora1">Protectora 1</option>
-          <option value="protectora2">Protectora 2</option>
-          <option value="protectora3">Protectora 3</option>
-          <option value="protectora4">Protectora 4</option>
-          <option value="protectora5">Protectora 5</option>
-          <option value="protectora6">Protectora 6</option>
-        </select>
-      </div>
-      <div class="col-md-4">
-        <select class="form-select" aria-label="Seleccione el color">
-          <option selected>Seleccione el color</option>
-          <option value="blanco">Blanco</option>
-          <option value="negro">Negro</option>
-          <option value="gris">Gris</option>
-
-        </select>
-      </div>
+    <div class="col align-self-center mt-4 mb-5">
+        <h1><b>PERROS Y GATOS</b></h1>
     </div>
-<!--CARDS-->
-<div class="d-flex flex-wrap justify-content-center ms-5 me-2">
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card1">
-  <a  href="fichagato1.php"> <img src="../images/gatoadop1.jpg" class="card-img-top img-fluid" alt="..."> </a>
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>ARYA</h3>
-    </a>
-  </div>
-</div>
 
-<div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card2">
-  <img src="../images/gatoadop2.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>CANDY</h3>
-    </a>
-  </div>
-</div>
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-4 mb-5">
+            <select class="form-select" aria-label="Seleccione la protectora">
+                <option selected>Seleccione la protectora</option>
+                <!-- Aquí puedes agregar opciones de protectoras si es necesario -->
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select class="form-select" aria-label="Seleccione el color">
+                <option selected>Seleccione el color</option>
+                <!-- Aquí puedes agregar opciones de colores si es necesario -->
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-success">Filtrar</button>
+        </div>
+    </div>
+    <!--CARDS-->
+    <div class="d-flex flex-wrap justify-content-center ms-5 me-2">
+        <?php
+        // Iniciar la sesión
+        session_start();
 
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card3">
-  <img src="../images/gatoadop3.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>HUGO Y NEO</h3>
-    </a>
-  </div>
-</div>
+        // Verificar si se ha iniciado sesión y se ha almacenado el ID de la protectora
+        if (isset($_SESSION['id_protectora'])) {
+            // Obtener el ID de la protectora de la sesión
+            $id_protectora = $_SESSION['id_protectora'];
 
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card4">
-  <img src="../images/gatoadop4.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>DINO</h3>
-    </a>
-  </div>
-</div>
+            // Incluir archivo de conexión
+            require_once('../protectora/conexion.php');
 
-<div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card5">
-  <img src="../images/gatoadop5.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>SIMBA</h3>
-    </a>
-  </div>
-</div>
+            // Consultar la base de datos para obtener todas las tarjetas de perros y gatos de la protectora actual
+            $sql = "SELECT * FROM animal WHERE (especie = 'Perro' OR especie = 'Gato') AND id_protectora = $id_protectora";
+            $resultado = $conn->query($sql);
 
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card6">
-  <img src="../images/gatoadop6.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>SELINA</h3>
-    </a>
-  </div>
-</div>
+            // Verificar si se encontraron perros y/o gatos
+            if ($resultado->num_rows > 0) {
+                // Mostrar todas las tarjetas de perros y gatos de la protectora actual
+                while ($fila = $resultado->fetch_assoc()) {
+                    echo '<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card' . $fila['id_animal'] . '">';
+                    echo '<a href="fichagato1.php?id=' . $fila['id_animal'] . '">'; // Enlace a la página de detalles del animal
+                    echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid" alt="Foto del animal">';
+                    echo '</a>';
+                    echo '<div class="card-body">';
+                    echo '<a href="fichagato1.php?id=' . $fila['id_animal'] . '" class="btn btn-link text-dark text-decoration-none">';
+                    echo '<h3>' . $fila['nombre'] . '</h3>';
+                    echo '</a>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            } else {
+                echo "No se encontraron perros ni gatos para adopción.";
+            }
 
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card7">
-  <img src="../images/gatoadop7.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>LOKI</h3>
-    </a>
-  </div>
+            // Cerrar la conexión a la base de datos
+            $conn->close();
+        } else {
+            echo "No se ha iniciado sesión.";
+        }
+        ?>
+    </div>
 </div>
-
-<div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card8">
-  <img src="../images/gatoadop8.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>LOKETE</h3>
-    </a>
-  </div>
-</div>
-
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card9">
-  <img src="../images/gatoadop9.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>POLLO</h3>
-    </a>
-  </div>
-</div>
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card7">
-  <img src="../images/gatoadop7.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>LOKI</h3>
-    </a>
-  </div>
-</div>
-
-<div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card8">
-  <img src="../images/gatoadop8.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>LOKETE</h3>
-    </a>
-  </div>
-</div>
-
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card9">
-  <img src="../images/gatoadop9.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>POLLO</h3>
-    </a>
-  </div>
-</div>
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card7">
-  <img src="../images/gatoadop7.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>LOKI</h3>
-    </a>
-  </div>
-</div>
-
-<div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card8">
-  <img src="../images/gatoadop8.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>LOKETE</h3>
-    </a>
-  </div>
-</div>
-
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card9">
-  <img src="../images/gatoadop9.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>POLLO</h3>
-    </a>
-  </div>
-</div>
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card7">
-  <img src="../images/gatoadop7.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>LOKI</h3>
-    </a>
-  </div>
-</div>
-
-<div class="card ms-3 mb-5 me-5 bg-transparent border-0" id="card8">
-  <img src="../images/gatoadop8.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>LOKETE</h3>
-    </a>
-  </div>
-</div>
-
-<div class="card ms-3 mb-3 me-5 bg-transparent border-0" id="card9">
-  <img src="../images/gatoadop9.jpg" class="card-img-top img-fluid" alt="...">
-  <div class="card-body">
-    <a href="fichagato1.php" class="btn btn-link text-dark text-decoration-none">
-      <h3>POLLO</h3>
-    </a>
-  </div>
-</div>
-</div>
-</div>
-
-
-
 
 
 

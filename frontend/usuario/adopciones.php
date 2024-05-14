@@ -81,6 +81,9 @@
       </div>
     </div>
   </div>
+
+
+  
   <div class="container text-center mb-5">
       <h3><b>¿Qué son los casos especiales?</b></h3>
       <p class="col align-self-center mt-4 mb-5">Si ves que en una ficha aparece 'caso especial', hay que tener especial precaución. Los casos especiales son los de 

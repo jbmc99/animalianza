@@ -94,8 +94,10 @@
                     echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
                     echo "</div>";
                     echo "<div class='modal-body'>";
+
                     // Formulario para editar el animal
                     echo "<form action='procesar_animal.php' method='post' enctype='multipart/form-data'>";
+                    echo "<input type='hidden' name='id_protectora' value='" . $id_protectora . "'>"; 
                     echo "<input type='hidden' name='id_animal' value='" . $fila['id_animal'] . "'>";
                     echo "<div class='form-group'>";
                     echo "<label for='nombreAnimal'>Nombre:</label>";

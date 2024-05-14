@@ -1,65 +1,73 @@
 <?php
+// Iniciar la sesión
+session_start();
+
+// Verificar si la sesión contiene el ID de protectora
+if (!isset($_SESSION['id_protectora'])) {
+    // Si el ID de protectora no está establecido en la sesión, redirigir a la página de inicio de sesión
+    header('Location: iniciar_sesion.php');
+    exit(); // Salir del script para evitar ejecución adicional
+}
+
+// Obtener el ID de protectora de la sesión
+$id_protectora = $_SESSION['id_protectora'];
+
 // Verificar si se han recibido los datos del formulario de edición
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_animal'])) {
-    // Obtener los datos del formulario
-    $id_animal = $_POST['id_animal'];
-    $nombreAnimal = $_POST['nombreAnimal'];
-    // Agrega aquí más campos para obtener los datos del formulario (especie, raza, edad, etc.)
-
     // Incluir archivo de conexión
     require_once('conexion.php');
+
+    // Obtener los datos del formulario y limpiarlos para evitar inyección SQL
+    $id_animal = $conn->real_escape_string($_POST['id_animal']);
+    $nombreAnimal = $conn->real_escape_string($_POST['nombreAnimal']);
+    $especieAnimal = $conn->real_escape_string($_POST['especieAnimal']);
+    $razaAnimal = $conn->real_escape_string($_POST['razaAnimal']);
+    $edadAnimal = $conn->real_escape_string($_POST['edadAnimal']);
+    $sexoAnimal = $conn->real_escape_string($_POST['sexoAnimal']);
+    $info_adicional = $conn->real_escape_string($_POST['info_adicional']);
 
     // Verificar si se ha subido una nueva imagen
     if ($_FILES['fotoAnimal']['size'] > 0) {
         // Manejar la subida de la nueva imagen
         $target_dir = "../images/uploads/";
         $target_file = $target_dir . basename($_FILES["fotoAnimal"]["name"]);
-        $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
         // Verificar si el archivo es una imagen real
         $check = getimagesize($_FILES["fotoAnimal"]["tmp_name"]);
-        if($check !== false) {
-            // Permitir solo ciertos formatos de imagen
-            $allowed_formats = array("jpg", "jpeg", "png", "gif");
-            if(!in_array($imageFileType, $allowed_formats)) {
-                echo "Solo se permiten archivos JPG, JPEG, PNG y GIF.";
-                $uploadOk = 0;
-            }
-        } else {
-            echo "El archivo no es una imagen.";
-            $uploadOk = 0;
+        if ($check === false) {
+            echo "El archivo no es una imagen válida.";
+            exit();
+        }
+
+        // Permitir solo ciertos formatos de imagen
+        $allowed_formats = array("jpg", "jpeg", "png", "gif");
+        if (!in_array($imageFileType, $allowed_formats)) {
+            echo "Solo se permiten archivos JPG, JPEG, PNG y GIF.";
+            exit();
         }
 
         // Verificar el tamaño del archivo
         if ($_FILES["fotoAnimal"]["size"] > 5 * 1024 * 1024) {
             echo "El tamaño del archivo es demasiado grande.";
-            $uploadOk = 0;
+            exit();
         }
 
-        // Verificar si $uploadOk está configurado en 0 por un error
-        if ($uploadOk == 0) {
-            echo "El archivo no fue subido.";
-        // Si todo está bien, intentar subir el archivo
-        } else {
-            if (move_uploaded_file($_FILES["fotoAnimal"]["tmp_name"], $target_file)) {
-                // Actualizar la ruta de la imagen en la base de datos
-                $ruta_imagen = $target_file;
-            } else {
-                // Manejar el caso de error al mover el archivo subido
-                echo "Error al subir la imagen.";
-                exit(); // Salir del script si hay un error
-            }
+        // Mover el archivo subido al directorio de imágenes
+        if (!move_uploaded_file($_FILES["fotoAnimal"]["tmp_name"], $target_file)) {
+            echo "Error al subir la imagen.";
+            exit();
         }
+
+        // Actualizar la ruta de la imagen en la base de datos
+        $ruta_imagen = $target_file;
+        $sql_imagen = ", ruta_imagen='$ruta_imagen'";
+    } else {
+        $sql_imagen = ""; // No actualizar la imagen si no se subió una nueva
     }
 
-    // Construir la consulta SQL para actualizar el animal, incluyendo la ruta de la imagen si se actualizó
-    $sql = "UPDATE animal SET nombre='$nombreAnimal'";
-    // Agrega aquí más campos para actualizar en la base de datos (especie, raza, edad, etc.)
-    if (isset($ruta_imagen)) {
-        $sql .= ", ruta_imagen='$ruta_imagen'";
-    }
-    $sql .= " WHERE id_animal = $id_animal";
+    // Construir la consulta SQL para actualizar el animal
+    $sql = "UPDATE animal SET nombre='$nombreAnimal', especie='$especieAnimal', raza='$razaAnimal', edad='$edadAnimal', sexo='$sexoAnimal', info_adicional='$info_adicional'" . $sql_imagen . " WHERE id_animal = $id_animal";
 
     // Ejecutar la consulta
     if ($conn->query($sql) === TRUE) {

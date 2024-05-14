@@ -52,20 +52,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
             }
+        }
 
-            // Insertar el nuevo animal en la base de datos
-            if (empty($errors)) {
-                $sql_insert = "INSERT INTO animal (id_protectora, nombre, especie, raza, edad, sexo, info_adicional, ruta_imagen) VALUES ('$id_protectora', '$nombre', '$especie', '$raza', '$edad', '$sexo', '$info_adicional', '$target_file')";
-                if ($conn->query($sql_insert)) {
-                    // Redirigir a gestionAnimales.php
-                    header("Location: gestionAnimales.php");
-                    exit(); // Asegurar que se detenga la ejecución después de la redirección
+        // Insertar el nuevo animal en la base de datos o actualizar uno existente
+        if (empty($errors)) {
+            if (isset($_POST['id_animal']) && is_numeric($_POST['id_animal'])) {
+                // Actualizar un animal existente
+                $id_animal = $conn->real_escape_string($_POST['id_animal']);
+                if (isset($target_file)) {
+                    // Si se subió una nueva imagen, actualizar también la ruta de la imagen
+                    $sql = "UPDATE animal SET nombre = '$nombre', especie = '$especie', raza = '$raza', edad = '$edad', sexo = '$sexo', info_adicional = '$info_adicional', ruta_imagen = '$target_file' WHERE id_animal = '$id_animal' AND id_protectora = '$id_protectora'";
                 } else {
-                    $errors[] = "Error al insertar el animal en la base de datos: " . $conn->error;
+                    // Si no se subió una nueva imagen, no actualizar la ruta de la imagen
+                    $sql = "UPDATE animal SET nombre = '$nombre', especie = '$especie', raza = '$raza', edad = '$edad', sexo = '$sexo', info_adicional = '$info_adicional' WHERE id_animal = '$id_animal' AND id_protectora = '$id_protectora'";
                 }
+            } else {
+                // Crear un nuevo animal
+                $sql = "INSERT INTO animal (id_protectora, nombre, especie, raza, edad, sexo, info_adicional, ruta_imagen) VALUES ('$id_protectora', '$nombre', '$especie', '$raza', '$edad', '$sexo', '$info_adicional', '$target_file')";
             }
-        } else {
-            $errors[] = "No se recibió ninguna imagen del animal.";
+
+            if ($conn->query($sql)) {
+                // Redirigir a gestionAnimales.php
+                header("Location: gestionAnimales.php");
+                exit(); // Asegurar que se detenga la ejecución después de la redirección
+            } else {
+                $errors[] = "Error al insertar o actualizar el animal en la base de datos: " . $conn->error;
+            }
         }
     } else {
         $errors[] = "ID de protectora no válida.";
