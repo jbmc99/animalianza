@@ -13,14 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = $conn->real_escape_string($_POST['password']);
         $tipo_login = $conn->real_escape_string($_POST['tipo_login']);
 
-        // Determinar la tabla correspondiente según el tipo de usuario
-        $login = ($tipo_login == 'usuario') ? 'usuario' : 'protectora';
-        
         // Consulta preparada para evitar la inyección SQL
-        $sql = "SELECT l.username, l.password, l.tipo_login, p.id_protectora 
-                FROM login l 
-                INNER JOIN protectora p ON l.id_login = p.id_login 
-                WHERE l.username = ? AND l.password = ?";
+        $sql = "SELECT username, password, tipo_login FROM login WHERE username = ? AND password = ?";
 
         // Verificar si la preparación de la consulta tuvo éxito
         $stmt = $conn->prepare($sql);
@@ -37,27 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Verificar si se encontró un usuario
         if ($stmt->num_rows == 1) {
-            $stmt->bind_result($username_db, $password_db, $tipo_login_db, $id_protectora);
+            $stmt->bind_result($username_db, $password_db, $tipo_login_db);
             $stmt->fetch();
 
             // Inicio de sesión exitoso
             $_SESSION['username'] = $username_db;
             $_SESSION['tipo_login'] = $tipo_login_db;
 
-            // Si el tipo de login es 'protectora', establecer la variable de sesión 'id_protectora'
-            if ($tipo_login_db == 'protectora') {
-                $_SESSION['id_protectora'] = $id_protectora;
-
-                // Consulta para obtener los animales de la protectora específica
-                $sql = "SELECT * FROM animal WHERE id_protectora = '$id_protectora'";
-                $result = $conn->query($sql);
-
-                // Verificar si la consulta se ejecutó correctamente
-                if (!$result) {
-                    $errors[] = "Error al obtener los animales de la protectora: " . $conn->error;
-                }
-            }
-            
             // Redirigir según el tipo de usuario
             if ($tipo_login_db == 'usuario') {
                 header("Location: ../usuario/index.php");

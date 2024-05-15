@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ejecutar la consulta
     if ($stmt->execute()) {
         // Solicitud de adopción guardada correctamente
-        echo "¡La solicitud de adopción ha sido enviada correctamente!";
+        echo "<script>alert('¡La solicitud de adopción ha sido enviada correctamente!'); window.location.href='adopciones.php';</script>";
     } else {
         // Error al guardar la solicitud de adopción
         echo "Error al procesar la solicitud de adopción: " . $conn->error;
