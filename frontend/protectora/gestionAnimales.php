@@ -41,24 +41,36 @@
     </div>
   </nav>
 
-  
 <!-- Contenido principal -->
 <div class="container mt-5">
     <h2 class="mb-4 text-center">Tus animales:</h2>
     <div class="row">
         <div class="d-flex flex-wrap justify-content-center ms-5 me-2 text-center">
             <?php
-            // Incluir archivo de conexión
-            require_once('conexion.php');
-            // Iniciar la sesión
-            session_start();
+            // Iniciar la sesión si no ha sido iniciada
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
 
-            // Obtener el id_protectora de la sesión
+            // Verificar si 'id_protectora' está en la sesión
+            if (!isset($_SESSION['id_protectora'])) {
+                // Manejar el caso en que 'id_protectora' no está establecido, por ejemplo, redirigir al usuario a la página de inicio de sesión
+                header("Location: login.php");
+                exit();
+            }
+
+            // Obtener 'id_protectora' de la sesión
             $id_protectora = $_SESSION['id_protectora'];
 
+            // Incluir archivo de conexión
+            require_once('conexion.php');
+
             // Consultar la base de datos para obtener los nombres, las imágenes y los IDs de los animales que pertenecen a la protectora que ha iniciado sesión
-            $sql = "SELECT id_animal, nombre, especie, raza, edad, sexo, info_adicional, ruta_imagen FROM animal WHERE id_protectora = $id_protectora";
-                        $resultado = $conn->query($sql);
+            $sql = "SELECT id_animal, nombre, especie, raza, edad, sexo, info_adicional, ruta_imagen FROM animal WHERE id_protectora = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id_protectora);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
 
             // Verificar si la consulta se ejecutó correctamente
             if ($resultado === false) {
@@ -148,12 +160,10 @@
             }
 
             // Cerrar la conexión a la base de datos
-
             ?>
         </div>
     </div>
 </div>
-
 
     <div class="text-center mt-1">
       <p>¿Qué deseas hacer?</p>

@@ -25,10 +25,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_login = $conn->insert_id;
 
     // Insertar datos en la tabla usuario
-    $sql_usuario = "INSERT INTO usuario (nombre, direccion, telefono, email, id_login) 
-                VALUES ('$nombreUsuario', '$direccion', '$telefonoContacto', '$emailContacto', '$id_login')";
+    $sql_usuario = "INSERT INTO usuario (username, nombre, direccion, telefono, email, id_login) 
+                VALUES ('$nombreUsuario', '$nombreUsuario', '$direccion', '$telefonoContacto', '$emailContacto', '$id_login')";
 
     if ($conn->query($sql_usuario)) {
+        // Obtener el ID de usuario recién insertado
+        $id_usuario = $conn->insert_id;
+
+        // Guardar el ID de usuario en la sesión
+        $_SESSION['id_usuario'] = $id_usuario;
+
         // Registro exitoso, redirigir a una página de confirmación o a donde desees
         echo '<script>alert("Has sido registrado con éxito.");</script>';
         echo '<script>window.location.href = "index.php";</script>';

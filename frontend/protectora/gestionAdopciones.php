@@ -86,7 +86,9 @@ $id_protectora = $_SESSION['id_protectora'];
 require_once('../protectora/conexion.php');
 
 // Preparar la consulta SQL para obtener todas las solicitudes de adopción
-$sql = "SELECT solicitud_adopcion.*, animal.nombre AS nombre_animal FROM solicitud_adopcion JOIN animal ON solicitud_adopcion.id_animal = animal.id";
+
+$sql = "SELECT solicitud_adopcion.*, animal.nombre AS nombre_animal FROM solicitud_adopcion JOIN animal ON solicitud_adopcion.id_animal = animal.id_animal";
+
 
 // Ejecutar la consulta
 $result = $conn->query($sql);
@@ -109,6 +111,8 @@ if ($result->num_rows > 0) {
         echo '<div class="modal-body">';
         echo '<p>Nombre: '.$row["nombre_apellidos"].'</p>';
         echo '<p>Email: '.$row["email"].'</p>';
+        echo '<p>ID Protectora: '.$row["id_protectora"].'</p>'; // Añadir el ID de la protectora
+        echo '<p>ID Animal: '.$row["id_animal"].'</p>'; // Añadir el ID del animal
         echo '<p>Número de Teléfono: '.$row["numero_telefono"].'</p>';
         echo '<p>Dirección: '.$row["direccion"].'</p>';
         echo '<p>Propietario/Inquilino: '.$row["propietario_inquilino"].'</p>';

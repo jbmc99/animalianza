@@ -1,4 +1,8 @@
 <?php
+session_start(); // Asegúrate de que esto está al principio de tu archivo
+
+print_r($_SESSION); // Imprimir el contenido de la variable de sesión
+
 // Verificar si se recibieron los datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recibir y limpiar los datos del formulario
@@ -13,19 +17,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $motivacionesAdoptar = htmlspecialchars($_POST["motivacionesAdoptar"]);
     $infoFamilia = htmlspecialchars($_POST["infoFamilia"]);
 
-    // Validar los datos recibidos (puedes agregar más validaciones según tus necesidades)
+    // Obtener el ID del usuario de la sesión
+    $idUsuario = $_SESSION['id_usuario'];
 
     // Incluir archivo de conexión a la base de datos
     require_once('../protectora/conexion.php');
 
     // Preparar la consulta SQL para insertar la solicitud en la base de datos
-    $sql = "INSERT INTO solicitud_adopcion (nombre_apellidos, email, id_protectora, id_animal, numero_telefono, direccion, propietario_inquilino, permiso_mascotas, motivaciones_adoptar, info_familia, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pendiente')";
+    $sql = "INSERT INTO solicitud_adopcion (id_usuario, nombre_apellidos, email, id_protectora, id_animal, numero_telefono, direccion, propietario_inquilino, permiso_mascotas, motivaciones_adoptar, info_familia, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pendiente')";
 
     // Preparar la declaración
     $stmt = $conn->prepare($sql);
 
     // Vincular los parámetros con los valores recibidos
-    $stmt->bind_param("ssiiisssss", $nombreApellidos, $email, $idProtectora, $idAnimal, $numeroTelefono, $direccion, $propietarioInquilino, $permisoMascotas, $motivacionesAdoptar, $infoFamilia);
+    $stmt->bind_param("issiiisssss", $idUsuario, $nombreApellidos, $email, $idProtectora, $idAnimal, $numeroTelefono, $direccion, $propietarioInquilino, $permisoMascotas, $motivacionesAdoptar, $infoFamilia);
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
