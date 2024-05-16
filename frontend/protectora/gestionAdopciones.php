@@ -71,72 +71,79 @@ $id_protectora = $_SESSION['id_protectora'];
     <div class="row">
         <!-- Sección para aceptar adopciones -->
         <div class="col-md-6 mb-4 protectora-row" data-id_protectora="<?php echo $id_protectora; ?>">
-    <h2 class="text-center mb-3">¿Aceptáis adopciones en este momento?</h2>
-    <div class="d-flex justify-content-center mb-3">
-        <select class="form-select me-2 acepta_adopciones_select">
-            <option value="1">Sí</option>
-            <option value="0">No</option>
-        </select>
-        <button class="btn btn-success confirmarBtn">Confirmar</button>
+            <h2 class="text-center mb-3">¿Aceptáis adopciones en este momento?</h2>
+            <div class="d-flex justify-content-center mb-3">
+                <select class="form-select me-2 acepta_adopciones_select">
+                    <option value="1">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <button class="btn btn-success confirmarBtn">Confirmar</button>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <?php
+            // Incluir archivo de conexión a la base de datos
+            require_once('../protectora/conexion.php');
+
+            // Preparar la consulta SQL para obtener todas las solicitudes de adopción
+            $sql = "SELECT solicitud_adopcion.*, animal.nombre AS nombre_animal FROM solicitud_adopcion JOIN animal ON solicitud_adopcion.id_animal = animal.id_animal";
+
+            // Ejecutar la consulta
+            $result = $conn->query($sql);
+
+            echo '<div class="container my-3">'; // Contenedor con margen vertical
+
+            if ($result->num_rows > 0) {
+                // Recorrer cada fila de resultados
+                while($row = $result->fetch_assoc()) {
+                    echo '<li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal'.$row["id_solicitud_adopcion"].'">';
+                    echo $row["nombre_animal"];
+                    echo '<span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>';
+                    echo '</li>';
+
+                    echo '<div class="modal fade" id="solicitudModal'.$row["id_solicitud_adopcion"].'" tabindex="-1" aria-labelledby="solicitudModalLabel" aria-hidden="true">';
+                    echo '<div class="modal-dialog">';
+                    echo '<div class="modal-content">';
+                    echo '<div class="modal-header">';
+                    echo '<h5 class="modal-title" id="solicitudModalLabel">Detalles de la solicitud</h5>';
+                    echo '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+                    echo '</div>';
+                    echo '<div class="modal-body">';
+                    echo '<p>Nombre: '.$row["nombre_apellidos"].'</p>';
+                    echo '<p>Email: '.$row["email"].'</p>';
+                    echo '<p>ID Protectora: '.$row["id_protectora"].'</p>'; // Añadir el ID de la protectora
+                    echo '<p>ID Animal: '.$row["id_animal"].'</p>'; // Añadir el ID del animal
+                    echo '<p>Número de Teléfono: '.$row["numero_telefono"].'</p>';
+                    echo '<p>Dirección: '.$row["direccion"].'</p>';
+                    echo '<p>Propietario/Inquilino: '.$row["propietario_inquilino"].'</p>';
+                    echo '<p>Permiso Mascotas: '.$row["permiso_mascotas"].'</p>';
+                    echo '<p>Motivaciones Adoptar: '.$row["motivaciones_adoptar"].'</p>';
+                    echo '<p>Info Familia: '.$row["info_familia"].'</p>';
+                    echo '</div>';
+                    echo '<div class="modal-footer">';
+                    echo '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>';
+                    echo '<button type="button" class="btn btn-success">Aceptar</button>';
+                    echo '<button type="button" class="btn btn-danger">Denegar</button>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            } else {
+                echo "No hay solicitudes de adopción.";
+            }
+
+            echo '</div>'; // Cierre del contenedor
+            ?>
+        </div>
     </div>
 </div>
 
 <?php
-// Incluir archivo de conexión a la base de datos
-require_once('../protectora/conexion.php');
-
-// Preparar la consulta SQL para obtener todas las solicitudes de adopción
-
-$sql = "SELECT solicitud_adopcion.*, animal.nombre AS nombre_animal FROM solicitud_adopcion JOIN animal ON solicitud_adopcion.id_animal = animal.id_animal";
-
-
-// Ejecutar la consulta
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // Recorrer cada fila de resultados
-    while($row = $result->fetch_assoc()) {
-        echo '<li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal'.$row["id"].'">';
-        echo $row["nombre_animal"];
-        echo '<span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>';
-        echo '</li>';
-
-        echo '<div class="modal fade" id="solicitudModal'.$row["id"].'" tabindex="-1" aria-labelledby="solicitudModalLabel" aria-hidden="true">';
-        echo '<div class="modal-dialog">';
-        echo '<div class="modal-content">';
-        echo '<div class="modal-header">';
-        echo '<h5 class="modal-title" id="solicitudModalLabel">Detalles de la solicitud</h5>';
-        echo '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-        echo '</div>';
-        echo '<div class="modal-body">';
-        echo '<p>Nombre: '.$row["nombre_apellidos"].'</p>';
-        echo '<p>Email: '.$row["email"].'</p>';
-        echo '<p>ID Protectora: '.$row["id_protectora"].'</p>'; // Añadir el ID de la protectora
-        echo '<p>ID Animal: '.$row["id_animal"].'</p>'; // Añadir el ID del animal
-        echo '<p>Número de Teléfono: '.$row["numero_telefono"].'</p>';
-        echo '<p>Dirección: '.$row["direccion"].'</p>';
-        echo '<p>Propietario/Inquilino: '.$row["propietario_inquilino"].'</p>';
-        echo '<p>Permiso Mascotas: '.$row["permiso_mascotas"].'</p>';
-        echo '<p>Motivaciones Adoptar: '.$row["motivaciones_adoptar"].'</p>';
-        echo '<p>Info Familia: '.$row["info_familia"].'</p>';
-        echo '</div>';
-        echo '<div class="modal-footer">';
-        echo '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>';
-        echo '<button type="button" class="btn btn-success">Aceptar</button>';
-        echo '<button type="button" class="btn btn-danger">Denegar</button>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-    }
-} else {
-    echo "No hay solicitudes de adopción.";
-}
-
 // Cerrar la conexión a la base de datos
 $conn->close();
 ?>
-
  <!--FOOTER-->
  <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
     <!-- Redes sociales-->
