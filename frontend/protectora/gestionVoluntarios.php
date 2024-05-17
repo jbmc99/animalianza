@@ -82,49 +82,64 @@ $id_protectora = $_SESSION['id_protectora'];
 </div>
 
 
-        <!-- Sección para ver solicitudes de voluntariado -->
-        <div class="col-md-6">
-            <h2 class="text-center mb-3">Solicitudes de voluntariado</h2>
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
-                    Nombre de la mascota
-                    <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
-                    Nombre de la mascota
-                    <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal">
-                    Nombre de la mascota
-                    <span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+<div class="col-md-6">
+    <h2 class="text-center mb-3">Solicitudes de voluntariado</h2>
+    <ul class="list-group">
+        <?php
+        // Incluir archivo de conexión a la base de datos
+        require_once('../protectora/conexion.php');
 
-<!-- Modal -->
-<div class="modal fade" id="solicitudModal" tabindex="-1" aria-labelledby="solicitudModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="solicitudModalLabel">Detalles de la solicitud</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Aquí puedes añadir los datos sobre la solicitud -->
-                <p>Datos sobre la solicitud...</p>
-                <p>Blablablabla</p>
-                <p>Aquí se pasa la info recogida por los formulariooo</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success">Aceptar</button>
-                <button type="button" class="btn btn-danger">Denegar</button>
-            </div>
-        </div>
-    </div>
+        // Obtener el id_protectora de la sesión
+        $idProtectora = $_SESSION['id_protectora'];
+
+        // Preparar la consulta SQL para obtener todas las solicitudes de voluntariado
+        $sql = "SELECT * FROM solicitud_voluntariado WHERE id_protectora = $idProtectora";
+        // Ejecutar la consulta
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // Recorrer cada fila de resultados
+            while($row = $result->fetch_assoc()) {
+                echo '<li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal'.$row["id_solicitud_voluntariado"].'">';
+                echo $row["nombre_apellidos"];
+                echo '<span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>';
+                echo '</li>';
+
+                // Generar modal para cada solicitud
+                echo '<div class="modal fade" id="solicitudModal'.$row["id_solicitud_voluntariado"].'" tabindex="-1" aria-labelledby="solicitudModalLabel'.$row["id_solicitud_voluntariado"].'" aria-hidden="true">';
+                echo '<div class="modal-dialog">';
+                echo '<div class="modal-content">';
+                echo '<div class="modal-header">';
+                echo '<h5 class="modal-title" id="solicitudModalLabel'.$row["id_solicitud_voluntariado"].'">Detalles de la solicitud</h5>';
+                echo '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+                echo '</div>';
+                echo '<div class="modal-body">';
+                echo '<p>Nombre y apellidos: '.$row["nombre_apellidos"].'</p>';
+                echo '<p>Email: '.$row["email"].'</p>';
+                echo '<p>Número de Teléfono: '.$row["numero_telefono"].'</p>';
+                echo '<p>Vehículo Propio: '.($row["vehiculo_propio"] ? 'Sí' : 'No').'</p>';
+                echo '<p>Estado: '.$row["estado"].'</p>';
+                echo '</div>';
+                echo '<div class="modal-footer">';
+                echo '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>';
+                echo '<button type="button" class="btn btn-success">Aceptar</button>';
+                echo '<button type="button" class="btn btn-danger">Denegar</button>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo "No hay solicitudes de voluntariado.";
+        }
+
+        // Cerrar la conexión a la base de datos
+        $conn->close();
+        ?>
+    </ul>
 </div>
+      </div>
+      </div>
 
  <!--FOOTER-->
  <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">

@@ -50,9 +50,9 @@
 
 <?php
 // Verificar si se ha proporcionado un ID de evento en la URL
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+if (isset($_GET['id_evento']) && is_numeric($_GET['id_evento'])) {
   // Obtener el ID del evento de la URL
-  $id_evento = $_GET['id'];
+  $id_evento = $_GET['id_evento'];
 
   // Incluir archivo de conexión a la base de datos
   require_once('../protectora/conexion.php');
@@ -72,7 +72,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
       $datos = $resultado->fetch_object();
       // Construir la ruta completa de la imagen
       $ruta_imagen = $datos->ruta_imagen;
-
 ?>
       <div class="container mt-5">
           <div class="row">
@@ -95,7 +94,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
   // Cerrar la conexión a la base de datos
   $conn->close();
 } else {
-  // Mostrar un mensaje si no se proporcionó un ID de evento en la URL
+  // Mostrar un mensaje si no se proporcionó un ID de evento válido en la URL
   echo "<p>No se proporcionó un ID de evento válido.</p>";
 }
 ?>

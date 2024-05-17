@@ -1,3 +1,40 @@
+<?php
+// Incluir archivo de conexión a la base de datos
+require_once('../protectora/conexion.php');
+
+// Consultar la base de datos para obtener los eventos
+$sql = "SELECT id_evento, nombre, descripcion, fecha, estado, ruta_imagen, id_protectora FROM evento";
+$result = $conn->query($sql);
+
+// Inicializar arrays para próximos y pasados eventos
+$proximosEventos = [];
+$pasadosEventos = [];
+
+// Obtener la fecha actual
+$fechaActual = date('Y-m-d');
+
+// Verificar si se encontraron eventos
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        // Clasificar los eventos en próximos y pasados según la fecha
+        if ($row['fecha'] >= $fechaActual) {
+            $proximosEventos[] = $row;
+        } else {
+            $pasadosEventos[] = $row;
+        }
+    }
+} else {
+    $noHayEventos = true;
+}
+
+// Cerrar la conexión a la base de datos
+$conn->close();
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,67 +88,66 @@
   
 
 
- <!-- Contenido de la página -->
- <div class="container mt-5">
-  <h1 class="text-center mb-4">EVENTOS SOLIDARIOS</h1>
-  
-  <!-- Contenedor de los eventos -->
-  <h2 class="text-center mt-5 mb-5">Próximos Eventos</h2>
-  <div class="row justify-content-center">
-    <!-- Evento 1 -->
-    <div class="col-md-4 mb-5 me-5">
-      <div class="card border-1 shadow">
-        <img src="../images/evento1.png" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Nombre del Evento 1</h5>
-          <p class="card-text">Descripción del evento.</p>
-          <p class="card-text"><strong>Fecha:</strong> 10 de mayo de 2024</p>
-          <a href="../usuario/fichaEvento.php" class="btn btn-success">Más detalles</a>
-        </div>
-      </div>
-    </div>
-    <!-- Evento 2 -->
-    <div class="col-md-4 mb-5 ms-5">
-      <div class="card border-0 shadow">
-        <img src="../images/evento2.png" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Nombre del Evento 2</h5>
-          <p class="card-text">Descripción del evento.</p>
-          <p class="card-text"><strong>Fecha:</strong> 15 de mayo de 2024</p>
-          <a href="#" class="btn btn-success">Más detalles</a>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">EVENTOS SOLIDARIOS</h1>
 
-  <!-- Contenedor de los eventos pasados -->
-  <h2 class="text-center mt-5 mb-5">Eventos Pasados</h2>
-  <div class="row justify-content-center">
-    <!-- Evento pasado 1 -->
-    <div class="col-md-4 mb-5 me-5">
-      <div class="card border-1 shadow">
-        <img src="../images/evento3.png" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Nombre del Evento Pasado 1</h5>
-          <p class="card-text">Descripción del evento pasado.</p>
-          <p class="card-text"><strong>Fecha:</strong> 5 de abril de 2024</p>
-          <a href="#" class="btn btn-secondary">Ver detalles</a>
+    <?php if (isset($noHayEventos) && $noHayEventos): ?>
+        <p class="text-center">No se encontraron eventos.</p>
+    <?php else: ?>
+
+        <!-- Contenedor de los eventos -->
+        <h2 class="text-center mt-5 mb-5">Próximos Eventos</h2>
+        <div class="row justify-content-center">
+            <?php if (!empty($proximosEventos)): ?>
+                <?php foreach ($proximosEventos as $evento): ?>
+                    <div class="col-md-4 mb-5 me-5">
+                        <div class="card border-1 shadow">
+                            <?php if (file_exists($evento['ruta_imagen'])): ?>
+                                <img src="<?php echo htmlspecialchars($evento['ruta_imagen']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
+                            <?php else: ?>
+                                <p class="text-muted">No hay imagen disponible para este evento.</p>
+                            <?php endif; ?>
+                            <div class="card-body text-center">
+                                <h5 class="card-title"><?php echo htmlspecialchars($evento['nombre']); ?></h5>
+                                <p class="card-text"><?php echo htmlspecialchars($evento['descripcion']); ?></p>
+                                <p class="card-text"><strong>Fecha:</strong> <?php echo htmlspecialchars($evento['fecha']); ?></p>
+                                <a href="../usuario/fichaEvento.php?id_evento=<?php echo htmlspecialchars($evento['id_evento']); ?>" class="btn btn-success">Más detalles</a>
+
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="text-center">No hay próximos eventos.</p>
+            <?php endif; ?>
         </div>
-      </div>
-    </div>
-    <!-- Evento pasado 2 -->
-    <div class="col-md-4 mb-5 ms-5">
-      <div class="card border-0 shadow">
-        <img src="../images/evento4.png" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title">Nombre del Evento Pasado 2</h5>
-          <p class="card-text">Descripción del evento pasado.</p>
-          <p class="card-text"><strong>Fecha:</strong> 20 de marzo de 2024</p>
-          <a href="#" class="btn btn-secondary">Ver detalles</a>
+
+        <!-- Contenedor de los eventos pasados -->
+        <h2 class="text-center mt-5 mb-5">Eventos Pasados</h2>
+        <div class="row justify-content-center">
+            <?php if (!empty($pasadosEventos)): ?>
+                <?php foreach ($pasadosEventos as $evento): ?>
+                    <div class="col-md-4 mb-5 me-5">
+                        <div class="card border-1 shadow">
+                            <?php if (file_exists($evento['ruta_imagen'])): ?>
+                                <img src="<?php echo htmlspecialchars($evento['ruta_imagen']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
+                            <?php else: ?>
+                                <p class="text-muted">No hay imagen disponible para este evento.</p>
+                            <?php endif; ?>
+                            <div class="card-body text-center">
+                                <h5 class="card-title"><?php echo htmlspecialchars($evento['nombre']); ?></h5>
+                                <p class="card-text"><?php echo htmlspecialchars($evento['descripcion']); ?></p>
+                                <p class="card-text"><strong>Fecha:</strong> <?php echo htmlspecialchars($evento['fecha']); ?></p>
+                                <a href="../usuario/fichaEvento.php?id_evento=<?php echo htmlspecialchars($evento['id_evento']); ?>" class="btn btn-secondary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="text-center">No hay eventos pasados.</p>
+            <?php endif; ?>
         </div>
-      </div>
-    </div>
-  </div>
+    <?php endif; ?>
 </div>
 
   

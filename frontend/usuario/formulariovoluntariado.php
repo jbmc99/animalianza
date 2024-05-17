@@ -47,131 +47,80 @@
     </div>
   </div>
 </nav>
-    <!--formulario de adopción-->
+    <!--formulario de solicitud de voluntariado-->
     <div class="container mt-4">
-        <div class="row justify-content-center">
-          <div class="col-md-8">
-            <h2 class="text-center mb-5">FORMULARIO DE ADOPCIÓN</h2>
-            <form>
-              <div class="form-group row mb-4">
-                <label for="nombreApellidos" class="col-sm-4 col-form-label">Nombre y apellidos</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="nombreApellidos" placeholder="Introduce tu nombre completo">
-                </div>
-              </div>
-              <div class="form-group row mb-4">
-                <label for="email" class="col-sm-4 col-form-label">E-mail</label>
-                <div class="col-sm-8">
-                  <input type="email" class="form-control" id="email" placeholder="Introduzca su correo electrónico">
-                </div>
-              </div>
-              <fieldset class="form-group">
-                <div class="row mb-5">
-                  <legend class="col-form-label col-sm-4 pt-0">¿A cuál de nuestros animales deseas adoptar?</legend>
-                  <div class="col-sm-8">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="radio1" value="option1" checked>
-                      <label class="form-check-label" for="radio1">
-                        Perro
-                      </label>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-5">FORMULARIO DE SOLICITUD DE VOLUNTARIADO</h2>
+            <form action="procesar_solicitud_voluntariado.php" method="post">
+                <div class="form-group row mb-4">
+                    <label for="nombreApellidos" class="col-sm-4 col-form-label">Nombre y apellidos</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="nombreApellidos" name="nombreApellidos" placeholder="Introduce tu nombre completo" required>
                     </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="radio2" value="option2">
-                      <label class="form-check-label" for="radio2">
-                        Gato
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-sm-4"></div>
-                  <div class="col-sm-8">
-                    <select class="form-select mt-2 mb-2" aria-label="Seleccione la protectora del animal">
-                      <option selected disabled>Seleccione la protectora a la que pertenece</option>
-                      <option value="Protectora A">Protectora A</option>
-                      <option value="Protectora B">Protectora B</option>
-                      <option value="Protectora C">Protectora C</option>
-                    </select>
-                    <select class="form-select mt-2" aria-label="Seleccione el nombre del animal">
-                      <option selected disabled>Seleccione el nombre del animal</option>
-                      <option value="animal 1">Lassie</option>
-                      <option value="animal 2">Lasilla</option>
-                      <option value="animal 3">Lasito</option>
-                    </select>
-                  </div>
                 </div>
-              </fieldset>
-              
-              <div class="form-group row mb-4">
-                <label for="numeroTelefono" class="col-sm-4 col-form-label">Número de teléfono</label>
-                <div class="col-sm-8">
-                  <input type="number" class="form-control" id="numeroTelefono" placeholder="Introduzca su número de teléfono">
-                </div>
-              </div>
-              <div class="form-group row mb-4">
-                <label for="direccion" class="col-sm-4 col-form-label">Dirección Completa</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="nombreApellidos" placeholder="Introduzca su dirección">
-                </div>
-              </div>
-             
-              <fieldset class="form-group">
-                <div class="row mb-5">
-                  <legend class="col-form-label col-sm-4 pt-0">¿Es propietario o inquilino?</legend>
-                  <div class="col-sm-8">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="radio1" value="option1" checked>
-                      <label class="form-check-label" for="radio1">
-                        Propietario
-                      </label>
+                <div class="form-group row mb-4">
+                    <label for="email" class="col-sm-4 col-form-label">E-mail</label>
+                    <div class="col-sm-8">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Introduzca su correo electrónico" required>
                     </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="radio2" value="option2">
-                      <label class="form-check-label" for="radio2">
-                        Inquilino
-                      </label>
-                    </div>
-                  </div>
-              </fieldset>
-              <fieldset class="form-group">
-                <div class="row mb-5">
-                  <legend class="col-form-label col-sm-4 pt-0">En caso de ser inquilino, ¿se le permite tener mascotas?</legend>
-                  <div class="col-sm-8">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="radio1" value="option1" checked>
-                      <label class="form-check-label" for="radio1">
-                        Sí
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="radio2" value="option2">
-                      <label class="form-check-label" for="radio2">
-                        No
-                      </label>
-                    </div>
-                  </div>
-              </fieldset>
-              <div class="form-group row mb-4">
-                <label for="motivacionesAdoptar" class="col-sm-4 col-form-label">¿Cuáles son sus motivaciones para adoptar?</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" id="motivacionesAdoptar" rows="4"></textarea>
                 </div>
-            </div>
-            <div class="form-group row mb-4">
-                <label for="infoFamilia" class="col-sm-4 col-form-label">Proporcione información sobre familia y estilo de vida</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" id="infoFamilia" rows="4"></textarea>
+                <div class="form-group row mb-4">
+                    <label for="numeroTelefono" class="col-sm-4 col-form-label">Número de teléfono</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-control" id="numeroTelefono" name="numeroTelefono" placeholder="Introduzca su número de teléfono" required>
+                    </div>
                 </div>
-            </div>
+                <div class="form-group row mb-4">
+                    <label class="col-sm-4 col-form-label">Dispone de vehículo propio que pueda utilizar para transportar animales?</label>
+                    <div class="col-sm-8">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="vehiculoPropio" id="vehiculoSi" value="si" required>
+                            <label class="form-check-label" for="vehiculoSi">Sí</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="vehiculoPropio" id="vehiculoNo" value="no" required>
+                            <label class="form-check-label" for="vehiculoNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="protectora" class="col-sm-4 col-form-label">Selecciona la protectora</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="protectora" name="id_protectora" required>
+                            <option selected disabled>Seleccione la protectora a la que pertenece</option>
+                            <?php
+                            // Incluir archivo de conexión
+                            require_once('../protectora/conexion.php');
 
-              <div class="form-group row text-center mt-5">
-                <div class="col-sm-12">
-                  <button type="submit" class="btn btn-success">Solicitar adopción</button>
+                            // Consultar la base de datos para obtener todas las protectoras
+                            $sql = "SELECT * FROM protectora";
+                            $resultado = $conn->query($sql);
+
+                            // Verificar si se encontraron protectoras
+                            if ($resultado->num_rows > 0) {
+                                // Mostrar todas las opciones de protectoras en el select
+                                while ($fila = $resultado->fetch_assoc()) {
+                                    echo '<option value="' . $fila['id_protectora'] . '">' . $fila['nombre'] . '</option>';
+                                }
+                            } else {
+                                echo "<option disabled>No se encontraron protectoras</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
                 </div>
-              </div>
+                <div class="form-group row text-center mt-5">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success">Enviar solicitud de voluntariado</button>
+                    </div>
+                </div>
             </form>
-          </div>
         </div>
-      </div>
-  
+    </div>
+</div>
+
+
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
   <!-- Redes sociales-->

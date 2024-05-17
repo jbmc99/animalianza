@@ -1,3 +1,39 @@
+<?php
+// Incluir archivo de conexión a la base de datos
+require_once('../protectora/conexion.php');
+
+// Obtener el ID de la protectora de la URL
+$id_protectora = isset($_GET['id_protectora']) ? intval($_GET['id_protectora']) : 0;
+
+// Validar el ID de la protectora
+if ($id_protectora <= 0) {
+    echo "ID de protectora no válido.";
+    exit;
+}
+
+// Consultar la base de datos para obtener los productos de la protectora
+$sql = "SELECT id_producto, nombre, descripcion, precio, ruta_imagen FROM producto WHERE id_protectora = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_protectora);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Depuración: Imprimir número de filas obtenidas
+if ($result->num_rows > 0) {
+    echo "<p class='text-center'>Se encontraron " . $result->num_rows . " productos.</p>";
+    $productos = [];
+    while ($row = $result->fetch_assoc()) {
+        $productos[] = $row;
+    }
+} else {
+    echo "<p class='text-center'>No se encontraron productos para esta protectora.</p>";
+}
+
+// Cerrar la conexión a la base de datos
+$stmt->close();
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,38 +86,32 @@
 </nav>
   
 
-  <!--Cards de los productos-->
-
-  <div class="container mt-5">
+<div class="container mt-5">
     <h1 class="text-center mb-5">Productos benéficos</h1>
     <div class="row justify-content-center">
-      <div class="col-lg-3 mb-4 me-5">
-        <div class="card border-0 rounded-3 shadow-sm">
-          <img src="../images/producto1.png" class="card-img-top" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Tote bags</h5>
-            <p class="card-text">Descripción del producto.</p>
-            <h6 class="card-subtitle mb-2 text-muted">$XX.XX</h6>
-            <a href="../usuario/infoproducto.php" class="btn btn-success">Más información</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 mb-4 me-5">
-        <div class="card border-0 rounded-3 shadow-sm">
-          <img src="../images/producto5.png" class="card-img-top" alt="...">
-          <div class="card-body text-center">
-            <h5 class="card-title">Llaveros de madera</h5>
-            <p class="card-text">Descripción del producto.</p>
-            <h6 class="card-subtitle mb-2 text-muted">$XX.XX</h6>
-            <a href="#" class="btn btn-success">Más información</a>
-          </div>
-        </div>
-      </div>
+        <?php if (!empty($productos)): ?>
+            <?php foreach ($productos as $producto): ?>
+                <div class="col-lg-3 mb-4 me-5">
+                    <div class="card border-0 rounded-3 shadow-sm">
+                        <?php if (file_exists($producto['ruta_imagen'])): ?>
+                            <img src="<?php echo htmlspecialchars($producto['ruta_imagen']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
+                        <?php else: ?>
+                            <p class="text-muted">No hay imagen disponible para este producto.</p>
+                        <?php endif; ?>
+                        <div class="card-body text-center">
+                            <h5 class="card-title"><?php echo htmlspecialchars($producto['nombre']); ?></h5>
+                            <p class="card-text"><?php echo htmlspecialchars($producto['descripcion']); ?></p>
+                            <h6 class="card-subtitle mb-2 text-muted">€<?php echo htmlspecialchars($producto['precio']); ?></h6>
+                            <a href="../usuario/infoproducto.php?id_producto=<?php echo htmlspecialchars($producto['id_producto']); ?>" class="btn btn-success">Más información</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center">No se encontraron productos para esta protectora.</p>
+        <?php endif; ?>
     </div>
-  </div>
-
-
-
+</div>
   
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
