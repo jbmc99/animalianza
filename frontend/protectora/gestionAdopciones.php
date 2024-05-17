@@ -28,37 +28,48 @@ $id_protectora = $_SESSION['id_protectora'];
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-  <!--NAVBAR-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="../images/logueto.png" alt="Logo" height="40" class="d-inline-block align-text-center">
-        ANIMALIANZA
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Adopciones</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Voluntariado</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Donaciones</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nuestras protectoras</a>
-          </li>
-        </ul>
-      </div>
+ <!--NAVBAR-->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../images/logueto.png" alt="Logo" height="40" class="d-inline-block align-text-center">
+      ANIMALIANZA
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="../usuario/index.php">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../usuario/adopciones.php">Adopciones</a>
+        </li>
+        <li class="nav-item dropdown" id="desplegableNavbar">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              ¿Cómo ayudar?
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="../usuario/voluntariado.php">Voluntariado</a></li>
+              <li><a class="dropdown-item" href="../usuario/donaciones.php">Donaciones</a></li>
+              <li><a class="dropdown-item" href="../usuario/casaacogida.php">Casa de acogida</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../usuario/tiendasolidaria.php">Tienda solidaria</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../protectora/logout.php">Cerrar sesión</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+
 
 
 <!-- Title -->
@@ -86,11 +97,14 @@ $id_protectora = $_SESSION['id_protectora'];
             // Incluir archivo de conexión a la base de datos
             require_once('../protectora/conexion.php');
 
-            // Preparar la consulta SQL para obtener todas las solicitudes de adopción
-            $sql = "SELECT solicitud_adopcion.*, animal.nombre AS nombre_animal FROM solicitud_adopcion JOIN animal ON solicitud_adopcion.id_animal = animal.id_animal";
+           // Obtener el id_protectora de la sesión
+           $idProtectora = $_SESSION['id_protectora'];
 
-            // Ejecutar la consulta
-            $result = $conn->query($sql);
+           // Preparar la consulta SQL para obtener todas las solicitudes de adopción
+           $sql = "SELECT solicitud_adopcion.*, animal.nombre AS nombre_animal FROM solicitud_adopcion JOIN animal ON solicitud_adopcion.id_animal = animal.id_animal WHERE solicitud_adopcion.id_protectora = $idProtectora";
+
+           // Ejecutar la consulta
+           $result = $conn->query($sql);
 
             echo '<div class="container my-3">'; // Contenedor con margen vertical
 
