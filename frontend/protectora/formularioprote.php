@@ -98,11 +98,11 @@
                 </div>
                 <div class="form-group">
                     <label for="fotoProtectora">Subir foto:</label>
-                    <input type="file" class="form-control-file" id="fotoProtectora" name="fotoProtectora">
+                    <input type="file" class="custom-file-upload" id="fotoProtectora" name="fotoProtectora">
                 </div>
                 <div class="form-group row text-center mt-5">
                     <div class="col-sm-12">
-                        <button type="submit" class="btn btn-success">¡Regístrate!</button>
+                        <button type="submit" class="btn btn-success mb-5">¡Regístrate!</button>
                     </div>
                 </div>
             </form>
