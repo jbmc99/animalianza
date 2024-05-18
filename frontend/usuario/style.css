@@ -11,11 +11,11 @@ a:hover {
 }
 
 .navbar.bg-body-tertiary {
-    background-color: #8BAA92 !important;
+    background-color: #78CA91 !important;
 }
 
 body {
-    background-color: #caddcf  !important;
+    background-image: url("../images/fondo.png")  !important;
 }
 
 #logueto {
@@ -35,6 +35,15 @@ body {
 
 #footer {
     background-color: #8BAA92 !important;
+}
+
+.card-body {
+    background-color: #B4FAC5 !important;
+
+}
+
+.card-header {
+   background-color: #78CA91 !important;
 }
 
 #card1, #card2, #card3, #card4, #card5, #card6, #card7, #card8, #card9 {
@@ -89,9 +98,7 @@ body {
 #logopaypal, #logoteaming, #logoamazon {
     max-width:50px;
 }
-.card-header {
-    background-color:#9bc0a3 !important;
-}
+
 .card-body {
     background-color:#caddcf;
 }
@@ -111,3 +118,13 @@ body {
     width: 100%; 
     height: auto; 
 }
+
+.btn{
+    background-color: #909CE0 !important;
+    border-color: #78CA91 !important;
+    border-width: 2px !important;
+}
+
+.footer-custom-bg {
+    background-color: #78CA91;
+  }
