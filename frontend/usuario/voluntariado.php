@@ -44,6 +44,9 @@
         <li class="nav-item">
           <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
         </li>
+         <li class="nav-item">
+          <a class="nav-link" href="../protectora/logout.php">Cerrar sesión</a>
+        </li>
       </ul>
     </div>
   </div>

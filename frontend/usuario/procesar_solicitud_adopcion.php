@@ -18,10 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $infoFamilia = htmlspecialchars($_POST["infoFamilia"]);
 
     // Obtener el ID del usuario de la sesión
-    $idUsuario = $_SESSION['id_usuario'];
+    $idLogin = $_SESSION['id_login'];
 
     // Incluir archivo de conexión a la base de datos
     require_once('../protectora/conexion.php');
+
+    // Obtener el id_usuario correspondiente al id_login
+    $result = $conn->query("SELECT id_usuario FROM usuario WHERE id_login = $idLogin");
+    $row = $result->fetch_assoc();
+    $idUsuario = $row['id_usuario'];
 
     // Preparar la consulta SQL para insertar la solicitud en la base de datos
     $sql = "INSERT INTO solicitud_adopcion (id_usuario, nombre_apellidos, email, id_protectora, id_animal, numero_telefono, direccion, propietario_inquilino, permiso_mascotas, motivaciones_adoptar, info_familia, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pendiente')";

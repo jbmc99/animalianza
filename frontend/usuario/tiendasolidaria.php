@@ -1,3 +1,15 @@
+ 
+<?php
+session_start(); // Iniciar la sesión al principio del archivo
+
+// Verificar si la sesión está iniciada y el usuario está logueado
+if (!isset($_SESSION['id_login'])) {
+    // Redirigir al usuario a la página de inicio de sesión si no está logueado
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,64 +60,58 @@
   </div>
 </nav>
   
- 
+
+
 <div class="container mt-5">
-  <h1 class="text-center mb-5">Tienda solidaria</h1>
-  <div id="page-content" class="container"> 
-    <p class="text-center mb-3">Elige una de nuestras protectoras para ver sus productos disponibles. ¡Todos los beneficios serán por y para ellos!</p>
+    <h1 class="text-center mb-5">Tienda solidaria</h1>
+    <div id="page-content" class="container"> 
+        <p class="text-center mb-3">Elige una de nuestras protectoras para ver sus productos disponibles. ¡Todos los beneficios serán por y para ellos!</p>
 
-    <div id="page-content" class="container">
-      <!-- Fichas de Protectoras -->
-      <div class="row mt-5">
-        <!-- Protectora 1 -->
-        <div class="col-lg-6 mb-3">
-          <div class="card bg-transparent border-0">
-            <img src="../images/ejemploprote1.jpg" class="card-img-top img-fluid" id="prote1" alt="...">
-            <div class="card-body text-center">
-              <h5 class="card-title">Rescate Animal Granada</h5>
-              <a href="articulostienda.php" class="btn btn-success btn-block">Ver artículos</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Protectora 2 -->
-        <div class="col-lg-6 mb-3">
-          <div class="card bg-transparent border-0">
-            <img src="../images/ejemploprote2.jpg" class="card-img-top img-fluid" id="prote2" alt="...">
-            <div class="card-body text-center">
-              <h5 class="card-title">Amigos de los Animales Granada</h5>
-              <a href="articulostienda.php" class="btn btn-success btn-block">Ver artículos</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Protectora 3 -->
-        <div class="col-lg-6 mb-3">
-          <div class="card bg-transparent border-0">
-            <img src="../images/ejemploprote3.png" class="card-img-top img-fluid" id="prote3" alt="...">
-            <div class="card-body text-center">
-              <h5 class="card-title">Sociedad de Animales y Plantas</h5>
-              <a href="articulostienda.php" class="btn btn-success btn-block">Ver artículos</a>
-            </div>
-          </div>
-        </div>
+        <div id="page-content" class="container">
+            <!-- Fichas de Protectoras -->
+            <div class="row mt-5">
+                <?php
+                // Incluir archivo de conexión a la base de datos
+                require_once('../protectora/conexion.php');
 
-        <!-- Protectora 4 -->
-        <div class="col-lg-6 mb-3">
-          <div class="card bg-transparent border-0">
-            <img src="../images/ejemploprote4.png" class="card-img-top img-fluid" id="prote4" alt="...">
-            <div class="card-body text-center">
-              <h5 class="card-title">Asociación Por Patas</h5>
-              <a href="articulostienda.php" class="btn btn-success btn-block">Ver artículos</a>
+                // Consultar la base de datos para obtener todas las protectoras
+                $sql = "SELECT id_protectora, nombre, info_prote, info_relevante, ruta_imagen FROM protectora";
+                $result = $conn->query($sql);
+
+                // Verificar si se encontraron protectoras
+                if ($result->num_rows > 0) {
+                    // Recorrer cada fila de resultados
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">';
+                        echo '  <div class="card border-0 rounded-3 shadow-sm cardProtectora">';
+                        
+                        // Verificar si el archivo de imagen existe
+                        $image_path = $row['ruta_imagen'];
+                        if (file_exists($image_path)) {
+                            echo '<img src="' . htmlspecialchars($image_path) . '" class="card-img-top imagenProtectora" alt="Imagen de la protectora">';
+                        } else {
+                            echo '<p class="text-muted">No hay imagen disponible para esta protectora.</p>';
+                        }
+                        echo '    <div class="card-body text-center">';
+                        echo '      <h5 class="card-title">' . htmlspecialchars($row["nombre"]) . '</h5>';
+                        echo '      <p class="card-text">' . htmlspecialchars($row["info_prote"]) . '</p>';
+                        echo '      <p class="card-text">' . htmlspecialchars($row["info_relevante"]) . '</p>';
+                        echo '      <a href="articulostienda.php?id_protectora=' . htmlspecialchars($row["id_protectora"]) . '" class="btn btn-success me-2">Ver artículos</a>';
+                        echo '    </div>';
+                        echo '  </div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo "<p class='text-center'>No se encontraron protectoras.</p>";
+                }
+
+                // Cerrar la conexión a la base de datos
+                $conn->close();
+                ?>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
-
-  
 <!--FOOTER-->
 <footer class="text-center text-lg-start bg-body-tertiary text-muted mt-5" id="footer">
   <!-- Redes sociales-->
