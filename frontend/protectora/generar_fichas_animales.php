@@ -18,16 +18,27 @@ $resultado = $conn->query($sql);
 if ($resultado->num_rows > 0) {
     // Mostrar la información del animal
     while ($fila = $resultado->fetch_assoc()) {
-        echo "<h2>Detalles del animal:</h2>";
-        echo "<p>Nombre: " . $fila['nombre'] . "</p>";
-        echo "<p>Especie: " . $fila['especie'] . "</p>";
-        echo "<p>Raza: " . $fila['raza'] . "</p>";
-        echo "<p>Edad: " . $fila['edad'] . "</p>";
+        echo "<div class='container mt-5 mb-5'>";
+        echo "<div class='row justify-content-center'>";
+        echo "<div class='col-md-8'>";
+        echo "<h2 class='text-center mb-4'>Detalles del animal:</h2>";
+        echo "<div class='row'>";
+        echo "<div class='col-md-6'>";
+        echo "<p><strong>Nombre:</strong> " . $fila['nombre'] . "</p>";
+        echo "<p><strong>Especie:</strong> " . $fila['especie'] . "</p>";
+        echo "<p><strong>Raza:</strong> " . $fila['raza'] . "</p>";
+        echo "<p><strong>Edad:</strong> " . $fila['edad'] . "</p>";
+        echo "<p><strong>Información Adicional:</strong> " . $fila['info_adicional'] . "</p>"; 
+        echo "</div>";
+        echo "<div class='col-md-6'>";
         // Mostrar la imagen del animal
-        echo "<img src='" . $fila['ruta_imagen'] . "' alt='Foto del animal' style='max-width: 300px;'>";
-        // Agregar botón de adopción
-        echo "<a href='../usuario/formularioadop.php' class='btn btn-success mt-3'>Solicitar adopción</a>";
-        // Continuar con otros detalles del animal si los hay
+        echo "<img src='" . $fila['ruta_imagen'] . "' alt='Foto del animal' class='img-fluid mx-auto d-block' style='max-width: 300px;'>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+
     }
 } else {
     echo "No se encontró el animal.";

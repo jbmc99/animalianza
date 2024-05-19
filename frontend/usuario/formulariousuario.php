@@ -61,16 +61,6 @@
                         <input type="tel" class="form-control" id="telefonoContacto" name="telefonoContacto" placeholder="Introduce tu número de teléfono" required>
                     </div>
                 </div>
-                <div class="form-group row mb-4">
-                    <label for="infoAdicional" class="col-sm-4 col-form-label">Información adicional</label>
-                    <div class="col-sm-8">
-                        <textarea class="form-control" id="infoAdicional" name="infoAdicional" rows="4" placeholder="Proporciona información adicional relevante (por ejemplo, tus redes sociales, preferencias de mascotas, etc.)"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Adjuntar foto de perfil</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
 
                 <div class="form-group row text-center mt-5">
                     <div class="col-sm-12">
@@ -82,7 +72,7 @@
     </div>
 </div>
 
-<footer class="footer-custom-bg text-center">
+<footer class="footer-custom-bg text-center mt-5">
   <div class="container p-4 pb-0">
     <h4>¡Contacta con nosotros!</h4>
   </div>

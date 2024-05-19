@@ -29,12 +29,15 @@ body {
     width: 50%; 
 }
 
+#card {
+    max-width: 200px;
+}
 #primerarazon, #segundarazon {
-   background-color: #9bc0a3;
+   background-color: #B4FAC5;
 }
 
 #footer {
-    background-color: #8BAA92 !important;
+    background-color: #78CA91 !important;
 }
 
 .card-body {
@@ -80,7 +83,7 @@ body {
 }
 
 .modal-content {
-    background-color:#a8bfae !important;
+    background-color:#78CA91 !important;
 }
 
 .form-control, .form-check-input, .form-select {
@@ -88,7 +91,7 @@ body {
     border-color:black;
 }
 #desplegableNavbar .dropdown-menu {
-    background-color: #8BAA92;
+    background-color: #78CA91;
 }
 
 #voluntariadoCarrusel1, #voluntariadoCarrusel2, #voluntariadoCarrusel3 {
@@ -128,4 +131,3 @@ body {
 .footer-custom-bg {
     background-color: #78CA91;
   }
-

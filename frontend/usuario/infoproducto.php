@@ -65,26 +65,23 @@ if (isset($_GET['id_producto'])) {
     if ($resultado->num_rows > 0) {
         $datos = $resultado->fetch_object();
 ?>
-        <div class="container mt-5">
-            <div class="row">
-                <!-- Información del producto -->
-                <div class="col-md-6">
-                    <h2><?php echo $datos->nombre; ?></h2>
-                    <p><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
-                    <p><strong>Precio:</strong> <?php echo $datos->precio; ?></p>
-                    <!-- Mostrar la imagen del producto -->
-                    <?php if (!empty($datos->ruta_imagen)) : ?>
-                      <img src="<?php echo $datos->ruta_imagen; ?>" class="img-fluid mb-3" alt="Imagen del Producto" style="max-width: 200px;">
-                    <?php else : ?>
-                        <p class="text-muted">No hay imagen disponible para este producto.</p>
-                    <?php endif; ?>
-                    <!-- Botón para comprar -->
-                    <div class="text-center mt-5">
-                        <a class="btn btn-success" href="#">¡Quiero comprar!</a>
-                    </div>
-                </div>
-            </div>
+     <div class="container mt-5">
+    <div class="row justify-content-center">
+        <!-- Información del producto -->
+        <div class="col-md-6 text-center">
+            <h2><?php echo $datos->nombre; ?></h2>
+            <p><strong>Descripción:</strong> <?php echo $datos->descripcion; ?></p>
+            <p><strong>Precio:</strong> <?php echo $datos->precio; ?></p>
+            <!-- Mostrar la imagen del producto -->
+            <?php if (!empty($datos->ruta_imagen)) : ?>
+                <img src="<?php echo $datos->ruta_imagen; ?>" class="img-fluid mb-3" alt="Imagen del Producto" style="max-width: 200px;">
+            <?php else : ?>
+                <p class="text-muted">No hay imagen disponible para este producto.</p>
+            <?php endif; ?>
         </div>
+    </div>
+</div>
+
 <?php
     } else {
         // Mostrar un mensaje si no se encontraron datos del producto
