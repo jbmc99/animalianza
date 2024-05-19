@@ -21,23 +21,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Adopciones</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Voluntariado</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Donaciones</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nuestras protectoras</a>
-          </li>
-        </ul>
+
       </div>
     </div>
   </nav>
