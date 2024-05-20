@@ -1,24 +1,19 @@
 <?php
 session_start(); // Asegúrate de que esto está al principio de tu archivo
 
-print_r($_SESSION); // Imprimir el contenido de la variable de sesión
-
 // Verificar si se recibieron los datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recibir y limpiar los datos del formulario
-    $nombreApellidos = htmlspecialchars($_POST["nombreApellidos"]);
     $email = htmlspecialchars($_POST["email"]);
-    $idProtectora = htmlspecialchars($_POST["select-protectora"]);
-    $idAnimal = htmlspecialchars($_POST["select-nombre-animal"]);
-    $numeroTelefono = htmlspecialchars($_POST["numeroTelefono"]);
+    $numeroTelefono = htmlspecialchars($_POST["telefono"]);
     $direccion = htmlspecialchars($_POST["direccion"]);
-    $propietarioInquilino = htmlspecialchars($_POST["propietarioInquilino"]);
-    $permisoMascotas = htmlspecialchars($_POST["permisoMascotas"]);
-    $motivacionesAdoptar = htmlspecialchars($_POST["motivacionesAdoptar"]);
-    $infoFamilia = htmlspecialchars($_POST["infoFamilia"]);
+    $idProtectora = htmlspecialchars($_POST["id_protectora"]);
+    $idAnimal = htmlspecialchars($_POST["id_animal"]);
+    $motivacionesAcogida = htmlspecialchars($_POST["motivaciones"]);
+    $infoHogar = htmlspecialchars($_POST["estilo_vida"]);
 
     // Obtener el ID del usuario de la sesión
-    $idLogin = $_SESSION['id_login'];
+    $idLogin = $_SESSION['id_login']; // Asegúrate de que esta variable de sesión está configurada correctamente
 
     // Incluir archivo de conexión a la base de datos
     require_once('../protectora/conexion.php');
@@ -29,28 +24,76 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idUsuario = $row['id_usuario'];
 
     // Preparar la consulta SQL para insertar la solicitud en la base de datos
-    $sql = "INSERT INTO solicitud_adopcion (id_usuario, nombre_apellidos, email, id_protectora, id_animal, numero_telefono, direccion, propietario_inquilino, permiso_mascotas, motivaciones_adoptar, info_familia, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pendiente')";
+    $sql = "INSERT INTO solicitud_acogida (id_usuario, email, telefono, direccion, id_protectora, id_animal, motivaciones, estilo_vida, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pendiente')";
 
     // Preparar la declaración
-    $stmt = $conn->prepare($sql);
+    if ($stmt = $conn->prepare($sql)) {
+        // Vincular los parámetros con los valores recibidos
+        $stmt->bind_param("isssiiis", $idUsuario, $email, $numeroTelefono, $direccion, $idProtectora, $idAnimal, $motivacionesAcogida, $infoHogar);
 
-    // Vincular los parámetros con los valores recibidos
-    $stmt->bind_param("issiiisssss", $idUsuario, $nombreApellidos, $email, $idProtectora, $idAnimal, $numeroTelefono, $direccion, $propietarioInquilino, $permisoMascotas, $motivacionesAdoptar, $infoFamilia);
+        // Ejecutar la consulta
+        if ($stmt->execute()) {
+            // Solicitud de acogida guardada correctamente
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Solicitud enviada!',
+                            text: '¡La solicitud de acogida ha sido enviada correctamente!',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'casaacogida.php';
+                            }
+                        });
+                    });
+                  </script>";
+        } else {
+            // Error al guardar la solicitud de acogida
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al procesar la solicitud de acogida: " . $conn->error . "',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    });
+                  </script>";
+        }
 
-    // Ejecutar la consulta
-    if ($stmt->execute()) {
-        // Solicitud de adopción guardada correctamente
-        echo "<script>alert('¡La solicitud de adopción ha sido enviada correctamente!'); window.location.href='adopciones.php';</script>";
+        // Cerrar la declaración
+        $stmt->close();
     } else {
-        // Error al guardar la solicitud de adopción
-        echo "Error al procesar la solicitud de adopción: " . $conn->error;
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error en la preparación de la consulta: " . $conn->error . "',
+                        confirmButtonText: 'Aceptar'
+                    });
+                });
+              </script>";
     }
 
     // Cerrar la conexión a la base de datos
-    $stmt->close();
     $conn->close();
 } else {
     // Si no se recibieron los datos por POST, redirigir a una página de error o mostrar un mensaje de error
-    echo "Error: Los datos del formulario no fueron recibidos correctamente.";
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error: Los datos del formulario no fueron recibidos correctamente.',
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+          </script>";
 }
 ?>

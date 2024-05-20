@@ -17,7 +17,7 @@ include('navbar_usuario.php');
 
   <div class="container text-center mb-5">
       <div class="col align-self-center mt-4">
-        <h1><b>ANIMALIANZA</h1></b>
+        <h1 id="titulo" ><b>ANIMALIANZA</h1></b>
       </div>
       <div>
         <img src="../images/logueto.png" class="rounded mx-auto d-block" id="logueto" alt="...">

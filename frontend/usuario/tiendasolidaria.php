@@ -58,8 +58,7 @@ include('navbar_usuario.php');
                         }
                         echo '    <div class="card-body text-center">';
                         echo '      <h5 class="card-title">' . htmlspecialchars($row["nombre"]) . '</h5>';
-                        echo '      <p class="card-text">' . htmlspecialchars($row["info_prote"]) . '</p>';
-                        echo '      <p class="card-text">' . htmlspecialchars($row["info_relevante"]) . '</p>';
+                      
                         echo '      <a href="articulostienda.php?id_protectora=' . htmlspecialchars($row["id_protectora"]) . '" class="btn btn-success me-2">Ver artículos</a>';
                         echo '    </div>';
                         echo '  </div>';

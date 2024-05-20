@@ -1,6 +1,7 @@
 <?php
-// Incluir archivo de conexión
+// Incluir archivo de conexión y el archivo de sesión (asegúrate de que la sesión esté iniciada)
 require_once('conexion.php');
+
 
 // Verificar si se recibió el ID del animal
 if (!isset($_GET['id'])) {
@@ -35,6 +36,14 @@ if ($resultado->num_rows > 0) {
         echo "<img src='" . $fila['ruta_imagen'] . "' alt='Foto del animal' class='img-fluid mx-auto d-block' style='max-width: 300px;'>";
         echo "</div>";
         echo "</div>";
+        
+        // Verificar el tipo de usuario y mostrar el botón de adopción si es un usuario y no una protectora
+        if (isset($_SESSION['tipo_login']) && $_SESSION['tipo_login'] == 'usuario') {
+            echo "<div class='text-center mt-4'>";
+            echo "<a href='formularioadop.php?id=$animal_id' class='btn'>Solicitar Adopción</a>";
+            echo "</div>";
+        }
+        
         echo "</div>";
         echo "</div>";
         echo "</div>";

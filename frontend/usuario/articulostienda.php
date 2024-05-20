@@ -20,7 +20,6 @@ $result = $stmt->get_result();
 
 // Depuración: Imprimir número de filas obtenidas
 if ($result->num_rows > 0) {
-    echo "<p class='text-center'>Se encontraron " . $result->num_rows . " productos.</p>";
     $productos = [];
     while ($row = $result->fetch_assoc()) {
         $productos[] = $row;
@@ -65,7 +64,6 @@ include('navbar_usuario.php');
                         <?php endif; ?>
                         <div class="card-body text-center">
                             <h5 class="card-title"><?php echo htmlspecialchars($producto['nombre']); ?></h5>
-                            <p class="card-text"><?php echo htmlspecialchars($producto['descripcion']); ?></p>
                             <h6 class="card-subtitle mb-2 text-muted">€<?php echo htmlspecialchars($producto['precio']); ?></h6>
                             <a href="../usuario/infoproducto.php?id_producto=<?php echo htmlspecialchars($producto['id_producto']); ?>" class="btn btn-success">Más información</a>
                         </div>

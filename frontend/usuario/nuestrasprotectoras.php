@@ -29,7 +29,7 @@ if ($resultado->num_rows > 0) {
 
     // Iterar sobre los resultados y generar el HTML para cada card
     while ($fila = $resultado->fetch_assoc()) {
-        echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">'; // Cambiado a d-flex justify-content-center
+        echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">'; // Camb iado a d-flex justify-content-center
         echo '<div class="card border-0 rounded-3 shadow-sm cardProtectora">'; // Añadido la clase 'cardProtectora'
         
         // Verificar si el archivo de imagen existe
@@ -41,8 +41,6 @@ if ($resultado->num_rows > 0) {
         }
         echo '<div class="card-body text-center">';
         echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
-        echo '<p class="card-text">' . $fila['info_prote'] . '</p>';
-        echo '<p class="card-text">' . $fila['info_relevante'] . '</p>';
         echo '<a href="prote1.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success me-2">Más información</a>';
         echo '</div>'; // Cierre de card-body
         echo '</div>'; // Cierre de card

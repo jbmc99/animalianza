@@ -34,23 +34,27 @@ if (isset($_GET['id_protectora'])) {
         $ruta_imagen = $datos['ruta_imagen']; // La ruta ya incluye la carpeta "uploads"
 
         ?>
-        <div class="container mt-5">
-            <div class="row">
-                <!-- Información de la protectora -->
-                <div class="card-body text-center">
-                    <h2 class="card-title"><?php echo $datos['nombre']; ?></h2>
-                    <p class="card-text"><strong>Información:</strong> <?php echo $datos['info_prote']; ?></p>
-                    <p class="card-text"><strong>Información relevante:</strong> <?php echo $datos['info_relevante']; ?></p>
-                    <!-- Mostrar la imagen de la protectora -->
-                    <?php if (!empty($ruta_imagen)) : ?>
-                        <img src="<?php echo $ruta_imagen; ?>" class="img-fluid mb-3" alt="Imagen de la Protectora" style="max-width: 200px;">
-                    <?php else : ?>
-                        <p class="text-muted">No hay imagen disponible para esta protectora.</p>
-                    <?php endif; ?>
-
-                </div>
-            </div>
+<div class="container mt-5">
+<div class="row justify-content-center">
+    <!-- Información de la protectora -->
+    <div class="text-center">
+        <h2><?php echo $datos['nombre']; ?></h2>
+        <div class="col-md-6 mx-auto">
+            <p><strong>Información:</strong> <?php echo $datos['info_prote']; ?></p>
         </div>
+    </div>
+</div>
+            
+<?php if (!empty($ruta_imagen)) : ?>
+    <div class="d-flex justify-content-center">
+        <img src="<?php echo $ruta_imagen; ?>" class="img-fluid mb-3" alt="Imagen de la Protectora" style="max-width: 400px;">
+    </div>
+<?php else : ?>
+    <p class="text-muted">No hay imagen disponible para esta protectora.</p>
+<?php endif; ?>
+</div>
+</div>
+</div>
         <?php
     } else {
         // Mostrar un mensaje si no se encontraron datos de la protectora

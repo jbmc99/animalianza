@@ -26,13 +26,12 @@ include('navbar_usuario.php');
     <!-- Descripción -->
     <div class="row mt-1">
       <div class="col-lg-8 offset-lg-2">
-        <div class="card mb-2 bg-transparent border-0">
-          <div class="card-body text-center">
-            <p>Ser casa de acogida para una protectora de animales es una labor increíblemente valiosa. Consiste en brindar temporalmente un hogar a animales rescatados que necesitan cuidados adicionales antes de ser adoptados de forma permanente. Como casa de acogida, no solo les proporcionarás refugio y alimentación, sino que también les darás amor, atención y posiblemente los prepararás para su futura adopción.</p>
-          </div>
+        <div class="text-center">
+          <p>Ser casa de acogida para una protectora de animales es una labor increíblemente valiosa. Consiste en brindar temporalmente un hogar a animales rescatados que necesitan cuidados adicionales antes de ser adoptados de forma permanente. Como casa de acogida, no solo les proporcionarás refugio y alimentación, sino que también les darás amor, atención y posiblemente los prepararás para su futura adopción.</p>
         </div>
       </div>
     </div>
+</div>
     
     <!--Imagen-->
     <div class="container mt-3">
@@ -44,22 +43,19 @@ include('navbar_usuario.php');
     </div>
     
     <!-- Razones para ser casa de acogida -->
-    <div class="row mt-5">
-      <div class="col-lg-8 offset-lg-2">
-        <div class="card mb-3 bg-transparent border-0">
-          <div class="card-body text-center">
-            <h4>Razones para ser casa de acogida</h4>
-            <ol>
-              <li>Brindar un hogar temporal a animales necesitados y ayudarles en su proceso de rehabilitación.</li>
-              <li>Contribuir al bienestar animal y hacer una diferencia real en la vida de los animales en situación de abandono.</li>
-              <li>Experimentar la gratificación emocional de cuidar y ver crecer a un animal que luego encontrará un hogar permanente.</li>
-            </ol>
-          </div>
-        </div>
-      </div>
+<div class="row mt-5">
+  <div class="col-lg-8 offset-lg-2">
+    <div id="divsinfondo2" class="text-center">
+      <h4>Razones para ser casa de acogida</h4>
+      <ol>
+        <li>Brindar un hogar temporal a animales necesitados y ayudarles en su proceso de rehabilitación.</li>
+        <li>Contribuir al bienestar animal y hacer una diferencia real en la vida de los animales en situación de abandono.</li>
+        <li>Experimentar la gratificación emocional de cuidar y ver crecer a un animal que luego encontrará un hogar permanente.</li>
+      </ol>
     </div>
   </div>
-  
+</div>
+
   <div class="container">
     <div class="row">
         <div class="col-12 text-center mb-3 mt-5">
@@ -79,12 +75,15 @@ include('navbar_usuario.php');
         // Consultar la base de datos para obtener las protectoras que aceptan acogidas
         $sql = "SELECT id_protectora, nombre, info_prote, info_relevante, ruta_imagen FROM protectora WHERE acepta_acogidas = 1";
         $resultado = $conn->query($sql);
-
         // Verificar si se encontraron resultados
         if ($resultado->num_rows > 0) {
+            // Contenedor y fila fuera del bucle
+            echo '<div class="container mt-5">';
+            echo '<div class="row justify-content-center">'; // Añadimos la clase justify-content-center para centrar las tarjetas
+        
             // Iterar sobre los resultados y generar el HTML para cada card
             while ($fila = $resultado->fetch_assoc()) {
-                echo '<div class="col-lg-6 mb-3">';
+                echo '<div class="col-lg-4 mb-3">'; // Cambiamos col-lg-6 a col-lg-4 para que cada tarjeta ocupe 3 columnas
                 echo '<div class="card bg-transparent border-0">';
                 echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid" alt="Imagen de la protectora">';
                 echo '<div class="card-body text-center">';
@@ -94,10 +93,13 @@ include('navbar_usuario.php');
                 echo '</div>';
                 echo '</div>';
             }
+        
+            // Cerrar contenedor y fila
+            echo '</div>';
+            echo '</div>';
         } else {
             echo "No se encontraron protectoras que acepten acogidas en este momento.";
         }
-
         // Cerrar la conexión a la base de datos
         $conn->close();
         ?>

@@ -35,22 +35,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Ejecutar la consulta
         if ($stmt->execute()) {
             // Solicitud de voluntariado guardada correctamente
-            echo "<script>alert('¡La solicitud de voluntariado ha sido enviada correctamente!'); window.location.href='voluntariado.php';</script>";
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Solicitud enviada!',
+                            text: '¡La solicitud de voluntariado ha sido enviada correctamente!',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'voluntariado.php';
+                            }
+                        });
+                    });
+                  </script>";
         } else {
             // Error al guardar la solicitud de voluntariado
-            echo "Error al procesar la solicitud de voluntariado: " . $conn->error;
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al procesar la solicitud de voluntariado: " . $conn->error . "',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    });
+                  </script>";
         }
 
         // Cerrar la declaración
         $stmt->close();
     } else {
-        echo "Error en la preparación de la consulta: " . $conn->error;
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error en la preparación de la consulta: " . $conn->error . "',
+                        confirmButtonText: 'Aceptar'
+                    });
+                });
+              </script>";
     }
 
     // Cerrar la conexión a la base de datos
     $conn->close();
 } else {
     // Si no se recibieron los datos por POST, redirigir a una página de error o mostrar un mensaje de error
-    echo "Error: Los datos del formulario no fueron recibidos correctamente.";
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error: Los datos del formulario no fueron recibidos correctamente.',
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+          </script>";
 }
 ?>
