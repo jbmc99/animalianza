@@ -3,17 +3,16 @@ session_start(); // Asegúrate de que esto está al principio de tu archivo
 
 // Verificar si se recibieron los datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verificar y recibir los datos del formulario, si están presentes
-    $nombreApellidos = isset($_POST["nombre_apellidos"]) ? htmlspecialchars($_POST["nombre_apellidos"]) : null;
+    $nombreApellidos = isset($_POST["nombreApellidos"]) ? htmlspecialchars($_POST["nombreApellidos"]) : null;
     $email = isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : null;
-    $numeroTelefono = isset($_POST["numero_telefono"]) ? htmlspecialchars($_POST["numero_telefono"]) : null;
+    $numeroTelefono = isset($_POST["numeroTelefono"]) ? htmlspecialchars($_POST["numeroTelefono"]) : null;
     $direccion = isset($_POST["direccion"]) ? htmlspecialchars($_POST["direccion"]) : null;
-    $propietarioInquilino = isset($_POST["propietario_inquilino"]) ? htmlspecialchars($_POST["propietario_inquilino"]) : null;
-    $permisoMascotas = isset($_POST["permiso_mascotas"]) ? htmlspecialchars($_POST["permiso_mascotas"]) : null;
-    $motivacionesAdoptar = isset($_POST["motivaciones_adoptar"]) ? htmlspecialchars($_POST["motivaciones_adoptar"]) : null;
-    $infoFamilia = isset($_POST["info_familia"]) ? htmlspecialchars($_POST["info_familia"]) : null;
-    $idProtectora = isset($_POST["id_protectora"]) ? htmlspecialchars($_POST["id_protectora"]) : null;
-    $idAnimal = isset($_POST["id_animal"]) ? htmlspecialchars($_POST["id_animal"]) : null;
+    $propietarioInquilino = isset($_POST["propietarioInquilino"]) ? htmlspecialchars($_POST["propietarioInquilino"]) : null;
+    $permisoMascotas = isset($_POST["permisoMascotas"]) ? htmlspecialchars($_POST["permisoMascotas"]) : null;
+    $motivacionesAdoptar = isset($_POST["motivacionesAdoptar"]) ? htmlspecialchars($_POST["motivacionesAdoptar"]) : null;
+    $infoFamilia = isset($_POST["infoFamilia"]) ? htmlspecialchars($_POST["infoFamilia"]) : null;
+    $idProtectora = isset($_POST["id-protectora"]) ? htmlspecialchars($_POST["id-protectora"]) : null;
+    $idAnimal = isset($_POST["select-nombre-animal"]) ? htmlspecialchars($_POST["select-nombre-animal"]) : null;
 
     // Verificar que todos los datos requeridos estén presentes
     if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propietarioInquilino || !$permisoMascotas || !$motivacionesAdoptar || !$infoFamilia || !$idProtectora || !$idAnimal) {
@@ -84,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Preparar la consulta SQL para insertar la solicitud en la base de datos
-    $sql = "INSERT INTO solicitud_acogida (id_usuario, email, numero_telefono, direccion, id_protectora, id_animal, motivaciones_adoptar, info_familia, estado, nombre_apellidos, propietario_inquilino, permiso_mascotas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pendiente', ?, ?, ?)";
+    $sql = "INSERT INTO solicitud_adopcion (id_usuario, email, numero_telefono, direccion, id_protectora, id_animal, motivaciones_adoptar, info_familia, estado, nombre_apellidos, propietario_inquilino, permiso_mascotas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pendiente', ?, ?, ?)";
 
     // Preparar la declaración
     if ($stmt = $conn->prepare($sql)) {
@@ -93,14 +92,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
-            // Solicitud de acogida guardada correctamente
+            // Solicitud de adopción guardada correctamente
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
             echo "<script>
                     document.addEventListener('DOMContentLoaded', function() {
                         Swal.fire({
                             icon: 'success',
                             title: '¡Solicitud enviada!',
-                            text: '¡La solicitud de acogida ha sido enviada correctamente!',
+                            text: '¡La solicitud de adopción ha sido enviada correctamente!',
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
                             if (result.isConfirmed) {
@@ -110,14 +109,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     });
                   </script>";
         } else {
-            // Error al guardar la solicitud de acogida
+            // Error al guardar la solicitud de adopción
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
             echo "<script>
                     document.addEventListener('DOMContentLoaded', function() {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Error al procesar la solicitud de acogida: " . $conn->error . "',
+                            text: 'Error al procesar la solicitud de adopción: " . $conn->error . "',
                             confirmButtonText: 'Aceptar'
                         });
                     });

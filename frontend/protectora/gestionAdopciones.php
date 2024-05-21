@@ -73,7 +73,9 @@ include('navbar_protectora.php');
             if ($result->num_rows > 0) {
                 // Recorrer cada fila de resultados
                 while($row = $result->fetch_assoc()) {
-                    echo '<li class="list-group-item d-flex justify-content-between align-items-center" data-bs-toggle="modal" data-bs-target="#solicitudModal'.$row["id_solicitud_adopcion"].'">';
+
+                  echo '<li class="list-group-item d-flex justify-content-between align-items-center" data-id_solicitud_adopcion="'.$row["id_solicitud_adopcion"].'" data-bs-toggle="modal" data-bs-target="#solicitudModal'.$row["id_solicitud_adopcion"].'">';
+
                     echo $row["nombre_animal"];
                     echo '<span class="badge bg-success rounded-pill" style="cursor:pointer;">Más información</span>';
                     echo '</li>';
@@ -99,8 +101,8 @@ include('navbar_protectora.php');
                     echo '</div>';
                     echo '<div class="modal-footer">';
                     echo '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>';
-                    echo '<button type="button" class="btn btn-success">Aceptar</button>';
-                    echo '<button type="button" class="btn btn-danger">Denegar</button>';
+                    echo '<button type="button" class="btn btn-success acceptBtn" data-id_solicitud_adopcion="'.$row["id_solicitud_adopcion"].'" data-acepta="aceptada">Aceptar</button>';
+                    echo '<button type="button" class="btn btn-danger denyBtn" data-id_solicitud_adopcion="'.$row["id_solicitud_adopcion"].'" data-acepta="denegada">Denegar</button>';
                     echo '</div>';
                     echo '</div>';
                     echo '</div>';
@@ -205,8 +207,33 @@ $(".confirmarBtn").on("click", function() {
         }
     });
 });
+// Para aceptar solicitudes de adopción
+$(".acceptBtn, .denyBtn").on("click", function() {
+    var id_solicitud_adopcion = $(this).data("id_solicitud_adopcion");
+    var acepta_adopciones = $(this).data("acepta"); // Lee el estado desde el botón
 
+    var listItem = $('li[data-id_solicitud_adopcion="'+id_solicitud_adopcion+'"]');
 
+    $.ajax({
+        url: "actualizar_estado_solicitud_adopcion.php",
+        method: "GET",
+        data: {
+            id_solicitud_adopcion: id_solicitud_adopcion,
+            nuevo_estado: acepta_adopciones // Envía el estado al script PHP
+        },
+        success: function(response) {
+            if (acepta_adopciones === "aceptada") {
+                alert("La solicitud de adopción ha sido aceptada.");
+            } else {
+                alert("La solicitud de adopción ha sido denegada.");
+            }
+            listItem.remove(); // Elimina el elemento de la lista
+        },
+        error: function(xhr, status, error) {
+            alert("Hubo un error al actualizar la solicitud.");
+        }
+    });
+});
 </script>
   </body>
   </html>
