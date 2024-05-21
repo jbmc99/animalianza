@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
@@ -9,7 +10,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
-      <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="../protectora/inicioProtectora.php">Inicio</a>
         </li>
         <li class="nav-item">
@@ -29,6 +30,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../protectora/gestionVoluntarios.php">Gestión voluntarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../protectora/perfil_protectora.php">Perfil</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../protectora/logout.php">Cerrar sesión</a>

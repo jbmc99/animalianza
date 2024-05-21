@@ -19,23 +19,25 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 ¿Cómo ayudar?
             </a>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="../usuario/voluntariado.php">Voluntariado</a></li>
-        <li><a class="dropdown-item" href="../usuario/donaciones.php">Donaciones</a></li>
-        <li><a class="dropdown-item" href="../usuario/casaacogida.php">Casa de acogida</a></li>
-
-    </ul>
-</li>
-        <li class="nav-item">
-          <a class="nav-link" href="../usuario/tiendasolidaria.php">Tienda solidaria</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../protectora/logout.php">Cerrar sesión</a>
-        </li>
-      </ul>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="../usuario/voluntariado.php">Voluntariado</a></li>
+                <li><a class="dropdown-item" href="../usuario/donaciones.php">Donaciones</a></li>
+                <li><a class="dropdown-item" href="../usuario/casaacogida.php">Casa de acogida</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../usuario/tiendasolidaria.php">Tienda solidaria</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../usuario/perfil_usuario.php">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../protectora/logout.php">Cerrar sesión</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
 </nav>

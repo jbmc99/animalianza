@@ -1,4 +1,3 @@
-<!-- Obtener el id_protectora de la sesión -->
 <?php
 // Iniciar la sesión para acceder a las variables de sesión
 session_start();
@@ -14,10 +13,6 @@ if (!isset($_SESSION['id_protectora'])) {
 $id_protectora = $_SESSION['id_protectora'];
 ?>
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +27,6 @@ $id_protectora = $_SESSION['id_protectora'];
 <?php
 include('navbar_protectora.php');
 ?>
-  
 
 <!-- Title -->
 <div class="container mt-5 mb-5 text-center">
@@ -59,14 +53,20 @@ include('navbar_protectora.php');
             // Incluir archivo de conexión a la base de datos
             require_once('../protectora/conexion.php');
 
-           // Obtener el id_protectora de la sesión
-           $idProtectora = $_SESSION['id_protectora'];
+            // Obtener el id_protectora de la sesión
+            $idProtectora = $_SESSION['id_protectora'];
 
-           // Preparar la consulta SQL para obtener todas las solicitudes de adopción
-           $sql = "SELECT solicitud_adopcion.*, animal.nombre AS nombre_animal FROM solicitud_adopcion JOIN animal ON solicitud_adopcion.id_animal = animal.id_animal WHERE solicitud_adopcion.id_protectora = $idProtectora";
+            // Preparar la consulta SQL para obtener todas las solicitudes de adopción que no estén aceptadas o denegadas
+            $sql = "SELECT solicitud_adopcion.*, animal.nombre AS nombre_animal 
+                    FROM solicitud_adopcion 
+                    JOIN animal ON solicitud_adopcion.id_animal = animal.id_animal 
+                    WHERE solicitud_adopcion.id_protectora = ? AND solicitud_adopcion.estado = 'pendiente'";
 
-           // Ejecutar la consulta
-           $result = $conn->query($sql);
+            // Preparar y ejecutar la consulta
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $idProtectora);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
             echo '<div class="container my-3">'; // Contenedor con margen vertical
 
@@ -113,68 +113,38 @@ include('navbar_protectora.php');
             }
 
             echo '</div>'; // Cierre del contenedor
+
+            // Cerrar la conexión a la base de datos
+            $stmt->close();
+            $conn->close();
             ?>
         </div>
     </div>
 </div>
 
-<?php
-// Cerrar la conexión a la base de datos
-$conn->close();
-?>
- <!--FOOTER-->
-
- <footer class="footer-custom-bg text-center mt-5">
+<!-- FOOTER -->
+<footer class="footer-custom-bg text-center mt-5">
   <div class="container p-4 pb-0">
     <h4>¡Contacta con nosotros!</h4>
   </div>
 
   <div class="container p-4 pb-0">
     <section class="mb-4">
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #3b5998;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #55acee;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-twitter"></i
-      ></a>
-
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #dd4b39;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-google"></i
-      ></a>
-
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #ac2bac;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-instagram"></i
-      ></a>
+      <a class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+      <a class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+      <a class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="#!" role="button"><i class="fab fa-google"></i></a>
+      <a class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="#!" role="button"><i class="fab fa-instagram"></i></a>
     </section>
-
   </div>
 
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
     © 2024 Copyright: Animalianza
-    <a class="text-body" href="https://animalianza.com/"> Animalianza.com</a>
+    <a class="text-body" href="https://animalianza.com/">Animalianza.com</a>
   </div>
-
 </footer>
-  <!-- Footer -->
+<!-- Footer -->
 
-      <!-- Scripts -->
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -235,5 +205,5 @@ $(".acceptBtn, .denyBtn").on("click", function() {
     });
 });
 </script>
-  </body>
-  </html>
+</body>
+</html>
