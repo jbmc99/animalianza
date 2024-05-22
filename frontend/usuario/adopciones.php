@@ -35,14 +35,7 @@ include('navbar_usuario.php');
         </div>
     </div>
 
-    <div class="card ms-3 mb-3 me-5 bg-transparent border-0 h-100" id="card3">
-        <img src="../images/categoriaambos.jpg" class="card-img-top img-fluid" alt="...">
-        <div class="card-body">
-            <a href="perrosgatosadopcion.php" class="btn btn-link text-dark text-decoration-none">
-                <h3>VER TODO</h3>
-            </a>
-        </div>
-    </div>
+    
 </div>
 </div>
 
