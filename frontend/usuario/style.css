@@ -9,6 +9,27 @@ html {
     src: url(../fuente/animalianza.ttf);
     
     }
+
+@font-face {
+    
+        font-family: roboto;
+        
+        src: url(../fuente/roboto.ttf);
+}
+
+@font-face {
+        
+        font-family: robotobold;
+        
+        src: url(../fuente/robotobold.ttf);
+    
+}
+
+h2, h3, h4 {
+    font-family: robotobold !important;
+}
+
+
 #titulo {
     font-family: animalianza;
     font-size: 80px;
@@ -17,7 +38,10 @@ html {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-
+body {
+    font-family: Roboto !important;
+    background-color: #B4FAC5 !important;
+}
 button:hover {
     cursor: url('../images/cursorhover.png'), auto !important;
 }

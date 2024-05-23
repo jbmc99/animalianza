@@ -52,7 +52,7 @@ include('navbar_usuario.php');
     </form> 
 </div>
 <!--CARDS-->
-<div class="d-flex flex-wrap justify-content-center ms-5 me-2 gatos-container">
+<div class="d-flex flex-wrap ms-5 me-2 gatos-container">
     <?php
     // Incluir archivo de conexión
     require_once('../protectora/conexion.php');
@@ -65,7 +65,7 @@ include('navbar_usuario.php');
     if ($resultado->num_rows > 0) {
         // Contenedor y fila fuera del bucle
         echo '<div class="container mt-5">';
-        echo '<div class="row">';
+        echo '<div class="row justify-content-center">'; // Mover la clase aquí
         
         // Mostrar todas las tarjetas de gatos
         while ($fila = $resultado->fetch_assoc()) {
@@ -94,9 +94,6 @@ include('navbar_usuario.php');
     $conn->close();
     ?>
 </div>
-
-
-
 
  
 <?php
