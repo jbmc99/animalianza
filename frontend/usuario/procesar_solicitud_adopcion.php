@@ -1,21 +1,28 @@
 <?php
 session_start(); // Asegúrate de que esto está al principio de tu archivo
 
+
+require_once('../protectora/conexion.php');
+
 // Verificar si se recibieron los datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Imprimir todos los datos recibidos para depuración
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+
     $nombreApellidos = isset($_POST["nombreApellidos"]) ? htmlspecialchars($_POST["nombreApellidos"]) : null;
     $email = isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : null;
     $numeroTelefono = isset($_POST["numeroTelefono"]) ? htmlspecialchars($_POST["numeroTelefono"]) : null;
     $direccion = isset($_POST["direccion"]) ? htmlspecialchars($_POST["direccion"]) : null;
     $propietarioInquilino = isset($_POST["propietarioInquilino"]) ? htmlspecialchars($_POST["propietarioInquilino"]) : null;
     $permisoMascotas = isset($_POST["permisoMascotas"]) ? htmlspecialchars($_POST["permisoMascotas"]) : null;
-    $motivacionesAdoptar = isset($_POST["motivacionesAdoptar"]) ? htmlspecialchars($_POST["motivacionesAdoptar"]) : null;
-    $infoFamilia = isset($_POST["infoFamilia"]) ? htmlspecialchars($_POST["infoFamilia"]) : null;
+    $infoFamilia = isset($_POST["infoFamilia"]) ? htmlspecialchars( $_POST["infoFamilia"]) : null;
     $idProtectora = isset($_POST["id-protectora"]) ? htmlspecialchars($_POST["id-protectora"]) : null;
     $idAnimal = isset($_POST["select-nombre-animal"]) ? htmlspecialchars($_POST["select-nombre-animal"]) : null;
 
     // Verificar que todos los datos requeridos estén presentes
-    if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propietarioInquilino || !$permisoMascotas || !$motivacionesAdoptar || !$infoFamilia || !$idProtectora || !$idAnimal) {
+    if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propietarioInquilino || !$permisoMascotas || !$infoFamilia || !$idProtectora || !$idAnimal) {
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
         echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -83,12 +90,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Preparar la consulta SQL para insertar la solicitud en la base de datos
-    $sql = "INSERT INTO solicitud_adopcion (id_usuario, email, numero_telefono, direccion, id_protectora, id_animal, motivaciones_adoptar, info_familia, estado, nombre_apellidos, propietario_inquilino, permiso_mascotas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pendiente', ?, ?, ?)";
+    $sql = "INSERT INTO solicitud_adopcion (id_usuario, email, numero_telefono, direccion, id_protectora, id_animal, info_familia, estado, nombre_apellidos, propietario_inquilino, permiso_mascotas) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     // Preparar la declaración
     if ($stmt = $conn->prepare($sql)) {
         // Vincular los parámetros con los valores recibidos
-        $stmt->bind_param("isssiiissss", $idUsuario, $email, $numeroTelefono, $direccion, $idProtectora, $idAnimal, $motivacionesAdoptar, $infoFamilia, $nombreApellidos, $propietarioInquilino, $permisoMascotas);
+        $estado = 'pendiente';
+        $stmt->bind_param("isssiiissss", $idUsuario, $email, $numeroTelefono, $direccion, $idProtectora, $idAnimal, $infoFamilia, $estado, $nombreApellidos, $propietarioInquilino, $permisoMascotas);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
@@ -103,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = 'casaacogida.php';
+                                window.location.href = 'adopciones.php';
                             }
                         });
                     });
@@ -142,19 +150,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Cerrar la conexión a la base de datos
     $conn->close();
 } else {
-    // Si no se recibieron los datos por POST, redirigir a una página de error o mostrar un mensaje de error
+    // Error al procesar la solicitud de adopción
     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
     echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Error: Los datos del formulario no fueron recibidos correctamente.',
+                    text: 'Error al procesar la solicitud de adopción.',
                     confirmButtonText: 'Aceptar'
                 });
             });
-            
           </script>";
-          
 }
 ?>

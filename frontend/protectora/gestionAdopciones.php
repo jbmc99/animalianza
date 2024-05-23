@@ -96,7 +96,6 @@ include('navbar_protectora.php');
                     echo '<p>Dirección: '.$row["direccion"].'</p>';
                     echo '<p>Propietario/Inquilino: '.$row["propietario_inquilino"].'</p>';
                     echo '<p>Permiso Mascotas: '.$row["permiso_mascotas"].'</p>';
-                    echo '<p>Motivaciones Adoptar: '.$row["motivaciones_adoptar"].'</p>';
                     echo '<p>Info Familia: '.$row["info_familia"].'</p>';
                     echo '</div>';
                     echo '<div class="modal-footer">';

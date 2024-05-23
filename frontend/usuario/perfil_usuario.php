@@ -92,9 +92,48 @@ while ($row = $result_adopciones->fetch_assoc()) {
     $nombre_animal_adopcion = $nombre_animal_row_adopcion ? $nombre_animal_row_adopcion['nombre'] : 'Nombre no encontrado';
     $stmt_nombre_animal_adopcion->close();
 
+    // Almacenar el nombre del animal en la solicitud
+    $row['nombre_animal'] = $nombre_animal_adopcion;
 }
 
 $stmt_adopciones->close();
+
+// Consultar las solicitudes de voluntariado del usuario
+$sql_voluntariados = "SELECT * FROM solicitud_voluntariado WHERE id_usuario = ?";
+$stmt_voluntariados = $conn->prepare($sql_voluntariados);
+$stmt_voluntariados->bind_param("i", $id_usuario);
+$stmt_voluntariados->execute();
+$result_voluntariados = $stmt_voluntariados->get_result();
+
+// Organizar las solicitudes de voluntariado por estado
+$solicitudes_pendientes_voluntariado = [];
+$solicitudes_aceptadas_voluntariado = [];
+$solicitudes_denegadas_voluntariado = [];
+
+while ($row = $result_voluntariados->fetch_assoc()) {
+    if ($row['estado'] == 'pendiente') {
+        $solicitudes_pendientes_voluntariado[] = $row;
+    } elseif ($row['estado'] == 'aceptada') {
+        $solicitudes_aceptadas_voluntariado[] = $row;
+    } elseif ($row['estado'] == 'denegada') {
+        $solicitudes_denegadas_voluntariado[] = $row;
+    }
+
+    // Obtener el nombre de la protectora para cada solicitud de voluntariado
+    $sql_nombre_protectora = "SELECT nombre FROM protectora WHERE id_protectora = ?";
+    $stmt_nombre_protectora = $conn->prepare($sql_nombre_protectora);
+    $stmt_nombre_protectora->bind_param("i", $row['id_protectora']);
+    $stmt_nombre_protectora->execute();
+    $result_nombre_protectora = $stmt_nombre_protectora->get_result();
+    $nombre_protectora_row = $result_nombre_protectora->fetch_assoc();
+    $nombre_protectora = $nombre_protectora_row ? $nombre_protectora_row['nombre'] : 'Nombre no encontrado';
+    $stmt_nombre_protectora->close();
+
+    // Almacenar el nombre de la protectora en la solicitud
+    $row['nombre_protectora'] = $nombre_protectora;
+}
+
+$stmt_voluntariados->close();
 
 ?>
 
@@ -314,7 +353,6 @@ include('navbar_usuario.php');
                                         </div>
                                         <div class="card-body">
                                             <p><strong>Animal ID:</strong> ' . htmlspecialchars($solicitud['id_animal']) . '</p>
-                                            <p><strong>Motivaciones:</strong> ' . htmlspecialchars($solicitud['motivaciones_adoptar']) . '</p>
                                             <p><strong>Información de la Familia:</strong> ' . htmlspecialchars($solicitud['info_familia']) . '</p>
                                             <p><strong>Nombre del Animal:</strong> ' . htmlspecialchars($nombre_animal_pendientes) . '</p>
                                         </div>
@@ -357,7 +395,6 @@ include('navbar_usuario.php');
                                         </div>
                                         <div class="card-body">
                                             <p><strong>Animal ID:</strong> ' . htmlspecialchars($solicitud['id_animal']) . '</p>
-                                            <p><strong>Motivaciones:</strong> ' . htmlspecialchars($solicitud['motivaciones_adoptar']) . '</p>
                                             <p><strong>Información de la Familia:</strong> ' . htmlspecialchars($solicitud['info_familia']) . '</p>
                                             <p><strong>Nombre del Animal:</strong> ' . htmlspecialchars($nombre_animal_aceptadas) . '</p>
                                         </div>
@@ -390,7 +427,6 @@ include('navbar_usuario.php');
                                                 </div>
                                                 <div class="card-body">
                                                     <p><strong>Animal ID:</strong> ' . htmlspecialchars($solicitud['id_animal']) . '</p>
-                                                    <p><strong>Motivaciones:</strong> ' . htmlspecialchars($solicitud['motivaciones_adoptar']) . '</p>
                                                     <p><strong>Información de la Familia:</strong> ' . htmlspecialchars($solicitud['info_familia']) . '</p>
                                                     <p><strong>Nombre del Animal:</strong> ' . htmlspecialchars($nombre_animal) . '</p>
                                                 </div>
@@ -409,6 +445,150 @@ include('navbar_usuario.php');
                         </div>
                         </div>
                         </div>
+
+                        <h2 class="mb-4 text-center">Solicitudes de Voluntariado</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="accordion" id="accordionSolicitudesVoluntariado">
+                <div class="card">
+                    <div class="card-header" id="headingPendientesVoluntariado">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#collapsePendientesVoluntariado" aria-expanded="true" aria-controls="collapsePendientesVoluntariado">
+                                Pendientes
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapsePendientesVoluntariado" class="collapse show" aria-labelledby="headingPendientesVoluntariado" data-parent="#accordionSolicitudesVoluntariado">
+                        <div class="card-body">
+                            <?php
+                            if (!empty($solicitudes_pendientes_voluntariado)) {
+                                foreach ($solicitudes_pendientes_voluntariado as $solicitud) {
+                                    // Obtener el nombre de la protectora para cada solicitud
+                                    $sql_nombre_protectora = "SELECT nombre FROM protectora WHERE id_protectora = ?";
+                                    $stmt_nombre_protectora = $conn->prepare($sql_nombre_protectora);
+                                    $stmt_nombre_protectora->bind_param("i", $solicitud['id_protectora']);
+                                    $stmt_nombre_protectora->execute();
+                                    $result_nombre_protectora = $stmt_nombre_protectora->get_result();
+                                    $nombre_protectora_row = $result_nombre_protectora->fetch_assoc();
+                                    $nombre_protectora = $nombre_protectora_row ? $nombre_protectora_row['nombre'] : 'Nombre no encontrado';
+                                    $stmt_nombre_protectora->close();
+
+                                    echo '
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Solicitud #' . htmlspecialchars($solicitud['id_solicitud_voluntariado']) . '</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <p><strong>Nombre y Apellidos:</strong> ' . htmlspecialchars($solicitud['nombre_apellidos']) . '</p>
+                                            <p><strong>Email:</strong> ' . htmlspecialchars($solicitud['email']) . '</p>
+                                            <p><strong>Número de Teléfono:</strong> ' . htmlspecialchars($solicitud['numero_telefono']) . '</p>
+                                            <p><strong>Vehículo Propio:</strong> ' . htmlspecialchars($solicitud['vehiculo_propio']) . '</p>
+                                            <p><strong>Protectora:</strong> ' . htmlspecialchars($nombre_protectora) . '</p>
+                                        </div>
+                                    </div>';
+                                }
+                            } else {
+                                echo '<p>No hay solicitudes pendientes.</p>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingAceptadasVoluntariado">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseAceptadasVoluntariado" aria-expanded="false" aria-controls="collapseAceptadasVoluntariado">
+                                Aceptadas
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseAceptadasVoluntariado" class="collapse" aria-labelledby="headingAceptadasVoluntariado" data-parent="#accordionSolicitudesVoluntariado">
+                        <div class="card-body">
+                            <?php
+                            if (!empty($solicitudes_aceptadas_voluntariado)) {
+                                foreach ($solicitudes_aceptadas_voluntariado as $solicitud) {
+                                    // Obtener el nombre de la protectora para cada solicitud
+                                    $sql_nombre_protectora = "SELECT nombre FROM protectora WHERE id_protectora = ?";
+                                    $stmt_nombre_protectora = $conn->prepare($sql_nombre_protectora);
+                                    $stmt_nombre_protectora->bind_param("i", $solicitud['id_protectora']);
+                                    $stmt_nombre_protectora->execute();
+                                    $result_nombre_protectora = $stmt_nombre_protectora->get_result();
+                                    $nombre_protectora_row = $result_nombre_protectora->fetch_assoc();
+                                    $nombre_protectora = $nombre_protectora_row ? $nombre_protectora_row['nombre'] : 'Nombre no encontrado';
+                                    $stmt_nombre_protectora->close();
+
+                                    echo '
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Solicitud #' . htmlspecialchars($solicitud['id_solicitud_voluntariado']) . '</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <p><strong>Nombre y Apellidos:</strong> ' . htmlspecialchars($solicitud['nombre_apellidos']) . '</p>
+                                            <p><strong>Email:</strong> ' . htmlspecialchars($solicitud['email']) . '</p>
+                                            <p><strong>Número de Teléfono:</strong> ' . htmlspecialchars($solicitud['numero_telefono']) . '</p>
+                                            <p><strong>Vehículo Propio:</strong> ' . htmlspecialchars($solicitud['vehiculo_propio']) . '</p>
+                                            <p><strong>Protectora:</strong> ' . htmlspecialchars($nombre_protectora) . '</p>
+                                        </div>
+                                    </div>';
+                                }
+                            } else {
+                                echo '<p>No hay solicitudes aceptadas.</p>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingDenegadasVoluntariado">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseDenegadasVoluntariado" aria-expanded="false" aria-controls="collapseDenegadasVoluntariado">
+                                Denegadas
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseDenegadasVoluntariado" class="collapse" aria-labelledby="headingDenegadasVoluntariado" data-parent="#accordionSolicitudesVoluntariado">
+                        <div class="card-body">
+                            <?php
+                            if (!empty($solicitudes_denegadas_voluntariado)) {
+                                foreach ($solicitudes_denegadas_voluntariado as $solicitud) {
+                                    // Obtener el nombre de la protectora para cada solicitud
+                                    $sql_nombre_protectora = "SELECT nombre FROM protectora WHERE id_protectora = ?";
+                                    $stmt_nombre_protectora = $conn->prepare($sql_nombre_protectora);
+                                    $stmt_nombre_protectora->bind_param("i", $solicitud['id_protectora']);
+                                    $stmt_nombre_protectora->execute();
+                                    $result_nombre_protectora = $stmt_nombre_protectora->get_result();
+                                    $nombre_protectora_row = $result_nombre_protectora->fetch_assoc();
+                                    $nombre_protectora = $nombre_protectora_row ? $nombre_protectora_row['nombre'] : 'Nombre no encontrado';
+                                    $stmt_nombre_protectora->close();
+
+                                    echo '
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Solicitud #' . htmlspecialchars($solicitud['id_solicitud_voluntariado']) . '</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <p><strong>Nombre y Apellidos:</strong> ' . htmlspecialchars($solicitud['nombre_apellidos']) . '</p>
+                                            <p><strong>Email:</strong> ' . htmlspecialchars($solicitud['email']) . '</p>
+                                            <p><strong>Número de Teléfono:</strong> ' . htmlspecialchars($solicitud['numero_telefono']) . '</p>
+                                            <p><strong>Vehículo Propio:</strong> ' . htmlspecialchars($solicitud['vehiculo_propio']) . '</p>
+                                            <p><strong>Protectora:</strong> ' . htmlspecialchars($nombre_protectora) . '</p>
+                                        </div>
+                                    </div>';
+                                }
+                            } else {
+                                echo '<p>No hay solicitudes denegadas.</p>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <?php
 include('../usuario/footer.php');

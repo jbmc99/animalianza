@@ -118,11 +118,6 @@ include('navbar_usuario.php');
                             </div>
                         </div>
                 </fieldset>
-                <div class="form-group row mb-4">
-                    <label for="motivacionesAdoptar" class="col-sm-4 col-form-label">¿Cuáles son sus motivaciones para adoptar?</label>
-                    <div class="col-sm-8">
-                        <textarea class="form-control" id="motivacionesAdoptar" name="motivacionesAdoptar" rows="4"></textarea>
-                    </div>
                 </div>
                 <div class="form-group row mb-4">
                     <label for="infoFamilia" class="col-sm-4 col-form-label">Proporcione información sobre familia y estilo de vida</label>
