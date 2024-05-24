@@ -7,9 +7,9 @@ require_once('../protectora/conexion.php');
 // Verificar si se recibieron los datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Imprimir todos los datos recibidos para depuración
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($_POST);
+    // echo "</pre>";
 
     $nombreApellidos = isset($_POST["nombreApellidos"]) ? htmlspecialchars($_POST["nombreApellidos"]) : null;
     $email = isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : null;
@@ -20,26 +20,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $infoFamilia = isset($_POST["infoFamilia"]) ? htmlspecialchars( $_POST["infoFamilia"]) : null;
     $idProtectora = isset($_POST["id-protectora"]) ? htmlspecialchars($_POST["id-protectora"]) : null;
     $idAnimal = isset($_POST["select-nombre-animal"]) ? htmlspecialchars($_POST["select-nombre-animal"]) : null;
-
-    // Verificar que todos los datos requeridos estén presentes
-    if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propietarioInquilino || !$permisoMascotas || !$infoFamilia || !$idProtectora || !$idAnimal) {
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Por favor, completa todos los campos del formulario.',
-                        confirmButtonText: 'Aceptar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.history.back();
-                        }
-                    });
+// Verificar que todos los datos requeridos estén presentes
+if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propietarioInquilino || !$permisoMascotas || !$infoFamilia || !$idProtectora || !$idAnimal) {
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: '<span style=\"font-family: Arial;\">Error</span>', // Cambia 'Arial' por la fuente que prefieras para el título
+                    text: '<span style=\"font-family: Arial;\">Por favor, completa todos los campos del formulario.</span>', // Cambia 'Arial' por la fuente que prefieras para el texto
+                    html: true,
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.history.back();
+                    }
                 });
-              </script>";
-        exit();
-    }
+            });
+          </script>";
+    exit();
+}
+
 
     // Obtener el ID del usuario de la sesión
     if (!isset($_SESSION['id_login'])) {

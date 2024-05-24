@@ -96,10 +96,6 @@ if ($resultado->num_rows > 0) {
 ?>
 </div>
 
-// Cerrar la conexión a la base de datos
-$conn->close();
-  ?>
- 
 <?php
     include('footer.php');
     ?>

@@ -6,7 +6,6 @@
     <title>Inicio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="../usuario/style.css">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -28,12 +27,9 @@
   </nav>
   <!-- Fin de Navbar -->
 
-
-
-  
   <div class="container text-center mb-5">
     <div class="col align-self-center mt-5">
-      <h1 id="titulo" ><b>ANIMALIANZA</h1></b>
+      <h1 id="titulo"><b>ANIMALIANZA</b></h1>
     </div>
     <div>
       <img src="../images/logueto.png" class="rounded mx-auto d-block" id="logueto" alt="...">
@@ -41,7 +37,6 @@
     <div class="container text-center mt-0">
           ¡Por un mundo mejor para nuestros compañeros!
         </div>
-    </div>
   </div>
   
   <!-- Contenido principal -->
@@ -49,10 +44,9 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card" id="cardLogin">
-                <div class="card-header" >
+                <div class="card-header">
                     <h3 class="text-center">Iniciar Sesión</h3>
                 </div>
-                
                 <div class="card-body">
                     <form action="../protectora/procesar_login.php" method="post">
                         <div class="mb-3">
@@ -68,8 +62,7 @@
                             <select class="form-select" id="tipo_login" name="tipo_login" required>
                                <option value="usuario">Usuario</option>
                                <option value="protectora">Protectora</option>
-</select>
-
+                            </select>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn">Iniciar Sesión</button>
@@ -79,9 +72,7 @@
             </div>
         </div>
     </div>
-</div>
-
-
+  </div>
 
   <div class="container">
     <div class="row">
@@ -118,14 +109,61 @@
       </div>
     </div>
   </div>
-  
-  <?php
-    include('../usuario/footer.php');
-    ?>
 
+  <input type="button" class="prueba" value="BOTONCITO">
 
+  <?php include('../usuario/footer.php'); ?>
 
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+<script src="../usuario/sweetalert.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    // Delegación de eventos para el botón de eliminar favorito
+    $(document).on("click", ".prueba", function (e) {
+        e.preventDefault();
+
+        alert("Hola")
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: "./../../../back/eliminarFavorito.php",
+        //     data: { idItinerario: idItinerario, idUsuario: idUsuario },
+        //     success: function (response) {
+        //         // Manejar la respuesta del servidor
+        //         Swal.fire({
+        //             title: "Eliminado",
+        //             text: "El favorito ha sido eliminado.",
+        //             icon: "success",
+        //         }).then(() => {
+        //             // Opcionalmente, recargar la página o eliminar el elemento del DOM
+        //             location.reload();
+        //         });
+        //     },
+        //     error: function (error) {
+        //         // Manejar errores de la solicitud AJAX
+        //         console.error("Error en la solicitud AJAX:", error);
+        //         Swal.fire({
+        //             title: "Error",
+        //             text: "Hubo un error al procesar la solicitud.",
+        //             icon: "error",
+        //         });
+        //     }
+        // });
+    });
+</script>
+
+<?php
+session_start();
+$login_exitoso = isset($_SESSION['login_exitoso']) && $_SESSION['login_exitoso'];
+if ($login_exitoso) {
+    unset($_SESSION['login_exitoso']);
+    echo "<script>mostrarSweetAlert('Has iniciado sesión correctamente', 'success');</script>";
+}
+?>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

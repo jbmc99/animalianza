@@ -32,6 +32,9 @@
             <a class="nav-link" href="../usuario/nuestrasprotectoras.php">Nuestras protectoras</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="../usuario/eventos.php">Eventos</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="../usuario/perfil_usuario.php">Perfil</a>
           </li>
           <li class="nav-item">

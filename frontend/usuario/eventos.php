@@ -74,7 +74,6 @@ include('navbar_usuario.php');
                             <?php endif; ?>
                             <div class="card-body text-center">
                                 <h5 class="card-title"><?php echo htmlspecialchars($evento['nombre']); ?></h5>
-                                <p class="card-text"><?php echo htmlspecialchars($evento['descripcion']); ?></p>
                                 <p class="card-text"><strong>Fecha:</strong> <?php echo htmlspecialchars($evento['fecha']); ?></p>
                                 <a href="../usuario/fichaEvento.php?id_evento=<?php echo htmlspecialchars($evento['id_evento']); ?>" class="btn btn-success">Más detalles</a>
 
@@ -101,7 +100,6 @@ include('navbar_usuario.php');
                             <?php endif; ?>
                             <div class="card-body text-center">
                                 <h5 class="card-title"><?php echo htmlspecialchars($evento['nombre']); ?></h5>
-                                <p class="card-text"><?php echo htmlspecialchars($evento['descripcion']); ?></p>
                                 <p class="card-text"><strong>Fecha:</strong> <?php echo htmlspecialchars($evento['fecha']); ?></p>
                                 <a href="../usuario/fichaEvento.php?id_evento=<?php echo htmlspecialchars($evento['id_evento']); ?>" class="btn btn-secondary">Ver detalles</a>
                             </div>

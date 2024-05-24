@@ -13,8 +13,8 @@
 include('navbar_usuario.php');
 ?>
   
-<div class="container text-center mb-5">
-    <div class="col align-self-center mt-4 mb-5">
+<div class="container text-center mb-3">
+    <div class="col align-self-center mt-4 mb-3">
         <h1><b>GATOS</b></h1>
     </div>
 

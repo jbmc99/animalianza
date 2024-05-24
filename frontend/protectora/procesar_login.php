@@ -11,14 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $conn->real_escape_string($_POST['password']);
     $tipo_login = $conn->real_escape_string($_POST['tipo_login']);
 
-// Consulta preparada para evitar la inyección SQL
-
-$sql = "SELECT l.id_login, l.username, l.password, l.tipo_login, p.id_protectora, u.id_usuario 
-        FROM login l 
-        LEFT JOIN protectora p ON l.id_login = p.id_login 
-        LEFT JOIN usuario u ON l.id_login = u.id_login
-        WHERE l.username = ? AND l.password = ? AND l.tipo_login = ?";
-
+    // Consulta preparada para evitar la inyección SQL
+    $sql = "SELECT l.id_login, l.username, l.password, l.tipo_login, p.id_protectora, u.id_usuario 
+            FROM login l 
+            LEFT JOIN protectora p ON l.id_login = p.id_login 
+            LEFT JOIN usuario u ON l.id_login = u.id_login
+            WHERE l.username = ? AND l.password = ? AND l.tipo_login = ?";
 
     // Ejecutar la consulta
     $stmt = $conn->prepare($sql);
@@ -31,11 +29,12 @@ $sql = "SELECT l.id_login, l.username, l.password, l.tipo_login, p.id_protectora
         $stmt->bind_result($idLogin_db, $username_db, $password_db, $tipo_login_db, $idProtectora_db, $idUsuario_db);
         $stmt->fetch();
 
-      // Inicio de sesión exitoso
-    $_SESSION['id_login'] = $idLogin_db;
-    $_SESSION['username'] = $username_db;
-    $_SESSION['tipo_login'] = $tipo_login_db;
-    $_SESSION['id_usuario'] = $idUsuario_db;
+        // Inicio de sesión exitoso
+        $_SESSION['id_login'] = $idLogin_db;
+        $_SESSION['username'] = $username_db;
+        $_SESSION['tipo_login'] = $tipo_login_db;
+        $_SESSION['id_usuario'] = $idUsuario_db;
+        $_SESSION['login_exitoso'] = true; 
 
         // Si el usuario es una protectora, también almacenar el id_protectora en la sesión
         if ($tipo_login_db == 'protectora') {
@@ -47,7 +46,7 @@ $sql = "SELECT l.id_login, l.username, l.password, l.tipo_login, p.id_protectora
             exit();
         }
     } else {
-        //Usuario o contraseña incorrectos
+        // Usuario o contraseña incorrectos
         header("Location: login.php?error=1");
         exit();
     }
