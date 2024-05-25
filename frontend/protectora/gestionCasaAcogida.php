@@ -1,4 +1,3 @@
-<!-- Obtener el id_protectora de la sesión -->
 <?php
 // Iniciar la sesión para acceder a las variables de sesión
 session_start();
@@ -23,6 +22,7 @@ $id_protectora = $_SESSION['id_protectora'];
     <link rel="stylesheet" href="../usuario/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
 <?php
@@ -30,13 +30,13 @@ include('navbar_protectora.php');
 ?>
 
 <div class="container mt-5 mb-5 text-center">
-    <h1>Gestión de casas de acogida</h1>
+    <h1>GESTIÓN DE CASAS DE ACOGIDA</h1>
 </div>
 
 <!-- Content -->
 <div class="container mt-3">
     <div class="row">
-        <!-- Sección para aceptar adopciones -->
+        <!-- Sección para aceptar acogidas -->
         <div class="col-md-6 mb-4 protectora-row" data-id_protectora="<?php echo $id_protectora; ?>">
             <h2 class="text-center mb-3">¿Aceptáis acogidas en este momento?</h2>
             <div class="d-flex justify-content-center mb-3">
@@ -116,6 +116,7 @@ include('../usuario/footer.php');
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // Obtener el valor del select y el ID de la protectora
     $(".confirmarBtn").on("click", function() {
@@ -135,8 +136,13 @@ include('../usuario/footer.php');
                 id_protectora: id_protectora
             },
             success: function(response) {
-                // Mostrar un alert para notificar al usuario
-                alert("El estado se ha actualizado correctamente.");
+                // Mostrar un Sweet Alert para notificar al usuario
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: 'El estado se ha actualizado correctamente.',
+                    confirmButtonText: 'Aceptar'
+                });
 
                 console.log(response); // Maneja la respuesta del servidor según sea necesario
             },
@@ -158,11 +164,24 @@ include('../usuario/footer.php');
                 nuevo_estado: "aceptada"
             },
             success: function(response) {
-                alert("La solicitud ha sido aceptada.");
+                // Mostrar un Sweet Alert para notificar al usuario
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: 'La solicitud ha sido aceptada.',
+                    confirmButtonText: 'Aceptar'
+                });
+
                 listItem.remove(); // Elimina el elemento de la lista
             },
             error: function(xhr, status, error) {
-                alert("Hubo un error al aceptar la solicitud.");
+                // Mostrar un Sweet Alert para notificar al usuario sobre el error
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Hubo un error al aceptar la solicitud.',
+                    confirmButtonText: 'Aceptar'
+                });
             }
         });
     });
@@ -179,11 +198,24 @@ include('../usuario/footer.php');
                 nuevo_estado: "denegada"
             },
             success: function(response) {
-                alert("La solicitud ha sido denegada.");
+                // Mostrar un Sweet Alert para notificar al usuario
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: 'La solicitud ha sido denegada.',
+                    confirmButtonText: 'Aceptar'
+                });
+
                 listItem.remove(); // Elimina el elemento de la lista
             },
             error: function(xhr, status, error) {
-                alert("Hubo un error al denegar la solicitud.");
+                // Mostrar un Sweet Alert para notificar al usuario sobre el error
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Hubo un error al denegar la solicitud.',
+                    confirmButtonText: 'Aceptar'
+                });
             }
         });
     });

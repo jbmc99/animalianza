@@ -374,68 +374,81 @@ include('navbar_usuario.php');
                         </h2>
                     </div>
                     <div id="collapseAceptadasAdopcion" class="collapse" aria-labelledby="headingAceptadasAdopcion" data-parent="#accordionSolicitudesAdopcion">
-                        <div class="card-body">
-                            <?php
-                            if (!empty($solicitudes_aceptadas_adopcion)) {
-                                foreach ($solicitudes_aceptadas_adopcion as $solicitud) {
-                                    // Obtener el nombre del animal para cada solicitud
-                                    $sql_nombre_animal_aceptadas = "SELECT nombre FROM animal WHERE id_animal = ?";
-                                    $stmt_nombre_animal_aceptadas = $conn->prepare($sql_nombre_animal_aceptadas);
-                                    $stmt_nombre_animal_aceptadas->bind_param("i", $solicitud['id_animal']);
-                                    $stmt_nombre_animal_aceptadas->execute();
-                                    $result_nombre_animal_aceptadas = $stmt_nombre_animal_aceptadas->get_result();
-                                    $nombre_animal_row_aceptadas = $result_nombre_animal_aceptadas->fetch_assoc();
-                                    $nombre_animal_aceptadas = $nombre_animal_row_aceptadas ? $nombre_animal_row_aceptadas['nombre'] : 'Nombre no encontrado';
-                                    $stmt_nombre_animal_aceptadas->close();
+    <div class="card-body">
+        <?php
+        if (!empty($solicitudes_aceptadas_adopcion)) {
+            foreach ($solicitudes_aceptadas_adopcion as $solicitud) {
+                // Obtener el nombre del animal para cada solicitud aceptada
+                $sql_nombre_animal_aceptadas = "SELECT nombre FROM animal WHERE id_animal = ?";
+                $stmt_nombre_animal_aceptadas = $conn->prepare($sql_nombre_animal_aceptadas);
+                $stmt_nombre_animal_aceptadas->bind_param("i", $solicitud['id_animal']);
+                $stmt_nombre_animal_aceptadas->execute();
+                $result_nombre_animal_aceptadas = $stmt_nombre_animal_aceptadas->get_result();
+                $nombre_animal_row_aceptadas = $result_nombre_animal_aceptadas->fetch_assoc();
+                $nombre_animal_aceptadas = $nombre_animal_row_aceptadas ? $nombre_animal_row_aceptadas['nombre'] : 'Nombre no encontrado';
+                $stmt_nombre_animal_aceptadas->close();
 
-                                    echo '
-                                    <div class="card mb-3">
-                                        <div class="card-header">
-                                            <h4 class="card-title">Solicitud #' . htmlspecialchars($solicitud['id_solicitud_adopcion']) . '</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <p><strong>Animal ID:</strong> ' . htmlspecialchars($solicitud['id_animal']) . '</p>
-                                            <p><strong>Información de la Familia:</strong> ' . htmlspecialchars($solicitud['info_familia']) . '</p>
-                                            <p><strong>Nombre del Animal:</strong> ' . htmlspecialchars($nombre_animal_aceptadas) . '</p>
-                                        </div>
-                                    </div>';
-                                }
-                            } else {
-                                echo '<p>No hay solicitudes aceptadas.</p>';
-                            }
-                            ?>
-                        </div>
+                echo '
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4 class="card-title">Solicitud #' . htmlspecialchars($solicitud['id_solicitud_adopcion']) . '</h4>
                     </div>
-                </div>
-                        <div class="card">
-                            <div class="card-header" id="headingDenegadasAdopcion">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseDenegadasAdopcion" aria-expanded="false" aria-controls="collapseDenegadasAdopcion">
-                                        Denegadas
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseDenegadasAdopcion" class="collapse" aria-labelledby="headingDenegadasAdopcion" data-parent="#accordionSolicitudesAdopcion">
-                                <div class="card-body">
-                                    <?php
-                                    if (!empty($solicitudes_denegadas_adopcion)) {
-                                        foreach ($solicitudes_denegadas_adopcion as $solicitud) {
-                                            echo '
-                                            <div class="card mb-3">
-                                                <div class="card-header">
-                                                    <h4 class="card-title">Solicitud #' . htmlspecialchars($solicitud['id_solicitud_adopcion']) . '</h4>
-                                                </div>
-                                                <div class="card-body">
-                                                    <p><strong>Animal ID:</strong> ' . htmlspecialchars($solicitud['id_animal']) . '</p>
-                                                    <p><strong>Información de la Familia:</strong> ' . htmlspecialchars($solicitud['info_familia']) . '</p>
-                                                    <p><strong>Nombre del Animal:</strong> ' . htmlspecialchars($nombre_animal) . '</p>
-                                                </div>
-                                            </div>';
-                                        }
-                                    } else {
-                                        echo '<p>No hay solicitudes denegadas.</p>';
-                                    }
-                                    ?>
+                    <div class="card-body">
+                        <p><strong>Animal ID:</strong> ' . htmlspecialchars($solicitud['id_animal']) . '</p>
+                        <p><strong>Información de la Familia:</strong> ' . htmlspecialchars($solicitud['info_familia']) . '</p>
+                        <p><strong>Nombre del Animal:</strong> ' . htmlspecialchars($nombre_animal_aceptadas) . '</p>
+                    </div>
+                </div>';
+            }
+        } else {
+            echo '<p>No hay solicitudes aceptadas.</p>';
+        }
+        ?>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header" id="headingDenegadasAdopcion">
+        <h2 class="mb-0">
+            <button class="btn btn-link text-white collapsed" type="button" data-toggle="collapse" data-target="#collapseDenegadasAdopcion" aria-expanded="false" aria-controls="collapseDenegadasAdopcion">
+                Denegadas
+            </button>
+        </h2>
+    </div>
+    <div id="collapseDenegadasAdopcion" class="collapse" aria-labelledby="headingDenegadasAdopcion" data-parent="#accordionSolicitudesAdopcion">
+        <div class="card-body">
+            <?php
+            if (!empty($solicitudes_denegadas_adopcion)) {
+                foreach ($solicitudes_denegadas_adopcion as $solicitud) {
+                    // Obtener el nombre del animal para cada solicitud denegada
+                    $sql_nombre_animal_denegadas = "SELECT nombre FROM animal WHERE id_animal = ?";
+                    $stmt_nombre_animal_denegadas = $conn->prepare($sql_nombre_animal_denegadas);
+                    $stmt_nombre_animal_denegadas->bind_param("i", $solicitud['id_animal']);
+                    $stmt_nombre_animal_denegadas->execute();
+                    $result_nombre_animal_denegadas = $stmt_nombre_animal_denegadas->get_result();
+                    $nombre_animal_row_denegadas = $result_nombre_animal_denegadas->fetch_assoc();
+                    $nombre_animal_denegadas = $nombre_animal_row_denegadas ? $nombre_animal_row_denegadas['nombre'] : 'Nombre no encontrado';
+                    $stmt_nombre_animal_denegadas->close();
+
+                    echo '
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="card-title">Solicitud #' . htmlspecialchars($solicitud['id_solicitud_adopcion']) . '</h4>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Animal ID:</strong> ' . htmlspecialchars($solicitud['id_animal']) . '</p>
+                            <p><strong>Información de la Familia:</strong> ' . htmlspecialchars($solicitud['info_familia']) . '</p>
+                            <p><strong>Nombre del Animal:</strong> ' . htmlspecialchars($nombre_animal_denegadas) . '</p>
+                        </div>
+                    </div>';
+                }
+            } else {
+                echo '<p>No hay solicitudes denegadas.</p>';
+            }
+            ?>
+        </div>
+    </div>
+</div>
+
                                 </div>
                             </div>
                         </div>

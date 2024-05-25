@@ -24,14 +24,26 @@ html {
         src: url(../fuente/robotobold.ttf);
     
 }
+.bootstrap-font {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 14px !important;
+}
 
-h2, h3, h4 {
-    font-family: robotobold !important;
+
+H1, h2, h3, h4 {
+    font-family: animalianza !important;
+    -webkit-text-stroke: 1px #909CE0;
+}
+
+h5{
+    font-family: animalianza !important;
+    -webkit-text-stroke: .5px #909CE0
+
 }
 
 
 #titulo {
-    font-family: animalianza;
+    font-family: animalianza !important;
     font-size: 80px;
     -webkit-text-stroke: 1px  black;
     color:  #B4FAC5;
@@ -39,7 +51,7 @@ h2, h3, h4 {
 }
 
 body {
-    font-family: Roboto !important;
+    font-family: roboto !important;
     background-color: #B4FAC5 !important;
 }
 button:hover {
@@ -176,3 +188,5 @@ body {
 .footer-custom-bg {
     background-color: #78CA91;
   }
+
+

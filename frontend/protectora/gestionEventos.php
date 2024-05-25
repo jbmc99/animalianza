@@ -17,7 +17,7 @@ include('navbar_protectora.php');
 <!-- Contenido principal -->
 <div class="container">
     <!-- Título -->
-    <h2 class="text-center mt-5 mb-5">Gestión de eventos</h2>
+    <h1 class="text-center mt-5 mb-5">GESTIÓN DE EVENTOS</h1>
 
     <!-- Contenedor de eventos actuales -->
     <h2 class="text-center mt-5 mb-3">Eventos actuales:</h2>

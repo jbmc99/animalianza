@@ -17,7 +17,7 @@ include('navbar_protectora.php');
 
 <!-- Contenido principal -->
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">Tus animales:</h2>
+    <h1 class="mb-4 text-center">TUS ANIMALES:</h1>
     <div class="row">
         <div class="d-flex flex-wrap justify-content-center ms-5 me-2 text-center">
             <?php

@@ -25,7 +25,7 @@ include('navbar_protectora.php');
 
 
 <div class="container mt-5">
-  <h1 class="text-center mb-4">¡Bienvenid@!</h1>
+  <h1 class="text-center mb-4">¡BIENVENID@!</h1>
   <h3 class="text-center mb-4">¿Qué deseas hacer hoy?</h3>
   <div class="row justify-content-center">
     <!-- Card: Gestionar Animales -->

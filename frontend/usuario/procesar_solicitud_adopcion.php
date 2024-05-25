@@ -2,7 +2,7 @@
 session_start(); // Asegúrate de que esto está al principio de tu archivo
 
 
-require_once('../protectora/conexion.php');
+require_once('../frontend/protectora/conexion.php');
 
 // Verificar si se recibieron los datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Verificar que todos los datos requeridos estén presentes
 if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propietarioInquilino || !$permisoMascotas || !$infoFamilia || !$idProtectora || !$idAnimal) {
     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<link rel='stylesheet' href='style.css'>";
     echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
                 Swal.fire({
@@ -45,6 +46,7 @@ if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propiet
     // Obtener el ID del usuario de la sesión
     if (!isset($_SESSION['id_login'])) {
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<link rel='stylesheet' href='style.css'>";
         echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
@@ -65,7 +67,7 @@ if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propiet
     $idLogin = $_SESSION['id_login'];
 
     // Incluir archivo de conexión a la base de datos
-    require_once('../protectora/conexion.php');
+    require_once('../frontend/protectora/conexion.php');
 
     // Obtener el id_usuario correspondiente al id_login
     $result = $conn->query("SELECT id_usuario FROM usuario WHERE id_login = $idLogin");
@@ -73,6 +75,7 @@ if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propiet
         $idUsuario = $row['id_usuario'];
     } else {
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<link rel='stylesheet' href='../frontend/usuario/style.css'>";
         echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
@@ -97,12 +100,13 @@ if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propiet
     if ($stmt = $conn->prepare($sql)) {
         // Vincular los parámetros con los valores recibidos
         $estado = 'pendiente';
-        $stmt->bind_param("isssiiissss", $idUsuario, $email, $numeroTelefono, $direccion, $idProtectora, $idAnimal, $infoFamilia, $estado, $nombreApellidos, $propietarioInquilino, $permisoMascotas);
+        $stmt->bind_param("isssiisssss", $idUsuario, $email, $numeroTelefono, $direccion, $idProtectora, $idAnimal, $infoFamilia, $estado, $nombreApellidos, $propietarioInquilino, $permisoMascotas);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
             // Solicitud de adopción guardada correctamente
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<link rel='stylesheet' href='../frontend/usuario/style.css'>";
             echo "<script>
                     document.addEventListener('DOMContentLoaded', function() {
                         Swal.fire({
@@ -112,7 +116,7 @@ if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propiet
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = 'adopciones.php';
+                                window.location.href = '../frontend/usuario/adopciones.php';
                             }
                         });
                     });
@@ -120,6 +124,7 @@ if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propiet
         } else {
             // Error al guardar la solicitud de adopción
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<link rel='stylesheet' href='../frontend/usuario/style.css'>";
             echo "<script>
                     document.addEventListener('DOMContentLoaded', function() {
                         Swal.fire({
@@ -136,6 +141,7 @@ if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propiet
         $stmt->close();
     } else {
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<link rel='stylesheet' href='style.css'>";
         echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
@@ -153,6 +159,7 @@ if (!$nombreApellidos || !$email || !$numeroTelefono || !$direccion || !$propiet
 } else {
     // Error al procesar la solicitud de adopción
     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<link rel='stylesheet' href='style.css'>";
     echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
                 Swal.fire({

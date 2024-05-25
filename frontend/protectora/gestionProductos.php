@@ -18,10 +18,9 @@ include('navbar_protectora.php');
 
   
 <div class="container mt-5">
-    <h1 class="text-center mb-5">Tus productos:</h1>
+    <h1 class="text-center mb-5">TUS PRODUCTOS</h1>
     <div class="row justify-content-center">
 
-<!-- Aquí va el código PHP para mostrar los productos -->
 <?php
 
 session_start();

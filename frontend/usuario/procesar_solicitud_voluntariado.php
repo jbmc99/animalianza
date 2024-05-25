@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             // Solicitud de voluntariado guardada correctamente
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<link rel='stylesheet' href='style.css'>";
             echo "<script>
                     document.addEventListener('DOMContentLoaded', function() {
                         Swal.fire({
