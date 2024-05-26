@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Incluir archivo de conexión
-require_once('../protectora/conexion.php');
+require_once('protectora/conexion.php');
 
 // Verificar si se recibió id_protectora
 if (isset($_POST['id_protectora']) && is_numeric($_POST['id_protectora'])) {
