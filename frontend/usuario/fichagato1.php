@@ -1,6 +1,12 @@
 <?php
 session_start(); // Iniciar la sesión
 
+// Obtener el ID del animal de la URL
+$id_animal = isset($_GET['id']) ? $_GET['id'] : '';
+
+// Almacenar el ID del animal en la sesión
+$_SESSION['id_animal'] = $id_animal;
+
 // Comprobar si 'tipo_login' está definido en la sesión
 if (isset($_SESSION['tipo_login'])) {
     if ($_SESSION['tipo_login'] == 'usuario') {

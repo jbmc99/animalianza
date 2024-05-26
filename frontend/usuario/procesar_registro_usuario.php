@@ -38,9 +38,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $nombreUsuario;
         $_SESSION['tipo_login'] = 'usuario';
 
-        // Registro exitoso, redirigir al login
-        header("Location: ../protectora/login.php");
-        exit();
+        // Mostrar mensaje de éxito
+        echo "<!DOCTYPE html>
+              <html lang='es'>
+              <head>
+                  <meta charset='UTF-8'>
+                  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                  <title>Registro Usuario</title>
+                  <link rel='stylesheet' href='style.css'>
+                  <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+              </head>
+              <body>
+              <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                      Swal.fire({
+                          icon: 'success',
+                          title: '¡Registro exitoso!',
+                          text: 'Te has registrado correctamente.',
+                          confirmButtonText: 'Aceptar',
+                      }).then((result) => {
+                          if (result.isConfirmed) {
+                              window.location.href = '../protectora/login.php';
+                          }
+                      });
+                  });
+              </script>
+              </body>
+              </html>";
     } else {
         // Si hay un error al insertar en la tabla usuario, eliminar el registro de la tabla login correspondiente
         $error_message = 'Error al registrar el usuario: ' . $conn->error;
@@ -54,4 +78,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Cerrar conexión a la base de datos
 $conn->close();
 ?>
-</script>

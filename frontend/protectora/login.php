@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,60 +115,11 @@
     </div>
   </div>
 
-  <input type="button" class="prueba" value="BOTONCITO">
+
 
   <?php include('../usuario/footer.php'); ?>
 
-<!-- SweetAlert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
-<script src="../usuario/sweetalert.js"></script>
 
-<script>
-    // Delegación de eventos para el botón de eliminar favorito
-    $(document).on("click", ".prueba", function (e) {
-        e.preventDefault();
-
-        alert("Hola")
-
-        // $.ajax({
-        //     type: "POST",
-        //     url: "./../../../back/eliminarFavorito.php",
-        //     data: { idItinerario: idItinerario, idUsuario: idUsuario },
-        //     success: function (response) {
-        //         // Manejar la respuesta del servidor
-        //         Swal.fire({
-        //             title: "Eliminado",
-        //             text: "El favorito ha sido eliminado.",
-        //             icon: "success",
-        //         }).then(() => {
-        //             // Opcionalmente, recargar la página o eliminar el elemento del DOM
-        //             location.reload();
-        //         });
-        //     },
-        //     error: function (error) {
-        //         // Manejar errores de la solicitud AJAX
-        //         console.error("Error en la solicitud AJAX:", error);
-        //         Swal.fire({
-        //             title: "Error",
-        //             text: "Hubo un error al procesar la solicitud.",
-        //             icon: "error",
-        //         });
-        //     }
-        // });
-    });
-</script>
-
-<?php
-session_start();
-$login_exitoso = isset($_SESSION['login_exitoso']) && $_SESSION['login_exitoso'];
-if ($login_exitoso) {
-    unset($_SESSION['login_exitoso']);
-    echo "<script>mostrarSweetAlert('Has iniciado sesión correctamente', 'success');</script>";
-}
-?>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -2,8 +2,14 @@
 // Incluir archivo de conexión
 require_once('../protectora/conexion.php');
 
+// Iniciar sesión si aún no está iniciada
+session_start();
+
 // Obtener el ID de la protectora seleccionada
 $id_protectora = $_POST['id_protectora'];
+
+// Almacenar el ID de la protectora en la sesión
+$_SESSION['id_protectora'] = $id_protectora;
 
 // Consultar la base de datos para obtener los perros de la protectora seleccionada
 $sql = "SELECT * FROM animal WHERE especie = 'perro' AND id_protectora = $id_protectora";

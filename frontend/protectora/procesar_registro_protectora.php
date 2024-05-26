@@ -6,7 +6,6 @@ session_start();
 require_once('conexion.php');
 require_once('../../backend/upload.php');
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los datos del formulario
     $nombreUsuarioProte = $conn->real_escape_string($_POST['nombreUsuarioProte']);
@@ -16,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emailContacto = $conn->real_escape_string($_POST['emailContacto']);
     $numeroRegistro = $conn->real_escape_string($_POST['numeroRegistro']);
     $infoProte = $conn->real_escape_string($_POST['infoProte']);
-    $infoFamilia = $conn->real_escape_string($_POST['infoFamilia']);
 
     // Manejar la subida de la imagen
     $rutaImagenes = "../images/uploads/";
@@ -32,14 +30,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Obtener el ID de login recién insertado
             $id_login = $conn->insert_id;
 
-            // Insertar datos en la tabla protectora
             $sql_protectora = "INSERT INTO protectora (nombre, direccion, telefono, email, acepta_adopciones, acepta_acogidas, acepta_voluntarios, id_login, info_prote, info_relevante, ruta_imagen) 
-            VALUES ('$nombreProte', '$direccion', NULL, '$emailContacto', NULL, NULL, NULL, '$id_login', '$infoProte', '$infoFamilia', '$rutaImagen')";
+            VALUES ('$nombreProte', '$direccion', NULL, '$emailContacto', NULL, NULL, NULL, '$id_login', '$infoProte', NULL, '$rutaImagen')";
+
             
             if ($conn->query($sql_protectora)) {
-                // Registro exitoso, redirigir a una página de confirmación o a donde desees
-                header("Location: inicioProtectora.php");
-                exit();
+                // Mostrar mensaje de éxito
+                echo "<!DOCTYPE html>
+                      <html lang='es'>
+                      <head>
+                          <meta charset='UTF-8'>
+                          <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                          <title>Registro Protectora</title>
+                          <link rel='stylesheet' href='../usuario/style.css'>
+                          <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                      </head>
+                      <body>
+                      <script>
+                          document.addEventListener('DOMContentLoaded', function() {
+                              Swal.fire({
+                                  icon: 'success',
+                                  title: '¡Registro exitoso!',
+                                  text: 'Te has registrado correctamente.',
+                                  confirmButtonText: 'Aceptar',
+                              }).then((result) => {
+                                  if (result.isConfirmed) {
+                                      window.location.href = 'inicioProtectora.php';
+                                  }
+                              });
+                          });
+                      </script>
+                      </body>
+                      </html>";
             } else {
                 // Si hay un error al insertar en la tabla protectora, eliminar el registro de la tabla login correspondiente
                 $error_message = 'Error al registrar la protectora: ' . $conn->error;

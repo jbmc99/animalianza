@@ -1,3 +1,4 @@
+<!-- Obtener el id_protectora de la sesión -->
 <?php
 // Iniciar la sesión para acceder a las variables de sesión
 session_start();
@@ -30,7 +31,7 @@ include('navbar_protectora.php');
 
 <!-- Title -->
 <div class="container mt-5 mb-5 text-center">
-  <h1>Gestión de adopciones</h1>
+  <h1>GESTIÓN DE ADOPCIONES</h1>
 </div>
 
 <!-- Content -->
@@ -85,7 +86,8 @@ include('navbar_protectora.php');
                     echo '<div class="modal-content">';
                     echo '<div class="modal-header">';
                     echo '<h5 class="modal-title" id="solicitudModalLabel">Detalles de la solicitud</h5>';
-                    echo '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+                    echo '<button
+                    type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
                     echo '</div>';
                     echo '<div class="modal-body">';
                     echo '<p>Nombre: '.$row["nombre_apellidos"].'</p>';
@@ -146,6 +148,8 @@ include('navbar_protectora.php');
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Añadido el script de SweetAlert2 -->
+
 <script>
 // Obtener el valor del select y el ID de la protectora
 $(".confirmarBtn").on("click", function() {
@@ -167,7 +171,12 @@ $(".confirmarBtn").on("click", function() {
         },
         success: function(response) {
             // Mostrar un alert para notificar al usuario
-            alert("El estado se ha actualizado correctamente.");
+            Swal.fire({
+                icon: 'success',
+                title: '¡Actualización exitosa!',
+                text: 'El estado se ha actualizado correctamente.',
+                confirmButtonText: 'Aceptar'
+            });
 
             console.log(response); // Maneja la respuesta del servidor según sea necesario
         },
@@ -176,6 +185,7 @@ $(".confirmarBtn").on("click", function() {
         }
     });
 });
+
 // Para aceptar solicitudes de adopción
 $(".acceptBtn, .denyBtn").on("click", function() {
     var id_solicitud_adopcion = $(this).data("id_solicitud_adopcion");
@@ -192,17 +202,33 @@ $(".acceptBtn, .denyBtn").on("click", function() {
         },
         success: function(response) {
             if (acepta_adopciones === "aceptada") {
-                alert("La solicitud de adopción ha sido aceptada.");
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Solicitud aceptada!',
+                    text: 'La solicitud de adopción ha sido aceptada.',
+                    confirmButtonText: 'Aceptar'
+                });
             } else {
-                alert("La solicitud de adopción ha sido denegada.");
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Solicitud denegada!',
+                    text: 'La solicitud de adopción ha sido denegada.',
+                    confirmButtonText: 'Aceptar'
+                });
             }
             listItem.remove(); // Elimina el elemento de la lista
         },
         error: function(xhr, status, error) {
-            alert("Hubo un error al actualizar la solicitud.");
-        }
-    });
-});
-</script>
-</body>
-</html>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un error al actualizar la solicitud. Por favor, inténtalo de nuevo.',
+                confirmButtonText: 'Aceptar'
+                    });
+                    }
+                    });
+                    });
+                    </script>
+
+                    </body>
+                    </html>

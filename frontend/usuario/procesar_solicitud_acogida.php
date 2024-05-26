@@ -29,12 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Preparar la declaración
     if ($stmt = $conn->prepare($sql)) {
         // Vincular los parámetros con los valores recibidos
-        $stmt->bind_param("isssiiis", $idUsuario, $email, $numeroTelefono, $direccion, $idProtectora, $idAnimal, $motivacionesAcogida, $infoHogar);
+        $stmt->bind_param("isssiiss", $idUsuario, $email, $numeroTelefono, $direccion, $idProtectora, $idAnimal, $motivacionesAcogida, $infoHogar);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
             // Solicitud de acogida guardada correctamente
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<link rel='stylesheet' href='style.css'>";
             echo "<script>
                     document.addEventListener('DOMContentLoaded', function() {
                         Swal.fire({
@@ -44,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             confirmButtonText: 'Aceptar',
                             customClass: {
                                 confirmButton: 'btn btn-success',
-                                content: 'bootstrap-font'
+                                content: 'bootstrap-font',
+                                title: 'bootstrap-font'
                             }
                         }).then((result) => {
                             if (result.isConfirmed) {
@@ -76,20 +78,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
     } else {
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error en la preparación de la consulta: " . $conn->error . "',
-                        confirmButtonText: 'Aceptar',
-                        customClass: {
-                            confirmButton: 'btn btn-danger',
-                            content: 'bootstrap-font'
-                        }
-                    });
-                });
-              </script>";
+echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error en la preparación de la consulta: " . $conn->error . "',
+                confirmButtonText: 'Aceptar',
+                customClass: {
+                    confirmButton: 'btn btn-danger',
+                    content: 'bootstrap-font'
+                }
+            });
+        });
+      </script>";
     }
 
     // Cerrar la conexión a la base de datos
