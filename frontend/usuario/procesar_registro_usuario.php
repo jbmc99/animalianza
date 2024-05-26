@@ -13,8 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefonoContacto = $conn->real_escape_string($_POST['telefonoContacto']);
     $direccion = $conn->real_escape_string($_POST['direccion']); // Asegúrate de que esto esté en el formulario
 
+    // Encriptar la contraseña
+    $passwordHash = password_hash($passwordUsuario, PASSWORD_DEFAULT);
+
     // Insertar datos en la tabla login
-    $sql_login = "INSERT INTO login (username, password, tipo_login) VALUES ('$nombreUsuario', '$passwordUsuario', 'usuario')";
+    $sql_login = "INSERT INTO login (username, password, tipo_login) VALUES ('$nombreUsuario', '$passwordHash', 'usuario')";
     if (!$conn->query($sql_login)) {
         $error_message = 'Error al registrar el nombre de usuario y la contraseña: ' . $conn->error;
         header("Location: registro_usuario.php?error_message=" . urlencode($error_message));
