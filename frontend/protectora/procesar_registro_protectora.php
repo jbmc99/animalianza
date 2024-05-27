@@ -16,6 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $numeroRegistro = $conn->real_escape_string($_POST['numeroRegistro']);
     $infoProte = $conn->real_escape_string($_POST['infoProte']);
 
+    // Encriptar la contraseña
+    $passwordProteHash = password_hash($passwordProte, PASSWORD_DEFAULT);
+
     // Manejar la subida de la imagen
     $rutaImagenes = "../images/uploads/";
     $mensajeSubida = subirArchivos($_FILES["fotoProtectora"], $rutaImagenes);
@@ -25,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $rutaImagen = $_SESSION["target_file"];
 
         // Insertar datos en la tabla login
-        $sql_login = "INSERT INTO login (username, password, tipo_login) VALUES ('$nombreUsuarioProte', '$passwordProte', 'protectora')";
+        $sql_login = "INSERT INTO login (username, password, tipo_login) VALUES ('$nombreUsuarioProte', '$passwordProteHash', 'protectora')";
         if ($conn->query($sql_login)) {
             // Obtener el ID de login recién insertado
             $id_login = $conn->insert_id;
@@ -33,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql_protectora = "INSERT INTO protectora (nombre, direccion, telefono, email, acepta_adopciones, acepta_acogidas, acepta_voluntarios, id_login, info_prote, info_relevante, ruta_imagen) 
             VALUES ('$nombreProte', '$direccion', NULL, '$emailContacto', NULL, NULL, NULL, '$id_login', '$infoProte', NULL, '$rutaImagen')";
 
-            
             if ($conn->query($sql_protectora)) {
                 // Mostrar mensaje de éxito
                 echo "<!DOCTYPE html>

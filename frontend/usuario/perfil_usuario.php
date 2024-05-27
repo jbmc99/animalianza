@@ -2,140 +2,55 @@
 // Iniciar la sesión para acceder a las variables de sesión
 session_start();
 
-// Verificar si el id_usuario está almacenado en la sesión
-if (!isset($_SESSION['id_usuario'])) {
+// Verificar si el id_login está almacenado en la sesión
+if (!isset($_SESSION['id_login'])) {
     // Si no está almacenado, redirigir a la página de inicio de sesión
-    header("Location: login.php"); // Cambiar 'login.php' por la página de inicio de sesión
+    header("Location: login.php");
     exit();
 }
 
-// Obtener el id_usuario de la sesión
-$id_usuario = $_SESSION['id_usuario'];
+// Obtener el id_login de la sesión
+$idLogin = $_SESSION['id_login']; // Asegúrate de que esta variable de sesión está configurada correctamente
 
 // Incluir el archivo de conexión a la base de datos
 include '../protectora/conexion.php';
 
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("La conexión a la base de datos falló: " . $conn->connect_error);
+}
+
+// Obtener el id_usuario correspondiente al id_login
+$result = $conn->query("SELECT id_usuario FROM usuario WHERE id_login = $idLogin");
+$row = $result->fetch_assoc();
+$idUsuario = $row['id_usuario'];
+
 // Consultar datos de la tabla usuario para el id_usuario específico
 $sql = "SELECT * FROM usuario WHERE id_usuario = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id_usuario);
+if (!$stmt) {
+    die("Error en la preparación de la consulta de usuario: " . $conn->error);
+}
+
+$stmt->bind_param("i", $idUsuario);
 $stmt->execute();
 $result = $stmt->get_result();
+if (!$result) {
+    die("Error en la ejecución de la consulta de usuario: " . $stmt->error);
+}
+
 $usuario = $result->fetch_assoc();
 $stmt->close();
-
-// Consultar las solicitudes de acogida del usuario
-$sql_acogidas = "SELECT * FROM solicitud_acogida WHERE id_usuario = ?";
-$stmt_acogidas = $conn->prepare($sql_acogidas);
-$stmt_acogidas->bind_param("i", $id_usuario);
-$stmt_acogidas->execute();
-$result_acogidas = $stmt_acogidas->get_result();
-
-// Organizar las solicitudes de acogida por estado
-$solicitudes_pendientes_acogida = [];
-$solicitudes_aceptadas_acogida = [];
-$solicitudes_denegadas_acogida = [];
-
-while ($row = $result_acogidas->fetch_assoc()) {
-    // Obtener el nombre del animal para cada solicitud
-    $sql_nombre_animal = "SELECT nombre FROM animal WHERE id_animal = ?";
-    $stmt_nombre_animal = $conn->prepare($sql_nombre_animal);
-    $stmt_nombre_animal->bind_param("i", $row['id_animal']);
-    $stmt_nombre_animal->execute();
-    $result_nombre_animal = $stmt_nombre_animal->get_result();
-    $nombre_animal_row = $result_nombre_animal->fetch_assoc();
-    $nombre_animal = $nombre_animal_row ? $nombre_animal_row['nombre'] : 'Nombre no encontrado';
-    $stmt_nombre_animal->close();
-
-    // Almacenar el nombre del animal en la solicitud
-    $row['nombre_animal'] = $nombre_animal;
-
-    if ($row['estado'] == 'pendiente') {
-        $solicitudes_pendientes_acogida[] = $row;
-    } elseif ($row['estado'] == 'aceptada') {
-        $solicitudes_aceptadas_acogida[] = $row;
-    } elseif ($row['estado'] == 'denegada') {
-        $solicitudes_denegadas_acogida[] = $row;
-    }
+if (!$usuario) {
+    die("No se encontró ningún usuario con el id_usuario especificado.");
 }
 
-$stmt_acogidas->close();
-
-// Consultar las solicitudes de adopción del usuario
-$sql_adopciones = "SELECT * FROM solicitud_adopcion WHERE id_usuario = ?";
-$stmt_adopciones = $conn->prepare($sql_adopciones);
-$stmt_adopciones->bind_param("i", $id_usuario);
-$stmt_adopciones->execute();
-$result_adopciones = $stmt_adopciones->get_result();
-
-// Organizar las solicitudes de adopción por estado
-$solicitudes_pendientes_adopcion = [];
-$solicitudes_aceptadas_adopcion = [];
-$solicitudes_denegadas_adopcion = [];
-
-while ($row = $result_adopciones->fetch_assoc()) {
-    if ($row['estado'] == 'pendiente') {
-        $solicitudes_pendientes_adopcion[] = $row;
-    } elseif ($row['estado'] == 'aceptada') {
-        $solicitudes_aceptadas_adopcion[] = $row;
-    } elseif ($row['estado'] == 'denegada') {
-        $solicitudes_denegadas_adopcion[] = $row;
-    }
-
-    // Obtener el nombre del animal para cada solicitud de adopción
-    $sql_nombre_animal_adopcion = "SELECT nombre FROM animal WHERE id_animal = ?";
-    $stmt_nombre_animal_adopcion = $conn->prepare($sql_nombre_animal_adopcion);
-    $stmt_nombre_animal_adopcion->bind_param("i", $row['id_animal']);
-    $stmt_nombre_animal_adopcion->execute();
-    $result_nombre_animal_adopcion = $stmt_nombre_animal_adopcion->get_result();
-    $nombre_animal_row_adopcion = $result_nombre_animal_adopcion->fetch_assoc();
-    $nombre_animal_adopcion = $nombre_animal_row_adopcion ? $nombre_animal_row_adopcion['nombre'] : 'Nombre no encontrado';
-    $stmt_nombre_animal_adopcion->close();
-
-    // Almacenar el nombre del animal en la solicitud
-    $row['nombre_animal'] = $nombre_animal_adopcion;
-}
-
-$stmt_adopciones->close();
-
-// Consultar las solicitudes de voluntariado del usuario
-$sql_voluntariados = "SELECT * FROM solicitud_voluntariado WHERE id_usuario = ?";
-$stmt_voluntariados = $conn->prepare($sql_voluntariados);
-$stmt_voluntariados->bind_param("i", $id_usuario);
-$stmt_voluntariados->execute();
-$result_voluntariados = $stmt_voluntariados->get_result();
-
-// Organizar las solicitudes de voluntariado por estado
-$solicitudes_pendientes_voluntariado = [];
-$solicitudes_aceptadas_voluntariado = [];
-$solicitudes_denegadas_voluntariado = [];
-
-while ($row = $result_voluntariados->fetch_assoc()) {
-    if ($row['estado'] == 'pendiente') {
-        $solicitudes_pendientes_voluntariado[] = $row;
-    } elseif ($row['estado'] == 'aceptada') {
-        $solicitudes_aceptadas_voluntariado[] = $row;
-    } elseif ($row['estado'] == 'denegada') {
-        $solicitudes_denegadas_voluntariado[] = $row;
-    }
-
-    // Obtener el nombre de la protectora para cada solicitud de voluntariado
-    $sql_nombre_protectora = "SELECT nombre FROM protectora WHERE id_protectora = ?";
-    $stmt_nombre_protectora = $conn->prepare($sql_nombre_protectora);
-    $stmt_nombre_protectora->bind_param("i", $row['id_protectora']);
-    $stmt_nombre_protectora->execute();
-    $result_nombre_protectora = $stmt_nombre_protectora->get_result();
-    $nombre_protectora_row = $result_nombre_protectora->fetch_assoc();
-    $nombre_protectora = $nombre_protectora_row ? $nombre_protectora_row['nombre'] : 'Nombre no encontrado';
-    $stmt_nombre_protectora->close();
-
-    // Almacenar el nombre de la protectora en la solicitud
-    $row['nombre_protectora'] = $nombre_protectora;
-}
-
-$stmt_voluntariados->close();
+// Aquí puedes hacer cualquier otra operación que necesites con los datos del usuario o continuar con el código.
 
 ?>
+
+
+
 
 
 <!DOCTYPE html>
