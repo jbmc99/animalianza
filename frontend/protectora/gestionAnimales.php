@@ -218,8 +218,6 @@ include('navbar_protectora.php');
                         // Cerrar el modal
                         $('#eliminarAnimalModal').modal('hide');
                         
-                        // Mostrar mensaje de éxito
-                        alert('Animal eliminado con éxito');
                     } else {
                         alert('Hubo un error al eliminar el animal');
                     }

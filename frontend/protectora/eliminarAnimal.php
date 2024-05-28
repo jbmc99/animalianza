@@ -26,6 +26,7 @@ $stmtEliminar->bind_param('ii', $idAnimal, $id_protectora);
 if ($stmtEliminar->execute()) {
     echo json_encode(['success' => true, 'id_animal' => $idAnimal]);
 } else {
+    // Aquí se elimina la línea que imprime el mensaje de error como un alert
     echo json_encode(['success' => false, 'message' => 'Error al eliminar el animal']);
 }
 
@@ -33,3 +34,4 @@ if ($stmtEliminar->execute()) {
 $stmtEliminar->close();
 $conn->close();
 ?>
+

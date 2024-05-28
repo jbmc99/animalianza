@@ -121,6 +121,7 @@ include('navbar_protectora.php');
                 echo "<h5 class='card-title'>" . $fila['nombre'] . "</h5>";
                 echo "<p class='card-text'><strong>Fecha:</strong> " . $fila['fecha'] . "</p>";
 
+                // Mostrar la
                 // Mostrar la foto del evento si existe
                 if (!empty($fila['ruta_imagen'])) {
                     echo "<img src='" . $fila['ruta_imagen'] . "' class='img-fluid mb-3' alt='Foto del Evento'>";
@@ -201,19 +202,27 @@ include('navbar_protectora.php');
                         <select class="form-select" id="eventoSelect" name="id_evento">
                             <option selected disabled>Seleccione un evento...</option>
                             <?php
-                            // Mostrar opciones dinámicamente
-                            $sql = "SELECT * FROM evento";
-                            $resultado = $conn->query($sql);
-                            while ($fila = $resultado->fetch_assoc()) {
+                            // Mostrar solo los eventos de la protectora actual
+                            $sql = "SELECT * FROM evento WHERE id_protectora = ?";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bind_param("i", $id_protectora);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+
+                            // Iterar sobre los resultados y mostrar las opciones del select
+                            while ($fila = $result->fetch_assoc()) {
                                 echo "<option value='" . $fila['id_evento'] . "'>" . $fila['nombre'] . "</option>";
                             }
+
+                            // Cerrar el statement y la conexión
+                            $stmt->close();
                             ?>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-danger">Eliminar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </form>
-            </div>
+                </div>
         </div>
     </div>
 </div>
@@ -221,11 +230,10 @@ include('navbar_protectora.php');
 
 
 <?php
-    include('../usuario/footer.php');
-    ?>
+include('../usuario/footer.php');
+?>
 
   
-  
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-  </html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
