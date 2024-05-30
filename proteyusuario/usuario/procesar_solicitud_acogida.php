@@ -1,9 +1,7 @@
 <?php
-session_start(); // Asegúrate de que esto está al principio de tu archivo
+session_start(); 
 
-// Verificar si se recibieron los datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibir y limpiar los datos del formulario
     $email = htmlspecialchars($_POST["email"]);
     $numeroTelefono = htmlspecialchars($_POST["telefono"]);
     $direccion = htmlspecialchars($_POST["direccion"]);
@@ -11,29 +9,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idAnimal = htmlspecialchars($_POST["id_animal"]);
     $motivacionesAcogida = htmlspecialchars($_POST["motivaciones"]);
     $infoHogar = htmlspecialchars($_POST["estilo_vida"]);
+    $idLogin = $_SESSION['id_login'];
 
-    // Obtener el ID del usuario de la sesión
-    $idLogin = $_SESSION['id_login']; // Asegúrate de que esta variable de sesión está configurada correctamente
-
-    // Incluir archivo de conexión a la base de datos
     require_once('../protectora/conexion.php');
 
-    // Obtener el id_usuario correspondiente al id_login
     $result = $conn->query("SELECT id_usuario FROM usuario WHERE id_login = $idLogin");
     $row = $result->fetch_assoc();
     $idUsuario = $row['id_usuario'];
-
-    // Preparar la consulta SQL para insertar la solicitud en la base de datos
     $sql = "INSERT INTO solicitud_acogida (id_usuario, email, telefono, direccion, id_protectora, id_animal, motivaciones, estilo_vida, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pendiente')";
 
-    // Preparar la declaración
     if ($stmt = $conn->prepare($sql)) {
-        // Vincular los parámetros con los valores recibidos
         $stmt->bind_param("isssiiss", $idUsuario, $email, $numeroTelefono, $direccion, $idProtectora, $idAnimal, $motivacionesAcogida, $infoHogar);
 
-        // Ejecutar la consulta
         if ($stmt->execute()) {
-            // Solicitud de acogida guardada correctamente
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
             echo "<link rel='stylesheet' href='style.css'>";
             echo "<script>
@@ -56,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     });
                   </script>";
         } else {
-            // Error al guardar la solicitud de acogida
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
             echo "<script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -74,7 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </script>";
         }
 
-        // Cerrar la declaración
         $stmt->close();
     } else {
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
@@ -93,11 +79,9 @@ echo "<script>
         });
       </script>";
     }
-
-    // Cerrar la conexión a la base de datos
     $conn->close();
 } else {
-    // Si no se recibieron los datos por POST, redirigir a una página de error o mostrar un mensaje de error
+    
     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
     echo "<script>
             document.addEventListener('DOMContentLoaded', function() {

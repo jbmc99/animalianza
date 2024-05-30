@@ -1,3 +1,5 @@
+<!--accedemos a las variables de sesión y comprobamos q id_protectora está en la sesión 
+si no está redirigimos a login.php-->
 <?php
 session_start();
 
@@ -6,7 +8,6 @@ if (!isset($_SESSION['id_protectora'])) {
     exit;
 }
 ?>
-
 
 <?php
 include('..usuario/header.php');
@@ -19,7 +20,6 @@ include('navbar_protectora.php');
   <h1 class="text-center mb-4">¡BIENVENID@!</h1>
   <h3 class="text-center mb-4">¿Qué deseas hacer hoy?</h3>
   <div class="row justify-content-center">
-    <!-- Card: Gestionar Animales -->
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 text-center bg-transparent border-2">
         <div class="card-body">
@@ -31,7 +31,7 @@ include('navbar_protectora.php');
         </div>
       </div>
     </div>
-    <!-- Card: Adopciones -->
+
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 text-center bg-transparent border-2">
         <div class="card-body">
@@ -43,7 +43,7 @@ include('navbar_protectora.php');
         </div>
       </div>
     </div>
-    <!-- Card: Casa de Acogida -->
+
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 text-center bg-transparent border-2">
         <div class="card-body">
@@ -56,8 +56,8 @@ include('navbar_protectora.php');
       </div>
     </div>
   </div>
+
   <div class="row justify-content-center">
-    <!-- Card: Eventos -->
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 text-center bg-transparent border-2">
         <div class="card-body">
@@ -69,7 +69,7 @@ include('navbar_protectora.php');
         </div>
       </div>
     </div>
-    <!-- Card: Productos -->
+
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 text-center bg-transparent border-2">
         <div class="card-body">
@@ -77,12 +77,11 @@ include('navbar_protectora.php');
           <p class="card-text">Ver y gestionar tus productos.</p>
         </div>
         <div class="card-footer">
-          <a href="../protectora/gestionProductos.php" class="btn btn-success">Ir a productos</a>
+        <a href="../protectora/gestionProductos.php" class="btn btn-success">Ir a productos</a>
         </div>
       </div>
     </div>
 
-    <!-- Card: Voluntarios -->
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 text-center bg-transparent border-2">
         <div class="card-body">

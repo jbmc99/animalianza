@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="../usuario/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
 
 <?php
+include('header.php');
 include('navbar_usuario.php');
 ?>
 
-
- <!-- Contenido de la página -->
  <div class="container mt-5">
     <h1 class="text-center mb-5">VOLUNTARIADO</h1>
     
@@ -33,7 +21,7 @@ include('navbar_usuario.php');
           </p>
         </div>
         <div class="col-md-6">
-          <!-- Carrusel de imágenes -->
+
           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -61,14 +49,12 @@ include('navbar_usuario.php');
 
 
       <?php
-// Incluir archivo de conexión a la base de datos
+
 require_once('../protectora/conexion.php');
 
-// Consultar la base de datos para obtener la información de las protectoras que aceptan voluntarios
 $sql = "SELECT id_protectora, nombre, info_prote, info_relevante, ruta_imagen FROM protectora WHERE acepta_voluntarios = 1";
 $resultado = $conn->query($sql);
 
-// Verificar si se encontraron resultados
 if ($resultado->num_rows > 0) {
   echo '<div class="container">';
   echo '<div class="row">';
@@ -80,13 +66,10 @@ if ($resultado->num_rows > 0) {
   
   echo '<div id="page-content" class="container">';
   echo '<div class="row justify-content-center mt-5">';
-  
-  // Iterar sobre los resultados y generar el HTML para cada card
+
   while ($fila = $resultado->fetch_assoc()) {
       echo '<div class="col-md-4 mb-3 d-flex align-items-stretch">';
       echo '<div class="card bg-transparent border-0 w-100 d-flex flex-column">';
-      
-      // Verificar si el archivo de imagen existe
       $image_path = $fila['ruta_imagen'];
       if (file_exists($image_path)) {
           echo '<img src="' . $image_path . '" class="card-img-top img-fluid" alt="Imagen de la protectora">';
@@ -97,25 +80,22 @@ if ($resultado->num_rows > 0) {
       echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
       echo '<div class="d-grid gap-2 d-flex justify-content-center mt-auto">';
       echo '<a href="formulariovoluntariado.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success w-75">Solicitar voluntariado</a>';
-      echo '</div>'; // Cierre de d-grid
-      echo '</div>'; // Cierre de card-body
-      echo '</div>'; // Cierre de card
-      echo '</div>'; // Cierre de col-md-4
+      echo '</div>';
+      echo '</div>'; 
+      echo '</div>'; 
+      echo '</div>'; 
   }
   
-  echo '</div>'; // Cierre de row
-  echo '</div>'; // Cierre de container
+  echo '</div>'; 
+  echo '</div>'; 
   
 } else {
   echo "No se encontraron protectoras que acepten voluntarios en este momento.";
 }
 
-
-// Cerrar la conexión a la base de datos
 $conn->close();
 ?>
 
-<!-- Testimonios de voluntarios -->
 <div class="row mt-5 justify-content-center">
   <div class="col-md-6">
     <h2 class="text-center">Testimonios de nuestros voluntarios</h2>

@@ -1,16 +1,13 @@
-<!-- Obtener el id_protectora de la sesión -->
-<?php
-// Iniciar la sesión para acceder a las variables de sesión
-session_start();
 
-// Verificar si el id_protectora está almacenado en la sesión
+<!--accedemos a las variables de sesión y comprobamos q id_protectora está en la sesión 
+si no está redirigimos a login.php-->
+<?php
+session_start();
 if (!isset($_SESSION['id_protectora'])) {
-    // Si no está almacenado, redirigir a la página de inicio de sesión
-    header("Location: login.php"); // Cambiar 'login.php' por la página de inicio de sesión
+    header("Location: login.php");
     exit();
 }
 
-// Obtener el id_protectora de la sesión
 $id_protectora = $_SESSION['id_protectora'];
 ?>
 
@@ -19,15 +16,12 @@ include('..usuario/header.php');
 include('navbar_protectora.php');
 ?>
 
-<!-- Title -->
 <div class="container mt-5 mb-5 text-center">
   <h1>GESTIÓN DE ADOPCIONES</h1>
 </div>
 
-<!-- Content -->
 <div class="container mt-3">
     <div class="row">
-        <!-- Sección para aceptar adopciones -->
         <div class="col-md-6 mb-4 protectora-row" data-id_protectora="<?php echo $id_protectora; ?>">
             <h2 class="text-center mb-3">¿Aceptáis adopciones en este momento?</h2>
             <div class="d-flex justify-content-center mb-3">
@@ -41,28 +35,25 @@ include('navbar_protectora.php');
 
         <div class="col-md-6 mb-4">
             <?php
-            // Incluir archivo de conexión a la base de datos
             require_once('../protectora/conexion.php');
-
-            // Obtener el id_protectora de la sesión
             $idProtectora = $_SESSION['id_protectora'];
 
-            // Preparar la consulta SQL para obtener todas las solicitudes de adopción que no estén aceptadas o denegadas
+            //preparamos la consulta sql para obtener todas las solicitudes de adopción q esten pendientes
             $sql = "SELECT solicitud_adopcion.*, animal.nombre AS nombre_animal 
                     FROM solicitud_adopcion 
                     JOIN animal ON solicitud_adopcion.id_animal = animal.id_animal 
                     WHERE solicitud_adopcion.id_protectora = ? AND solicitud_adopcion.estado = 'pendiente'";
 
-            // Preparar y ejecutar la consulta
+            //preparar y ejecutar la consulta
+            //utilizo stmt para evitar inyecciones sql, en este caso no es necesario pero es una buena práctica
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $idProtectora);
             $stmt->execute();
             $result = $stmt->get_result();
 
-            echo '<div class="container my-3">'; // Contenedor con margen vertical
+            echo '<div class="container my-3">';
 
             if ($result->num_rows > 0) {
-                // Recorrer cada fila de resultados
                 while($row = $result->fetch_assoc()) {
 
                   echo '<li class="list-group-item d-flex justify-content-between align-items-center" data-id_solicitud_adopcion="'.$row["id_solicitud_adopcion"].'" data-bs-toggle="modal" data-bs-target="#solicitudModal'.$row["id_solicitud_adopcion"].'">';
@@ -82,8 +73,8 @@ include('navbar_protectora.php');
                     echo '<div class="modal-body">';
                     echo '<p>Nombre: '.$row["nombre_apellidos"].'</p>';
                     echo '<p>Email: '.$row["email"].'</p>';
-                    echo '<p>ID Protectora: '.$row["id_protectora"].'</p>'; // Añadir el ID de la protectora
-                    echo '<p>ID Animal: '.$row["id_animal"].'</p>'; // Añadir el ID del animal
+                    echo '<p>ID Protectora: '.$row["id_protectora"].'</p>';
+                    echo '<p>ID Animal: '.$row["id_animal"].'</p>'; 
                     echo '<p>Número de Teléfono: '.$row["numero_telefono"].'</p>';
                     echo '<p>Dirección: '.$row["direccion"].'</p>';
                     echo '<p>Propietario/Inquilino: '.$row["propietario_inquilino"].'</p>';
@@ -103,9 +94,9 @@ include('navbar_protectora.php');
                 echo "No hay solicitudes de adopción.";
             }
 
-            echo '</div>'; // Cierre del contenedor
+            echo '</div>'; 
 
-            // Cerrar la conexión a la base de datos
+            //cerramos primero la consulta y luego la conexión
             $stmt->close();
             $conn->close();
             ?>
@@ -113,45 +104,27 @@ include('navbar_protectora.php');
     </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer-custom-bg text-center mt-5">
-  <div class="container p-4 pb-0">
-    <h4>¡Contacta con nosotros!</h4>
-  </div>
 
-  <div class="container p-4 pb-0">
-    <section class="mb-4">
-      <a class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
-      <a class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i class="fab fa-twitter"></i></a>
-      <a class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="#!" role="button"><i class="fab fa-google"></i></a>
-      <a class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="#!" role="button"><i class="fab fa-instagram"></i></a>
-    </section>
-  </div>
 
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2024 Copyright: Animalianza
-    <a class="text-body" href="https://animalianza.com/">Animalianza.com</a>
-  </div>
-</footer>
-<!-- Footer -->
+<?php include('../usuario/footer.php'); ?>
 
-<!-- Scripts -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Añadido el script de SweetAlert2 -->
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 <script>
-// Obtener el valor del select y el ID de la protectora
+
+
+//obtenemos el valor seleccionado del select
 $(".confirmarBtn").on("click", function() {
-    // Obtener el valor seleccionado del select
     var acepta_adopciones = $(this).siblings(".acepta_adopciones_select").val();
     var id_protectora = $(this).closest(".protectora-row").data("id_protectora");
 
-    // Imprimir los valores antes de enviar la solicitud AJAX
+    //no es necesario pero es una buena práctica el console.log para comprobar q se obtienen los valores correctos
     console.log("Valor de acepta_adopciones:", acepta_adopciones);
     console.log("Valor de id_protectora:", id_protectora);
 
-    // Enviar los datos al script PHP mediante Ajax
+    //envio los datos al archivo q va a actualizar la bd
     $.ajax({
         url: "actualizar_adopcion.php",
         method: "GET",
@@ -160,7 +133,6 @@ $(".confirmarBtn").on("click", function() {
             id_protectora: id_protectora
         },
         success: function(response) {
-            // Mostrar un alert para notificar al usuario
             Swal.fire({
                 icon: 'success',
                 title: '¡Actualización exitosa!',
@@ -168,18 +140,18 @@ $(".confirmarBtn").on("click", function() {
                 confirmButtonText: 'Aceptar'
             });
 
-            console.log(response); // Maneja la respuesta del servidor según sea necesario
+            console.log(response); 
         },
         error: function(xhr, status, error) {
-            console.error(xhr.responseText); // Maneja los errores de Ajax
+            console.error(xhr.responseText); 
         }
     });
 });
 
-// Para aceptar solicitudes de adopción
+//para aceptar o denegar la solicitud de adopción
 $(".acceptBtn, .denyBtn").on("click", function() {
     var id_solicitud_adopcion = $(this).data("id_solicitud_adopcion");
-    var acepta_adopciones = $(this).data("acepta"); // Lee el estado desde el botón
+    var acepta_adopciones = $(this).data("acepta"); 
 
     var listItem = $('li[data-id_solicitud_adopcion="'+id_solicitud_adopcion+'"]');
 
@@ -188,7 +160,7 @@ $(".acceptBtn, .denyBtn").on("click", function() {
         method: "GET",
         data: {
             id_solicitud_adopcion: id_solicitud_adopcion,
-            nuevo_estado: acepta_adopciones // Envía el estado al script PHP
+            nuevo_estado: acepta_adopciones 
         },
         success: function(response) {
             if (acepta_adopciones === "aceptada") {
@@ -206,7 +178,7 @@ $(".acceptBtn, .denyBtn").on("click", function() {
                     confirmButtonText: 'Aceptar'
                 });
             }
-            listItem.remove(); // Elimina el elemento de la lista
+            listItem.remove(); //se elimina la solicitud de la lista
         },
         error: function(xhr, status, error) {
             Swal.fire({

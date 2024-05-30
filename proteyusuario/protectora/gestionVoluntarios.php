@@ -1,16 +1,11 @@
-<!-- Obtener el id_protectora de la sesión -->
+<!--accedemos a las variables de sesión y comprobamos q id_protectora está en la sesión 
+si no está redirigimos a login.php-->
 <?php
-// Iniciar la sesión para acceder a las variables de sesión
 session_start();
-
-// Verificar si el id_protectora está almacenado en la sesión
 if (!isset($_SESSION['id_protectora'])) {
-    // Si no está almacenado, redirigir a la página de inicio de sesión
     header("Location: login.php");
     exit();
 }
-
-// Obtener el id_protectora de la sesión
 $id_protectora = $_SESSION['id_protectora'];
 ?>
 
@@ -40,26 +35,23 @@ include('navbar_protectora.php');
             <h2 class="text-center mb-3">Solicitudes de voluntariado</h2>
             <ul class="list-group">
                 <?php
-                // Incluir archivo de conexión a la base de datos
                 require_once('../protectora/conexion.php');
 
-                // Obtener el id_protectora de la sesión
                 $idProtectora = $_SESSION['id_protectora'];
 
-                // Preparar la consulta SQL para obtener todas las solicitudes de voluntariado
+               //preparamos la consulta sql para obtener todas las solicitudes de voluntariado
                 $sql = "SELECT * FROM solicitud_voluntariado WHERE id_protectora = $idProtectora";
-                // Ejecutar la consulta
+                //se ejecuta la consulta
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
-                    // Recorrer cada fila de resultados
                     while($row = $result->fetch_assoc()) {
                         echo '<li class="list-group-item d-flex justify-content-between align-items-center" data-id="'.$row["id_solicitud_voluntariado"].'">';
                         echo $row["nombre_apellidos"];
                         echo '<span class="badge bg-success rounded-pill" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#solicitudModal'.$row["id_solicitud_voluntariado"].'">Más información</span>';
                         echo '</li>';
 
-                        // Generar modal para cada solicitud
+                        //hacemos un modal para cada solicitud
                         echo '<div class="modal fade" id="solicitudModal'.$row["id_solicitud_voluntariado"].'" tabindex="-1" aria-labelledby="solicitudModalLabel'.$row["id_solicitud_voluntariado"].'" aria-hidden="true">';
                         echo '<div class="modal-dialog">';
                         echo '<div class="modal-content">';
@@ -87,7 +79,6 @@ include('navbar_protectora.php');
                     echo "No hay solicitudes de voluntariado.";
                 }
 
-                // Cerrar la conexión a la base de datos
                 $conn->close();
                 ?>
             </ul>
@@ -102,10 +93,10 @@ include('../usuario/footer.php');
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Añadido el script de SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 
 <script>
-// Obtener el valor del select y el ID de la protectora
+// primero se obtiene el valor del select y el id de la protectora
 $(".confirmarBtn").on("click", function() {
     var acepta_voluntarios = $(this).siblings(".acepta_voluntarios_select").val();
     var id_protectora = $(this).closest(".protectora-row").data("id_protectora");
@@ -114,6 +105,7 @@ $(".confirmarBtn").on("click", function() {
     console.log("Valor de id_protectora:", id_protectora);
 
     $.ajax({
+        //llamamos al archivo q va a hacer que se actualice el valor de acepta_voluntarios en la base de datos
         url: "actualizar_voluntarios.php",
        
         method: "GET",
@@ -122,7 +114,6 @@ $(".confirmarBtn").on("click", function() {
             id_protectora: id_protectora
         },
         success: function(response) {
-            // Reemplazar el alert por SweetAlert
             Swal.fire({
                 icon: 'success',
                 title: '¡Actualización exitosa!',
@@ -139,7 +130,7 @@ $(".confirmarBtn").on("click", function() {
 
 $(".acceptBtn").on("click", function() {
     var id_solicitud_acogida = $(this).data("id_solicitud_acogida");
-    var listItem = $('li[data-id="'+id_solicitud_acogida+'"]'); // Encuentra el elemento de lista correspondiente
+    var listItem = $('li[data-id="'+id_solicitud_acogida+'"]'); //encuentra el elemento de la lista correspondiente
 
     $.ajax({
         url: "../protectora/actualizar_estado_solicitud_acogida.php",
@@ -149,17 +140,15 @@ $(".acceptBtn").on("click", function() {
             nuevo_estado: "aceptada"
         },
         success: function(response) {
-            // Mostrar un Sweet Alert para notificar al usuario
             Swal.fire({
                 icon: 'success',
                 title: '¡Solicitud aceptada!',
                 text: 'La solicitud ha sido aceptada.',
                 confirmButtonText: 'Aceptar'
             });
-            listItem.remove(); // Elimina el elemento de la lista
+            listItem.remove(); //la solicitud q aceptemos se elimina de la lista
         },
         error: function(xhr, status, error) {
-            // Mostrar un Sweet Alert para notificar al usuario sobre el error
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -172,7 +161,7 @@ $(".acceptBtn").on("click", function() {
 
 $(".denyBtn").on("click", function() {
     var id_solicitud_acogida = $(this).data("id_solicitud_acogida");
-    var listItem = $('li[data-id="'+id_solicitud_acogida+'"]'); // Encuentra el elemento de lista correspondiente
+    var listItem = $('li[data-id="'+id_solicitud_acogida+'"]'); // lo mismo q el anterior
 
     $.ajax({
         url: "../protectora/actualizar_estado_solicitud_acogida.php",
@@ -182,17 +171,15 @@ $(".denyBtn").on("click", function() {
             nuevo_estado: "denegada"
         },
         success: function(response) {
-            // Mostrar un Sweet Alert para notificar al usuario
             Swal.fire({
                 icon: 'success',
                 title: '¡Solicitud denegada!',
                 text: 'La solicitud ha sido denegada.',
                 confirmButtonText: 'Aceptar'
             });
-            listItem.remove(); // Elimina el elemento de la lista
+            listItem.remove(); 
         },
         error: function(xhr, status, error) {
-            // Mostrar un Sweet Alert para notificar al usuario sobre el error
             Swal.fire({
                 icon: 'error',
                 title: 'Error',

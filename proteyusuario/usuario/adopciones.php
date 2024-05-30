@@ -25,14 +25,10 @@ include('navbar_usuario.php');
                 <h3>PERROS</h3>
             </a>
         </div>
-    </div>
-
-    
+    </div>   
 </div>
 </div>
 
-
-  
   <div class="container text-center mb-5">
       <h3><b>¿Qué son los casos especiales?</b></h3>
       <p class="col align-self-center mt-4 mb-5">Si ves que en una ficha aparece 'caso especial', hay que tener especial precaución. Los casos especiales son los de 
@@ -42,17 +38,11 @@ include('navbar_usuario.php');
         animales necesitan cuidados específicos y a menudo requieren adoptantes compasivos dispuestos 
         a brindarles el cuidado y el amor que necesitan.</p>
     </div>
-  
-  
 
-  
     <?php
     include('footer.php');
     ?>
-
-
-
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -5,23 +5,22 @@ include('navbar_protectora.php');
 
 session_start();
 
-// Establecer el id_protectora en la sesión si está disponible
+//establecemos el id de la protectora en una variable de sesión
 if (!isset($_SESSION['id_protectora'])) {
-    // Si id_protectora no está definida en la sesión, redirigir a alguna página donde se pueda establecer
     header("Location: login.php");
-    exit(); // Asegúrate de detener la ejecución del script después de la redirección
+    exit();
 }
 
-$id_protectora = $_SESSION['id_protectora']; // Obtener el ID de la protectora de la sesión
+$id_protectora = $_SESSION['id_protectora'];
 
 ?>
-<!-- Constructor para añadir animales -->
+
+
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h2 class="text-center mb-4">Añade un animal</h2>
             <form action="procesar_animal.php" method="POST" enctype="multipart/form-data">
-                <!-- Campo oculto para el ID de la protectora -->
                 <input type="hidden" name="id_protectora" value="<?php echo $id_protectora; ?>">
 
                 <div class="form-group row mb-4">
@@ -79,7 +78,6 @@ $id_protectora = $_SESSION['id_protectora']; // Obtener el ID de la protectora d
                         </div>
                     </div>
                 </div>
-                <!-- Campo de carga de archivos para la foto del animal -->
                 <div class="form-group">
                     <label for="fotoAnimal">Foto del Animal</label>
                     <input type="file" class="form-control-file" id="fotoAnimal" name="fotoAnimal">

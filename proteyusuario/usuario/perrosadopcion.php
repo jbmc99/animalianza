@@ -16,16 +16,11 @@ include('navbar_usuario.php');
                 <select class="form-select" aria-label="Seleccione la protectora" id="select-protectora">
                     <option selected>Seleccione una protectora</option>
                     <?php
-                    // Incluir archivo de conexión
                     require_once('../protectora/conexion.php');
-
-                    // Consultar la base de datos para obtener todas las protectoras
                     $sql = "SELECT * FROM protectora";
                     $resultado = $conn->query($sql);
 
-                    // Verificar si se encontraron protectoras
                     if ($resultado->num_rows > 0) {
-                        // Mostrar todas las opciones de protectoras en el select
                         while ($fila = $resultado->fetch_assoc()) {
                             echo '<option value="' . $fila['id_protectora'] . '">' . $fila['nombre'] . '</option>';
                         }
@@ -42,30 +37,23 @@ include('navbar_usuario.php');
         </div>
     </form> 
 </div>
-<!--CARDS-->
+
+
 <div class="d-flex flex-wrap ms-5 me-2 perros-container">
     <?php
-    // Iniciar la sesión
     session_start();
-
-    // Incluir archivo de conexión
     require_once('../protectora/conexion.php');
 
-    // Consultar la base de datos para obtener todos los perros
     $sql = "SELECT * FROM animal WHERE especie = 'perro'";
     $resultado = $conn->query($sql);
-
-   // Verificar si se encontraron perros
 if ($resultado->num_rows > 0) {
-  // Contenedor y fila fuera del bucle
   echo '<div class="container mt-5">';
-  echo '<div class="row justify-content-center">'; // Mover la clase aquí
-  
-  // Mostrar todas las tarjetas de perros
+  echo '<div class="row justify-content-center">';
+
   while ($fila = $resultado->fetch_assoc()) {
-      echo '<div class="col-md-3 mb-3">'; // Asignamos una columna con el mismo ancho para cada card
+      echo '<div class="col-md-3 mb-3">'; 
       echo '<div class="card bg-transparent border-0 h-100">';
-      echo '<a href="fichagato1.php?id=' . $fila['id_animal'] . '">'; // Enlace a la página de detalles del perro
+      echo '<a href="fichagato1.php?id=' . $fila['id_animal'] . '">'; 
       echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid" alt="Foto del perro">';
       echo '</a>';
       echo '<div class="card-body text-center">';
@@ -77,7 +65,6 @@ if ($resultado->num_rows > 0) {
       echo '</div>';
   }
 
-  // Cerrar contenedor y fila
   echo '</div>';
   echo '</div>';
   echo '</div>';
@@ -99,15 +86,15 @@ if ($resultado->num_rows > 0) {
     <script>
     $(document).ready(function(){
         $('#form-filtrar').submit(function(event){ 
-            event.preventDefault(); // Prevenir el envío del formulario por defecto
+            event.preventDefault(); 
 
-            var id_protectora = $('#select-protectora').val(); // Obtener el valor seleccionado del select
+            var id_protectora = $('#select-protectora').val(); 
             $.ajax({
                 url: 'filtrar_perros.php',
                 type: 'post',
                 data: {id_protectora: id_protectora},
                 success: function(response){
-                    $('.perros-container').html(response); // Actualizar el contenido con los perros filtrados
+                    $('.perros-container').html(response); 
                 }
             });
         });

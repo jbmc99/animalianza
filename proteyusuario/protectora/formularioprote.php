@@ -2,7 +2,7 @@
 <?php
 include('..usuario/header.php');
 ?>
-  <!--NAVBAR-->
+<!--esta navbar es diferente de las q ponemos con include, porq no tienen secciones-->
   <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -17,7 +17,7 @@ include('..usuario/header.php');
       </div>
     </div>
   </nav>
-<!--formulario de registro-->
+
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -86,55 +86,8 @@ include('..usuario/header.php');
     </div>
 </div>
 
-  
-<footer class="footer-custom-bg text-center">
-  <div class="container p-4 pb-0">
-    <h4>¡Contacta con nosotros!</h4>
-  </div>
+<?php include('../usuario/footer.php'); ?>
 
-  <div class="container p-4 pb-0">
-    <section class="mb-4">
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #3b5998;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #55acee;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-twitter"></i
-      ></a>
-
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #dd4b39;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-google"></i
-      ></a>
-
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #ac2bac;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-instagram"></i
-      ></a>
-    </section>
-
-  </div>
-
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2024 Copyright: Animalianza
-    <a class="text-body" href="https://animalianza.com/"> Animalianza.com</a>
-  </div>
-
-</footer>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -24,7 +24,6 @@ include('header.php');
         <div class="col-md-8">
             <h2 class="text-center mb-4">Formulario de Registro de Adoptantes</h2>
             <?php
-                // Mostrar mensaje de error si hay alguno
                 if (isset($_GET['error_message'])) {
                     echo '<div class="alert alert-danger" role="alert">' . $_GET['error_message'] . '</div>';
                 }

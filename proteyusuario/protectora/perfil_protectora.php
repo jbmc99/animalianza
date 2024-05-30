@@ -1,28 +1,22 @@
 <?php
-// Iniciar la sesión para acceder a las variables de sesión
 session_start();
 
-// Verificar si el id_protectora está almacenado en la sesión
 if (!isset($_SESSION['id_protectora'])) {
-    // Si no está almacenado, redirigir a la página de inicio de sesión
-    header("Location: login.php"); // Cambiar 'login.php' por la página de inicio de sesión
+    header("Location: login.php"); 
     exit();
 }
-
-// Obtener el id_protectora de la sesión
 $id_protectora = $_SESSION['id_protectora'];
 
-// Incluir el archivo de conexión a la base de datos
 include 'conexion.php';
 
-// Consultar datos de la tabla protectora para el id_protectora específico
+//consultamos los datos de la protectora
 $sql = "SELECT * FROM protectora WHERE id_protectora = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_protectora);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Consultar nombres y apellidos de las tablas solicitud_adopcion y solicitud_voluntariado
+//y consultamos nombres y apellidos de los adoptantes y voluntarios
 $sql_adopcion = "SELECT nombre_apellidos FROM solicitud_adopcion WHERE id_protectora = ?";
 $stmt_adopcion = $conn->prepare($sql_adopcion);
 $stmt_adopcion->bind_param("i", $id_protectora);
@@ -35,23 +29,11 @@ $stmt_voluntariado->bind_param("i", $id_protectora);
 $stmt_voluntariado->execute();
 $result_voluntariado = $stmt_voluntariado->get_result();
 
-// Cerrar la conexión
 $conn->close();
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Perfil Protectora</title>
-    <link rel="stylesheet" href="../usuario/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-
 <?php
+include('..usuario/header.php');
 include('navbar_protectora.php');
 ?>
 
@@ -59,7 +41,6 @@ include('navbar_protectora.php');
     <h1 class="mb-4">Perfil de la Protectora</h1>
 
     <?php
-    // Verificar si se encontraron datos
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo '

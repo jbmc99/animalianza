@@ -4,8 +4,6 @@ include('header.php');
 include('navbar_usuario.php');
 ?>
   
-
-
   <div class="container text-center mb-5">
       <div class="col align-self-center mt-4">
         <h1 id="titulo" ><b>ANIMALIANZA</h1></b>

@@ -3,7 +3,6 @@
 include('header.php');
 include('navbar_usuario.php');
 ?>
-    <!--formulario de solicitud de voluntariado-->
     <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -46,16 +45,10 @@ include('navbar_usuario.php');
                         <select class="form-select" id="protectora" name="id_protectora" required>
                             <option selected disabled>Seleccione la protectora a la que pertenece</option>
                             <?php
-                            // Incluir archivo de conexión
                             require_once('../protectora/conexion.php');
-
-                            // Consultar la base de datos para obtener todas las protectoras
                             $sql = "SELECT * FROM protectora";
                             $resultado = $conn->query($sql);
-
-                            // Verificar si se encontraron protectoras
                             if ($resultado->num_rows > 0) {
-                                // Mostrar todas las opciones de protectoras en el select
                                 while ($fila = $resultado->fetch_assoc()) {
                                     echo '<option value="' . $fila['id_protectora'] . '">' . $fila['nombre'] . '</option>';
                                 }

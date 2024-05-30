@@ -1,22 +1,16 @@
 <?php
-// Incluir archivo de conexión a la base de datos
 require_once('../protectora/conexion.php');
 
-// Consultar la base de datos para obtener los eventos
+//consultamos los eventos de la protectora para mostrarlos
 $sql = "SELECT id_evento, nombre, descripcion, fecha, estado, ruta_imagen, id_protectora FROM evento";
 $result = $conn->query($sql);
-
-// Inicializar arrays para próximos y pasados eventos
 $proximosEventos = [];
 $pasadosEventos = [];
 
-// Obtener la fecha actual
 $fechaActual = date('Y-m-d');
 
-// Verificar si se encontraron eventos
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Clasificar los eventos en próximos y pasados según la fecha
         if ($row['fecha'] >= $fechaActual) {
             $proximosEventos[] = $row;
         } else {
@@ -27,21 +21,13 @@ if ($result->num_rows > 0) {
     $noHayEventos = true;
 }
 
-// Cerrar la conexión a la base de datos
 $conn->close();
 ?>
-
-
-
-
-
 
 <?php
 include('header.php');
 include('navbar_usuario.php');
 ?>
-  
-
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">EVENTOS SOLIDARIOS</h1>
@@ -49,8 +35,6 @@ include('navbar_usuario.php');
     <?php if (isset($noHayEventos) && $noHayEventos): ?>
         <p class="text-center">No se encontraron eventos.</p>
     <?php else: ?>
-
-        <!-- Contenedor de los eventos -->
         <h2 class="text-center mt-5 mb-5">Próximos Eventos</h2>
         <div class="row justify-content-center">
             <?php if (!empty($proximosEventos)): ?>
@@ -76,7 +60,6 @@ include('navbar_usuario.php');
             <?php endif; ?>
         </div>
 
-        <!-- Contenedor de los eventos pasados -->
         <h2 class="text-center mt-5 mb-5">Eventos Pasados</h2>
         <div class="row justify-content-center">
             <?php if (!empty($pasadosEventos)): ?>

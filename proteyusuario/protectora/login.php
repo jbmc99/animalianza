@@ -2,19 +2,10 @@
 session_start();
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="../usuario/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-  <!-- Navbar -->
+<?php
+include('..usuario/header.php');
+?>
+  <!-- aqui no pongo la navbar normal, pongo una sin secciones porque aun no nos logueamos-->
   <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -30,8 +21,8 @@ session_start();
       </div>
     </div>
   </nav>
-  <!-- Fin de Navbar -->
 
+<!--titulo y logo-->
   <div class="container text-center mb-5">
     <div class="col align-self-center mt-5">
       <h1 id="titulo"><b>ANIMALIANZA</b></h1>
@@ -44,7 +35,7 @@ session_start();
         </div>
   </div>
   
-  <!-- Contenido principal -->
+  <!--seccion para loguearse-->
   <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -79,6 +70,8 @@ session_start();
     </div>
   </div>
 
+
+<!--aqui para registrarse como una cosa u otra-->
   <div class="container">
     <div class="row">
       <div class="col-12 text-center mb-5 mt-5">

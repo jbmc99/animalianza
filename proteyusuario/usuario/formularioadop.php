@@ -3,7 +3,8 @@
 include('header.php');
 include('navbar_usuario.php');
 ?>
-<!-- formulario de adopción -->
+
+
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -27,16 +28,12 @@ include('navbar_usuario.php');
                         <select class="form-select mt-2 mb-2" aria-label="Seleccione la protectora" id="select-protectora" name="select-protectora">
                             <option selected disabled>Seleccione la protectora a la que pertenece</option>
                             <?php
-                            // Incluir archivo de conexión
                             require_once('../protectora/conexion.php');
-
-                            // Consultar la base de datos para obtener todas las protectoras
+                            //consultamos la bbdd para obtener las protectoras
                             $sql = "SELECT * FROM protectora";
                             $resultado = $conn->query($sql);
-
-                            // Verificar si se encontraron protectoras
                             if ($resultado->num_rows > 0) {
-                                // Mostrar todas las opciones de protectoras en el select
+                                //mostramos todas las opciones de protectoras en el select
                                 while ($fila = $resultado->fetch_assoc()) {
                                     echo '<option value="' . $fila['id_protectora'] . '">' . $fila['nombre'] . '</option>';
                                 }
@@ -136,38 +133,36 @@ include('navbar_usuario.php');
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-    // Obtener el select de protectora y nombre de animal
+    //obtenemos el select de protectora y el de nombre de animal
     var selectProtectora = document.getElementById("select-protectora");
     var selectNombreAnimal = document.getElementById("select-nombre-animal");
 
-    // Evento cuando se cambia la protectora seleccionada
+    //agregamos un evento de cambio al select de protectora
     selectProtectora.addEventListener("change", function() {
-        // Obtener la id de la protectora seleccionada
+        //obtenemos el id de la protectora seleccionada
         let idProtectora = this.value;
 
-        // Actualizar el valor del campo oculto con la ID de la protectora seleccionada
+        //asignamos el id de la protectora al input oculto
         document.getElementById("id-protectora").value = idProtectora;
 
-        // Hacer la solicitud AJAX
+        //creamos una nueva solicitud AJAX
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "obtener_animales.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        // Enviar el id_protectora
+        //y enviamos la solicitud con el id de la protectora
         xhr.send("id_protectora=" + idProtectora);
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                // Imprimir la respuesta en la consola
                 console.log(xhr.responseText);
 
-                // Limpiar el select de nombre de animal
+                //limpiamos el select de nombre de animal
                 selectNombreAnimal.innerHTML = '<option selected disabled>Seleccione el nombre del animal</option>';
 
-                // Convertir la respuesta en un objeto JavaScript
+                //convertimos la respuesta en un array de objetos
                 var animales = JSON.parse(xhr.responseText);
-
-                // Crear las opciones del select de nombre de animal
+                //y añadimos cada animal al select
                 for (var i = 0; i < animales.length; i++) {
                     var option = document.createElement("option");
                     option.value = animales[i].id_animal;
@@ -179,17 +174,11 @@ include('navbar_usuario.php');
     });
 </script>
 <script>
-    // Función para mostrar el alert cuando la solicitud se envíe con éxito
     function mostrarAlerta() {
         alert("¡Solicitud enviada con éxito!");
     }
-    
-    // Obtener el formulario
     var formulario = document.getElementById("formulario-adopcion");
-    
-    // Agregar un evento de submit al formulario
     formulario.addEventListener("submit", function(event) {
-        // Mostrar el alert después de un breve retraso para asegurarse de que se haya procesado la solicitud
         setTimeout(mostrarAlerta, 500);
     });
 </script>

@@ -1,15 +1,12 @@
 <?php
-session_start(); // Iniciar la sesión
+session_start();
 
-
-
-// Comprobar si 'tipo_login' está definido en la sesión
+//comprobamos si tipo_login está en la sesión
 if (isset($_SESSION['tipo_login'])) {
     if ($_SESSION['tipo_login'] == 'usuario') {
-        // Mostrar la navbar para usuarios
+        //mostramos la navbar para usuarios o protectoras
         include('navbar_usuario.php');
     } else if ($_SESSION['tipo_login'] == 'protectora') {
-        // Mostrar la navbar para protectoras
         include('../protectora/navbar_protectora.php');
     }
 } else {
@@ -17,7 +14,7 @@ if (isset($_SESSION['tipo_login'])) {
     exit();
 }
 
-// Incluye el archivo para generar las fichas de animales
+//incluimos el archivo q genera las fichas de los animales
 include('../protectora/generar_fichas_animales.php');
 ?>
 

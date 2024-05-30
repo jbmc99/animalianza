@@ -1,24 +1,20 @@
 <?php
-// Incluir archivo de conexión a la base de datos
 require_once('../protectora/conexion.php');
 
-// Obtener el ID de la protectora de la URL
 $id_protectora = isset($_GET['id_protectora']) ? intval($_GET['id_protectora']) : 0;
-
-// Validar el ID de la protectora
 if ($id_protectora <= 0) {
     echo "ID de protectora no válido.";
     exit;
 }
 
-// Consultar la base de datos para obtener los productos de la protectora
+// consultamos los productos de la protectora
 $sql = "SELECT id_producto, nombre, descripcion, precio, ruta_imagen FROM producto WHERE id_protectora = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_protectora);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Depuración: Imprimir número de filas obtenidas
+// depurar la consulta
 if ($result->num_rows > 0) {
     $productos = [];
     while ($row = $result->fetch_assoc()) {
@@ -28,7 +24,6 @@ if ($result->num_rows > 0) {
     echo "<p class='text-center'>No se encontraron productos para esta protectora.</p>";
 }
 
-// Cerrar la conexión a la base de datos
 $stmt->close();
 $conn->close();
 ?>
@@ -37,15 +32,13 @@ $conn->close();
 include('header.php');
 include('navbar_usuario.php');
 ?>
-  
-
   <div class="container mt-5">
     <h1 class="text-center mb-5">Productos benéficos</h1>
     <div class="row justify-content-center">
         <?php if (!empty($productos)): ?>
             <?php foreach ($productos as $producto): ?>
                 <div class="col-lg-3 mb-4 me-5">
-                    <div class="card border-0 rounded-3 shadow-sm d-flex flex-column"> <!-- Añade las clases aquí -->
+                    <div class="card border-0 rounded-3 shadow-sm d-flex flex-column"> 
                         <?php if (file_exists($producto['ruta_imagen'])): ?>
                             <img src="<?php echo htmlspecialchars($producto['ruta_imagen']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
                         <?php else: ?>

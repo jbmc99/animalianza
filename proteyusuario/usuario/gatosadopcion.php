@@ -15,16 +15,12 @@ include('navbar_usuario.php');
                 <select class="form-select" aria-label="Seleccione la protectora" id="select-protectora">
                     <option selected>Seleccione una protectora</option>
                     <?php
-                    // Incluir archivo de conexión
                     require_once('../protectora/conexion.php');
-
-                    // Consultar la base de datos para obtener todas las protectoras
+                    //consultamos la bbdd para obtener las protectoras
                     $sql = "SELECT * FROM protectora";
                     $resultado = $conn->query($sql);
-
-                    // Verificar si se encontraron protectoras
                     if ($resultado->num_rows > 0) {
-                        // Mostrar todas las opciones de protectoras en el select
+                        //mostramos todas las opciones de protectoras en el select
                         while ($fila = $resultado->fetch_assoc()) {
                             echo '<option value="' . $fila['id_protectora'] . '">' . $fila['nombre'] . '</option>';
                         }
@@ -42,27 +38,23 @@ include('navbar_usuario.php');
         </div>
     </form> 
 </div>
-<!--CARDS-->
+
 <div class="d-flex flex-wrap ms-5 me-2 gatos-container">
     <?php
-    // Incluir archivo de conexión
     require_once('../protectora/conexion.php');
-
-    // Consultar la base de datos para obtener todos los gatos
+    // consultamos la bbdd para obtener los gatos
     $sql = "SELECT * FROM animal WHERE especie = 'gato'";
     $resultado = $conn->query($sql);
 
-    // Verificar si se encontraron gatos
     if ($resultado->num_rows > 0) {
-        // Contenedor y fila fuera del bucle
         echo '<div class="container mt-5">';
-        echo '<div class="row justify-content-center">'; // Mover la clase aquí
+        echo '<div class="row justify-content-center">'; 
         
-        // Mostrar todas las tarjetas de gatos
+        //mostramos todas las opciones de gatos en la página
         while ($fila = $resultado->fetch_assoc()) {
-            echo '<div class="col-md-3 mb-3">'; // Asignamos una columna con el mismo ancho para cada card
+            echo '<div class="col-md-3 mb-3">'; 
             echo '<div class="card bg-transparent border-0 h-100">';
-            echo '<a href="fichagato1.php?id=' . $fila['id_animal'] . '">'; // Enlace a la página de detalles del gato
+            echo '<a href="fichagato1.php?id=' . $fila['id_animal'] . '">'; 
             echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid" alt="Foto del gato">';
             echo '</a>';
             echo '<div class="card-body text-center">';
@@ -73,15 +65,12 @@ include('navbar_usuario.php');
             echo '</div>';
             echo '</div>';
         }
-
-        // Cerrar contenedor y fila
         echo '</div>';
         echo '</div>';
     } else {
         echo '<p>No se encontraron gatos.</p>';
     }
 
-    // Cerrar la conexión a la base de datos
     $conn->close();
     ?>
 </div>
@@ -98,15 +87,15 @@ include('navbar_usuario.php');
     <script>
     $(document).ready(function(){
         $('#form-filtrar').submit(function(event){ 
-            event.preventDefault(); // Prevenir el envío del formulario por defecto
+            event.preventDefault();
 
-            var id_protectora = $('#select-protectora').val(); // Obtener el valor seleccionado del select
+            var id_protectora = $('#select-protectora').val(); //obtenemos el id de la protectora seleccionada
             $.ajax({
                 url: 'filtrar_gatos.php',
                 type: 'post',
                 data: {id_protectora: id_protectora},
                 success: function(response){
-                    $('.gatos-container').html(response); // Actualizar el contenido con los gatos filtrados
+                    $('.gatos-container').html(response); //mostramos los gatos de la protectora seleccionada
                 }
             });
         });

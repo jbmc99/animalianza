@@ -4,8 +4,6 @@ include('..usuario/header.php');
 include('navbar_protectora.php');
 ?>
   
-
-  
 <div class="container mt-5">
     <h1 class="text-center mb-5">TUS PRODUCTOS</h1>
     <div class="row justify-content-center">
@@ -13,19 +11,17 @@ include('navbar_protectora.php');
 <?php
 
 session_start();
-    // Incluir archivo de conexión
-    require_once('conexion.php');
 
-    // Obtener el ID de la protectora de la sesión
+    require_once('conexion.php');
     $id_protectora = $_SESSION['id_protectora'];
 
-    // Consulta SQL para obtener los productos de la protectora que ha iniciado sesión
+    //hacemos una consulta sql para obtener todos los productos de la protectora q inició sesion
     $sql = "SELECT * FROM producto WHERE id_protectora = '$id_protectora'";
     $result = $conn->query($sql);
 
-    // Verificar si se obtuvieron resultados
+    //si se han encontrado productos
     if ($result->num_rows > 0) {
-        // Mostrar los productos
+        //los mostramos en las cards
         while($row = $result->fetch_assoc()) {
             echo '<div class="col-lg-4 mb-4 ">';
             echo '<div class="card border-0 rounded-3 shadow-sm">';
@@ -35,7 +31,7 @@ session_start();
             echo '<h6 class="card-subtitle mb-2 text-muted">$' . $row['precio'] . '</h6>';
             echo '<div class="d-flex justify-content-center">';
             echo '<a href="../usuario/infoproducto.php?id_producto=' . $row['id_producto'] . '" class="btn btn-success me-2">Más información</a>';
-            // Botón para editar producto (activa el modal)
+            //el boton este hace que se abra el modal para editar el producto
             echo '<button type="button" class="btn btn-success editarProducto" data-bs-toggle="modal" data-bs-target="#editarProductoModal" data-id="' . $row['id_producto'] . '">Editar producto</button>';
             echo '</div>';
             echo '</div>';
@@ -43,15 +39,13 @@ session_start();
             echo '</div>';
         }
     } else {
-        // Manejar el caso de no haber productos
         echo '<p class="text-center">No hay productos disponibles</p>';
     }
 
-    // Cerrar la conexión a la base de datos
     $conn->close();
 ?>
 
-               <!-- Modal para editar producto -->
+               <!-- modal para editar-->
 <div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="editarProductoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -60,7 +54,6 @@ session_start();
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Formulario para editar producto -->
                 <form action="editarProducto.php" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nombreProducto">Nombre del Producto:</label>
@@ -74,12 +67,10 @@ session_start();
                         <label for="precioProducto">Precio del Producto:</label>
                         <input type="number" step="0.01" min="0" class="form-control" id="precioProducto" name="precioProducto" required>
                     </div>
-                    <!-- Campo de carga de archivos para la foto del producto -->
                     <div class="form-group">
                         <label for="fotoProducto">Foto del Producto:</label>
                         <input type="file" class="form-control-file" id="fotoProducto" name="fotoProducto">
                     </div>
-                    <!-- Campo oculto para almacenar el ID del producto -->
                     <input type="hidden" id="id_producto" name="id_producto">
                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -115,7 +106,7 @@ session_start();
                     <div class="form-group">
                         <label for="productoSelect">Selecciona el producto a eliminar:</label>
                         <select class="form-select" id="productoSelect" name="id_producto">
-                            <!-- Aquí se incluirán las opciones de productos -->
+                            <!--en este select se cargan los productos de la protectora-->
                         </select>
                     </div>
                 </form>
@@ -133,7 +124,8 @@ session_start();
     include('../usuario/footer.php');
     ?>
 
-<!-- Script para pasar el ID del producto al modal -->
+<!-- con este script se obtiene el id del producto que se quiere editar y se lo asigna a un input hidden -->
+
 <script>
 $(document).ready(function() {
     $('.editarProducto').on('click', function() {
@@ -146,14 +138,14 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
-    // Cargar las opciones de productos al abrir el modal
+    //cuando se abre el modal de eliminar se cargan los productos de la protectora
     $('#eliminarProductoModal').on('show.bs.modal', function() {
         $.ajax({
-            url: 'opciones_producto_eliminar.php', // Ruta al archivo PHP que devuelve las opciones de productos
+            url: 'opciones_producto_eliminar.php',
             type: 'GET',
             dataType: 'json',
             success: function(response) {
-                // Limpiar el select y agregar las nuevas opciones
+                //se vacía el select y se cargan las opciones
                 $('#productoSelect').empty();
                 $.each(response, function(index, producto) {
                     $('#productoSelect').append('<option value="' + producto.id + '">' + producto.nombre + '</option>');

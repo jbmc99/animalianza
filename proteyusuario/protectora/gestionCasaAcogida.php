@@ -1,15 +1,12 @@
+<!--aqui basicamente es lo mismo que en gestionAdopciones.php, solo que en este caso se aceptan o deniegan las solicitudes de acogida-->
 <?php
-// Iniciar la sesión para acceder a las variables de sesión
 session_start();
 
-// Verificar si el id_protectora está almacenado en la sesión
 if (!isset($_SESSION['id_protectora'])) {
-    // Si no está almacenado, redirigir a la página de inicio de sesión
-    header("Location: login.php"); // Cambiar 'login.php' por la página de inicio de sesión
+    header("Location: login.php"); 
     exit();
 }
 
-// Obtener el id_protectora de la sesión
 $id_protectora = $_SESSION['id_protectora'];
 ?>
 
@@ -23,10 +20,8 @@ include('navbar_protectora.php');
     <h1>GESTIÓN DE CASAS DE ACOGIDA</h1>
 </div>
 
-<!-- Content -->
 <div class="container mt-3">
     <div class="row">
-        <!-- Sección para aceptar acogidas -->
         <div class="col-md-6 mb-4 protectora-row" data-id_protectora="<?php echo $id_protectora; ?>">
             <h2 class="text-center mb-3">¿Aceptáis acogidas en este momento?</h2>
             <div class="d-flex justify-content-center mb-3">
@@ -37,23 +32,15 @@ include('navbar_protectora.php');
                 <button class="btn btn-success confirmarBtn">Confirmar</button>
             </div>
         </div>
-
-        <!-- Sección para ver solicitudes de casa de acogida -->
         <div class="col-md-6">
             <h2 class="text-center mb-3">Solicitudes de casa de acogida</h2>
             <ul class="list-group">
                 <?php
-                // Incluir archivo de conexión a la base de datos
                 require_once('../protectora/conexion.php');
-
-                // Preparar la consulta SQL para obtener solo las solicitudes pendientes
                 $sql = "SELECT solicitud_acogida.*, animal.nombre AS nombre_animal FROM solicitud_acogida JOIN animal ON solicitud_acogida.id_animal = animal.id_animal WHERE solicitud_acogida.id_protectora = $id_protectora AND solicitud_acogida.estado = 'pendiente'";
-
-                // Ejecutar la consulta
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
-                    // Recorrer cada fila de resultados
                     while($row = $result->fetch_assoc()) {
                         echo '<li class="list-group-item d-flex justify-content-between align-items-center" data-id="'.$row["id_solicitud_acogida"].'" data-bs-toggle="modal" data-bs-target="#solicitudModal'.$row["id_solicitud_acogida"].'">';
                         echo $row["nombre_animal"];
@@ -95,7 +82,6 @@ include('navbar_protectora.php');
     </div>
 </div>
 <?php
-// Cerrar la conexión a la base de datos
 $conn->close();
 ?>
 
@@ -103,21 +89,18 @@ $conn->close();
 include('../usuario/footer.php');
 ?>
 
-<!-- Scripts -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // Obtener el valor del select y el ID de la protectora
     $(".confirmarBtn").on("click", function() {
         var acepta_acogidas = $(this).siblings(".acepta_acogidas_select").val();
         var id_protectora = $(this).closest(".protectora-row").data("id_protectora");
 
-        // Imprimir los valores antes de enviar la solicitud AJAX
         console.log("Valor de acepta_acogidas:", acepta_acogidas);
         console.log("Valor de id_protectora:", id_protectora);
 
-        // Enviar los datos al script PHP mediante Ajax
         $.ajax({
             url: "actualizar_acogida.php",
             method: "GET",
@@ -126,7 +109,6 @@ include('../usuario/footer.php');
                 id_protectora: id_protectora
             },
             success: function(response) {
-                // Mostrar un Sweet Alert para notificar al usuario
                 Swal.fire({
                     icon: 'success',
                     title: '¡Éxito!',
@@ -134,17 +116,17 @@ include('../usuario/footer.php');
                     confirmButtonText: 'Aceptar'
                 });
 
-                console.log(response); // Maneja la respuesta del servidor según sea necesario
+                console.log(response); 
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText); // Maneja los errores de Ajax
+                console.error(xhr.responseText);
             }
         });
     });
 
     $(".acceptBtn").on("click", function() {
         var id_solicitud_acogida = $(this).data("id_solicitud_acogida");
-        var listItem = $('li[data-id="'+id_solicitud_acogida+'"]'); // Encuentra el elemento de lista correspondiente
+        var listItem = $('li[data-id="'+id_solicitud_acogida+'"]'); 
 
         $.ajax({
             url: "../protectora/actualizar_estado_solicitud_acogida.php",
@@ -154,7 +136,6 @@ include('../usuario/footer.php');
                 nuevo_estado: "aceptada"
             },
             success: function(response) {
-                // Mostrar un Sweet Alert para notificar al usuario
                 Swal.fire({
                     icon: 'success',
                     title: '¡Éxito!',
@@ -162,10 +143,9 @@ include('../usuario/footer.php');
                     confirmButtonText: 'Aceptar'
                 });
 
-                listItem.remove(); // Elimina el elemento de la lista
+                listItem.remove(); 
             },
             error: function(xhr, status, error) {
-                // Mostrar un Sweet Alert para notificar al usuario sobre el error
                 Swal.fire({
                     icon: 'error',
                     title: '¡Error!',
@@ -178,7 +158,7 @@ include('../usuario/footer.php');
 
     $(".denyBtn").on("click", function() {
         var id_solicitud_acogida = $(this).data("id_solicitud_acogida");
-        var listItem = $('li[data-id="'+id_solicitud_acogida+'"]'); // Encuentra el elemento de lista correspondiente
+        var listItem = $('li[data-id="'+id_solicitud_acogida+'"]'); 
 
         $.ajax({
             url: "../protectora/actualizar_estado_solicitud_acogida.php",
@@ -188,7 +168,7 @@ include('../usuario/footer.php');
                 nuevo_estado: "denegada"
             },
             success: function(response) {
-                // Mostrar un Sweet Alert para notificar al usuario
+
                 Swal.fire({
                     icon: 'success',
                     title: '¡Éxito!',
@@ -196,10 +176,9 @@ include('../usuario/footer.php');
                     confirmButtonText: 'Aceptar'
                 });
 
-                listItem.remove(); // Elimina el elemento de la lista
+                listItem.remove(); 
             },
             error: function(xhr, status, error) {
-                // Mostrar un Sweet Alert para notificar al usuario sobre el error
                 Swal.fire({
                     icon: 'error',
                     title: '¡Error!',
