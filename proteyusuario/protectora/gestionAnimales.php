@@ -55,22 +55,19 @@ include('navbar_protectora.php');
             if ($resultado->num_rows > 0) {
                 // Mostrar cada animal en una tarjeta
                 while ($fila = $resultado->fetch_assoc()) {
-                    echo '<div class="card ms-3 mb-3 me-5 border bg-light text-center" style="width: 18rem;">';
+                    echo '<div class="card ms-3 mb-3 me-5 border bg-light text-center" style="width: 18rem;" id="animal-' . $fila['id_animal'] . '">';
                     echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '">';
-                    // Mostrar la imagen del animal
                     echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid img-thumbnail border-0 bg-transparent" alt="Foto del animal">';
                     echo '</a>';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
                     echo '<div class="d-flex justify-content-between mt-3">';
-                    // Botón de "Más información" verde
                     echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '" class="btn btn-success me-2">Más información</a>';
-                    // Botón de "Editar animal" verde
                     echo '<button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#editarAnimalModal' . $fila['id_animal'] . '">Editar animal</button>';
-                    echo '</div>'; // Cierre de d-flex justify-content-between
-                    echo '</div>'; // Cierre de card-body
-                    echo '</div>'; // Cierre de card
-
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                
                     // Modal para editar animal
                     echo "<div class='modal fade' id='editarAnimalModal" . $fila['id_animal'] . "' tabindex='-1' aria-labelledby='editarAnimalModalLabel" . $fila['id_animal'] . "' aria-hidden='true'>";
                     echo "<div class='modal-dialog'>";
@@ -80,10 +77,10 @@ include('navbar_protectora.php');
                     echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
                     echo "</div>";
                     echo "<div class='modal-body'>";
-
+                
                     // Formulario para editar el animal
                     echo "<form action='procesar_animal.php' method='post' enctype='multipart/form-data'>";
-                    echo "<input type='hidden' name='id_protectora' value='" . $id_protectora . "'>"; 
+                    echo "<input type='hidden' name='id_protectora' value='" . $id_protectora . "'>";
                     echo "<input type='hidden' name='id_animal' value='" . $fila['id_animal'] . "'>";
                     echo "<div class='form-group'>";
                     echo "<label for='nombreAnimal'>Nombre:</label>";
@@ -112,15 +109,13 @@ include('navbar_protectora.php');
                     echo "<label for='info_adicional'>Información Adicional:</label>";
                     echo "<textarea class='form-control' id='info_adicional' name='infoAnimal'>" . $fila['info_adicional'] . "</textarea>";
                     echo "</div>";
-                    // Campo de carga de archivos para la foto del animal
                     echo "<div class='form-group mt-3'>";
                     echo "<label for='fotoAnimal'>Foto del Animal:</label>";
                     echo "<input type='file' class='form-control-file' id='fotoAnimal' name='fotoAnimal'>";
                     echo "</div>";
-
-                    // Campo hidden para el sexo del animal
+                
                     echo "<input type='hidden' name='sexoAnimal' value='" . $fila['sexo'] . "'>";
-
+                
                     echo "<button type='submit' class='btn mt-3'>Guardar cambios</button>";
                     echo "<button type='button' class='btn mt-3' data-bs-dismiss='modal'>Cancelar</button>";
                     echo "</form>";
@@ -129,6 +124,7 @@ include('navbar_protectora.php');
                     echo "</div>";
                     echo "</div>";
                 }
+                
             } else {
                 echo "<div class= 'text-center'> No se encontraron animales. </div>";
             }
@@ -176,40 +172,65 @@ include('navbar_protectora.php');
     include('../usuario/footer.php');
     ?>
 
-  <script>
-        $(document).ready(function(){
-            $('#eliminarBtn').click(function() {
-                var idAnimal = $('#animalSelect').val();
-        
-                $.ajax({
-                    url: 'eliminarAnimal.php',
-                    type: 'POST',
-                    data: {
-                        id_animal: idAnimal
-                    },
-                    success: function(response) {
-                        // Parsear la respuesta JSON
-                        var animales = JSON.parse(response);
-                        
-                        // Limpiar el select y agregar las nuevas opciones
-                        $('#animalSelect').empty();
+<script>
+    $(document).ready(function(){
+        // Función para cargar los animales al inicio
+        function cargarAnimales() {
+            $.ajax({
+                url: 'opciones_animal_eliminar.php',
+                type: 'GET',
+                success: function(response) {
+                    var animales = JSON.parse(response);
+                    $('#animalSelect').empty();
+                    if (animales.length > 0) {
                         for (var i = 0; i < animales.length; i++) {
-                            $('#animalSelect').append('<option value="' + animales[i].id_animal + '">' + animales[i].nombre + '</option>');
+                            $('#animalSelect').append('<option value="' + animales[i].id + '">' + animales[i].nombre + '</option>');
                         }
-        
-                        // Cierra el modal
+                    } else {
+                        $('#animalSelect').append('<option value="" disabled>No hay animales disponibles</option>');
+                    }
+                },
+                error: function() {
+                    alert('Hubo un error al obtener los animales');
+                }
+            });
+        }
+
+        // Cargar los animales al cargar la página
+        cargarAnimales();
+
+        $('#eliminarBtn').click(function() {
+            var idAnimal = $('#animalSelect').val();
+
+            $.ajax({
+                url: 'eliminarAnimal.php',
+                type: 'POST',
+                data: { id_animal: idAnimal },
+                success: function(response) {
+                    var resultado = JSON.parse(response);
+                    if (resultado.success) {
+                        // Eliminar la tarjeta del DOM
+                        $('#animal-' + idAnimal).remove();
+                        
+                        // Limpiar y actualizar el select
+                        cargarAnimales();
+                        
+                        // Cerrar el modal
                         $('#eliminarAnimalModal').modal('hide');
-                        // Mostrar el mensaje de éxito
-                        alert('Animal eliminado con éxito');
-                    },
-                    error: function() {
-                        // Mostrar el mensaje de error
+                        
+                    } else {
                         alert('Hubo un error al eliminar el animal');
                     }
-                });
+                },
+                error: function() {
+                    alert('Hubo un error al eliminar el animal');
+                }
             });
         });
-    </script>
+    });
+</script>
+
+
 
 
   

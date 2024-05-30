@@ -183,7 +183,11 @@ body {
     background-color: #909CE0 !important;
     border-color: #78CA91 !important;
     border-width: 2px !important;
+<<<<<<< HEAD:frontend/usuario/style.css
     color: white !important;
+=======
+    color:white !important;
+>>>>>>> 81baf73012d7634badf9ba2c0414f34f487b44a9:proteyusuario/usuario/style.css
 }
 
 .footer-custom-bg {
