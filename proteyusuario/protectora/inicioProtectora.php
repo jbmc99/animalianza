@@ -10,7 +10,7 @@ if (!isset($_SESSION['id_protectora'])) {
 ?>
 
 <?php
-include('..usuario/header.php');
+include('../usuario/header.php');
 include('navbar_protectora.php');
 ?>
   

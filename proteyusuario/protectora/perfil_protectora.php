@@ -33,7 +33,7 @@ $conn->close();
 ?>
 
 <?php
-include('..usuario/header.php');
+include('../usuario/header.php');
 include('navbar_protectora.php');
 ?>
 

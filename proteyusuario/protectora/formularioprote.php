@@ -1,6 +1,6 @@
 
 <?php
-include('..usuario/header.php');
+include('../usuario/header.php');
 ?>
 <!--esta navbar es diferente de las q ponemos con include, porq no tienen secciones-->
   <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">

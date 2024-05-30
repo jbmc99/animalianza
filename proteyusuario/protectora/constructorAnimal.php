@@ -1,6 +1,6 @@
 
 <?php
-include('..usuario/header.php');
+include('../usuario/header.php');
 include('navbar_protectora.php');
 
 session_start();

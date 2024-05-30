@@ -3,7 +3,7 @@ session_start();
 ?>
 
 <?php
-include('..usuario/header.php');
+include('../usuario/header.php');
 ?>
   <!-- aqui no pongo la navbar normal, pongo una sin secciones porque aun no nos logueamos-->
   <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
