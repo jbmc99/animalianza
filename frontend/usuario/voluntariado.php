@@ -77,14 +77,14 @@ if ($resultado->num_rows > 0) {
   echo '</div>';
   echo '</div>';
   echo '</div>';
-
+  
   echo '<div id="page-content" class="container">';
   echo '<div class="row justify-content-center mt-5">';
-
+  
   // Iterar sobre los resultados y generar el HTML para cada card
   while ($fila = $resultado->fetch_assoc()) {
       echo '<div class="col-md-4 mb-3 d-flex align-items-stretch">';
-      echo '<div class="card bg-transparent border-0 w-100">';
+      echo '<div class="card bg-transparent border-0 w-100 d-flex flex-column">';
       
       // Verificar si el archivo de imagen existe
       $image_path = $fila['ruta_imagen'];
@@ -93,16 +93,19 @@ if ($resultado->num_rows > 0) {
       } else {
           echo '<p class="text-muted">No hay imagen disponible para esta protectora.</p>';
       }
-      echo '<div class="card-body text-center">';
+      echo '<div class="card-body text-center d-flex flex-column">';
       echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
-      echo '<a href="formulariovoluntariado.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success btn-block">Solicitar voluntariado</a>';
+      echo '<div class="d-grid gap-2 d-flex justify-content-center mt-auto">';
+      echo '<a href="formulariovoluntariado.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success w-75">Solicitar voluntariado</a>';
+      echo '</div>'; // Cierre de d-grid
       echo '</div>'; // Cierre de card-body
       echo '</div>'; // Cierre de card
       echo '</div>'; // Cierre de col-md-4
   }
-
+  
   echo '</div>'; // Cierre de row
   echo '</div>'; // Cierre de container
+  
 } else {
   echo "No se encontraron protectoras que acepten voluntarios en este momento.";
 }

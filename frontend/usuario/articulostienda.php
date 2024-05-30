@@ -33,30 +33,19 @@ $stmt->close();
 $conn->close();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="../usuario/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-
 <?php
+include('header.php');
 include('navbar_usuario.php');
 ?>
   
 
-<div class="container mt-5">
+  <div class="container mt-5">
     <h1 class="text-center mb-5">Productos benéficos</h1>
     <div class="row justify-content-center">
         <?php if (!empty($productos)): ?>
             <?php foreach ($productos as $producto): ?>
                 <div class="col-lg-3 mb-4 me-5">
-                    <div class="card border-0 rounded-3 shadow-sm">
+                    <div class="card border-0 rounded-3 shadow-sm d-flex flex-column"> <!-- Añade las clases aquí -->
                         <?php if (file_exists($producto['ruta_imagen'])): ?>
                             <img src="<?php echo htmlspecialchars($producto['ruta_imagen']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
                         <?php else: ?>
@@ -65,7 +54,7 @@ include('navbar_usuario.php');
                         <div class="card-body text-center">
                             <h5 class="card-title"><?php echo htmlspecialchars($producto['nombre']); ?></h5>
                             <h6 class="card-subtitle mb-2 text-muted">€<?php echo htmlspecialchars($producto['precio']); ?></h6>
-                            <a href="../usuario/infoproducto.php?id_producto=<?php echo htmlspecialchars($producto['id_producto']); ?>" class="btn btn-success">Más información</a>
+                            <a href="../usuario/infoproducto.php?id_producto=<?php echo htmlspecialchars($producto['id_producto']); ?>" class="btn btn-success mt-auto">Más información</a> <!-- Añade la clase aquí -->
                         </div>
                     </div>
                 </div>
@@ -75,7 +64,6 @@ include('navbar_usuario.php');
         <?php endif; ?>
     </div>
 </div>
-  
 <?php
     include('footer.php');
     ?>

@@ -47,7 +47,7 @@ include('navbar_usuario.php');
                     // Recorrer cada fila de resultados
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">';
-                        echo '  <div class="card border-0 rounded-3 shadow-sm cardProtectora">';
+                        echo '  <div class="card border-0 rounded-3 shadow-sm cardProtectora d-flex flex-column">';
                         
                         // Verificar si el archivo de imagen existe
                         $image_path = $row['ruta_imagen'];
@@ -56,10 +56,9 @@ include('navbar_usuario.php');
                         } else {
                             echo '<p class="text-muted">No hay imagen disponible para esta protectora.</p>';
                         }
-                        echo '    <div class="card-body text-center">';
+                        echo '    <div class="card-body text-center d-flex flex-column">';
                         echo '      <h5 class="card-title">' . htmlspecialchars($row["nombre"]) . '</h5>';
-                      
-                        echo '      <a href="articulostienda.php?id_protectora=' . htmlspecialchars($row["id_protectora"]) . '" class="btn btn-success me-2">Ver artículos</a>';
+                        echo '      <a href="articulostienda.php?id_protectora=' . htmlspecialchars($row["id_protectora"]) . '" class="btn btn-success mt-auto mx-auto w-75">Ver artículos</a>';
                         echo '    </div>';
                         echo '  </div>';
                         echo '</div>';
@@ -75,6 +74,7 @@ include('navbar_usuario.php');
         </div>
     </div>
 </div>
+
  
 <?php
     include('footer.php');

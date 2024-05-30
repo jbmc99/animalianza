@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="../usuario/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
+
 <?php
+include('header.php');
 include('navbar_usuario.php');
 ?>
   
@@ -30,34 +21,41 @@ include('navbar_usuario.php');
     
 
     <div class="container text-center mt-5">
-      <h2>ÚLTIMAS NOTICIAS</h2>
-    <div id="carouselExampleIndicators" class="carousel slide center-caro" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
+  <h2>ÚLTIMAS NOTICIAS</h2>
+  <div id="carouselExampleIndicators" class="carousel slide center-caro" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <a href="https://www.esquire.com/es/actualidad/a44137835/pastor-belga-malinois-perro-mas-inteligente-mundo/" target="_blank">>
           <img src="../images/ejemploc1.jpg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="../images/ejemploc2.png" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="../images/ejemploc3.jpeg" class="d-block w-100" alt="...">
-        </div>
+        </a>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+      <div class="carousel-item">
+        <a href="https://www.nacion.com/revista-perfil/bienestar/mascotas-en-pandemia-que-hacer-y-que-no/YBR5MK3KYJDE3DA7TBZDATEKCY/story/#:~:text=Mascotas%20en%20pandemia%3A%20%C2%BFqu%C3%A9%20hacer%20y%20qu%C3%A9%20no%3F,bienestar%20de%20nuestras%20mascotas%20durante%20la%20emergencia%20sanitaria" target="_blank">>
+          <img src="../images/ejemploc2.png" class="d-block w-100" alt="...">
+        </a>
+      </div>
+      <div class="carousel-item">
+        <a href="https://todopolicia.com/24008-2/" target="_blank">>
+          <img src="../images/ejemploc3.jpeg" class="d-block w-100" alt="...">
+        </a>
+      </div>
     </div>
-    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
     <br><br><br>
 
 

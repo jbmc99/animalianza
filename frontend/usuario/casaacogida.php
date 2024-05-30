@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="../usuario/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
 
 <?php
 include('navbar_usuario.php');
+include('header.php');
 ?>
 
   <div class="container">
@@ -83,12 +73,17 @@ include('navbar_usuario.php');
         
             // Iterar sobre los resultados y generar el HTML para cada card
             while ($fila = $resultado->fetch_assoc()) {
-                echo '<div class="col-lg-4 mb-3">'; // Cambiamos col-lg-6 a col-lg-4 para que cada tarjeta ocupe 3 columnas
-                echo '<div class="card bg-transparent border-0">';
-                echo '<img src="' . $fila['ruta_imagen'] . '" class="card-img-top img-fluid" alt="Imagen de la protectora">';
-                echo '<div class="card-body text-center">';
+                echo '<div class="col-lg-4 mb-3 d-flex justify-content-center">'; // Añadido d-flex justify-content-center
+                echo '<div class="card bg-transparent border-0 d-flex flex-column">'; // Añadido d-flex flex-column
+                $image_path = $fila['ruta_imagen'];
+                if (file_exists($image_path)) {
+                    echo '<img src="' . $image_path . '" class="card-img-top img-fluid" alt="Imagen de la protectora">';
+                } else {
+                    echo '<p class="text-muted">No hay imagen disponible para esta protectora.</p>';
+                }
+                echo '<div class="card-body text-center d-flex flex-column">'; // Añadido d-flex flex-column
                 echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
-                echo '<a href="formularioacogida.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success btn-block">Solicitar acogida</a>';
+                echo '<a href="formularioacogida.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success mt-auto mx-auto w-75">Solicitar acogida</a>'; // Añadido mt-auto mx-auto w-75
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';

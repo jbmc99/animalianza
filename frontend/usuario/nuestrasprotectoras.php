@@ -29,8 +29,8 @@ if ($resultado->num_rows > 0) {
 
     // Iterar sobre los resultados y generar el HTML para cada card
     while ($fila = $resultado->fetch_assoc()) {
-        echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">'; // Camb iado a d-flex justify-content-center
-        echo '<div class="card border-0 rounded-3 shadow-sm cardProtectora">'; // Añadido la clase 'cardProtectora'
+        echo '<div class="col-lg-4 mb-4 d-flex justify-content-center">'; // Cambiado a d-flex justify-content-center
+        echo '<div class="card border-0 rounded-3 shadow-sm cardProtectora d-flex flex-column">'; // Añadido d-flex flex-column a la tarjeta
         
         // Verificar si el archivo de imagen existe
         $image_path = $fila['ruta_imagen'];
@@ -39,18 +39,19 @@ if ($resultado->num_rows > 0) {
         } else {
             echo '<p class="text-muted">No hay imagen disponible para esta protectora.</p>'; // Mensaje de imagen no disponible
         }
-        echo '<div class="card-body text-center">';
+        echo '<div class="card-body text-center d-flex flex-column">'; // Añadido d-flex flex-column al card-body
         echo '<h5 class="card-title">' . $fila['nombre'] . '</h5>';
-        echo '<a href="prote1.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success me-2">Más información</a>';
+        echo '<a href="prote1.php?id_protectora=' . $fila['id_protectora'] . '" class="btn btn-success mt-auto mx-auto w-75">Más información</a>'; // Añadido mt-auto mx-auto w-75 al botón
         echo '</div>'; // Cierre de card-body
         echo '</div>'; // Cierre de card
-        echo '</div>'; // Cierre de col-lg-6
+        echo '</div>'; // Cierre de col-lg-4
     }
 
     echo '</div>'; // Cierre de row
 } else {
     echo "No se encontraron protectoras.";
 }
+
 
 // Cerrar la conexión a la base de datos
 $conn->close();
