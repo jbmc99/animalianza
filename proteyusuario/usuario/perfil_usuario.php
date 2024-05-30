@@ -151,11 +151,14 @@ include('navbar_usuario.php');
         if (!empty($solicitudes_acogida_denegadas)) {
             foreach ($solicitudes_acogida_denegadas as $solicitud) {
                 // Mostrar cada solicitud de acogida denegada
+                echo '<div class="solicitud">';
                 echo '<p>ID de Solicitud: ' . htmlspecialchars($solicitud['id_solicitud_acogida']) . '</p>';
                 echo '<p>Email: ' . htmlspecialchars($solicitud['email']) . '</p>';
                 echo '<p>Número de Teléfono: ' . htmlspecialchars($solicitud['telefono']) . '</p>';
                 echo '<p>Motivaciones: ' . htmlspecialchars($solicitud['motivaciones']) . '</p>';
                 echo '<p>Estilo de vida: ' . htmlspecialchars($solicitud['estilo_vida']) . '</p>';
+                echo '</div>';
+                echo '<hr>'; // Línea horizontal para separar cada solicitud
             }
         } else {
             echo '<p>No hay solicitudes de acogida denegadas.</p>';
@@ -177,11 +180,14 @@ include('navbar_usuario.php');
         if (!empty($solicitudes_acogida_pendientes)) {
             foreach ($solicitudes_acogida_pendientes as $solicitud) {
                 // Mostrar cada solicitud de acogida pendiente
+                echo '<div class="solicitud">';
                 echo '<p>ID de Solicitud: ' . htmlspecialchars($solicitud['id_solicitud_acogida']) . '</p>';
                 echo '<p>Email: ' . htmlspecialchars($solicitud['email']) . '</p>';
                 echo '<p>Número de Teléfono: ' . htmlspecialchars($solicitud['telefono']) . '</p>';
                 echo '<p>Motivaciones: ' . htmlspecialchars($solicitud['motivaciones']) . '</p>';
                 echo '<p>Estilo de vida: ' . htmlspecialchars($solicitud['estilo_vida']) . '</p>';
+                echo '</div>';
+                echo '<hr>'; // Línea horizontal para separar cada solicitud
             }
         } else {
             echo '<p>No hay solicitudes de acogida pendientes.</p>';
@@ -190,8 +196,7 @@ include('navbar_usuario.php');
     </div>
 </div>
 
-
-   <!-- Mostrar solicitudes de adopción Aceptadas -->
+<!-- Mostrar solicitudes de adopción Aceptadas -->
 <div class="card mt-3">
     <div class="card-header">
         <h2 class="card-title">Solicitudes de Adopción Aceptadas</h2>
@@ -204,6 +209,7 @@ include('navbar_usuario.php');
         if (!empty($solicitudes_adopcion_aceptadas)) {
             foreach ($solicitudes_adopcion_aceptadas as $solicitud) {
                 // Mostrar cada solicitud de adopción aceptada
+                echo '<div class="solicitud">';
                 echo '<p>Nombre y apellidos: ' . htmlspecialchars($solicitud['nombre_apellidos']) . '</p>';
                 echo '<p>Email: ' . htmlspecialchars($solicitud['email']) . '</p>';
                 echo '<p>Número de teléfono: ' . htmlspecialchars($solicitud['numero_telefono']) . '</p>';
@@ -211,7 +217,8 @@ include('navbar_usuario.php');
                 echo '<p>Propietario o inquilino: ' . htmlspecialchars($solicitud['propietario_inquilino']) . '</p>';
                 echo '<p>Motivaciones para adoptar: ' . htmlspecialchars($solicitud['motivaciones_adoptar']) . '</p>';
                 echo '<p>Info familia: ' . htmlspecialchars($solicitud['info_familia']) . '</p>';
-                // Mostrar más detalles si es necesario
+                echo '</div>';
+                echo '<hr>'; // Línea horizontal para separar cada solicitud
             }
         } else {
             echo '<p>No hay solicitudes de adopción aceptadas.</p>';
@@ -233,6 +240,7 @@ include('navbar_usuario.php');
         if (!empty($solicitudes_adopcion_denegadas)) {
             foreach ($solicitudes_adopcion_denegadas as $solicitud) {
                 // Mostrar cada solicitud de adopción denegada
+                echo '<div class="solicitud">';
                 echo '<p>Nombre y apellidos: ' . htmlspecialchars($solicitud['nombre_apellidos']) . '</p>';
                 echo '<p>Email: ' . htmlspecialchars($solicitud['email']) . '</p>';
                 echo '<p>Número de teléfono: ' . htmlspecialchars($solicitud['numero_telefono']) . '</p>';
@@ -240,6 +248,8 @@ include('navbar_usuario.php');
                 echo '<p>Propietario o inquilino: ' . htmlspecialchars($solicitud['propietario_inquilino']) . '</p>';
                 echo '<p>Motivaciones para adoptar: ' . htmlspecialchars($solicitud['motivaciones_adoptar']) . '</p>';
                 echo '<p>Info familia: ' . htmlspecialchars($solicitud['info_familia']) . '</p>';
+                echo '</div>';
+                echo '<hr>'; // Línea horizontal para separar cada solicitud
             }
         } else {
             echo '<p>No hay solicitudes de adopción denegadas.</p>';
@@ -260,6 +270,7 @@ include('navbar_usuario.php');
         });
         if (!empty($solicitudes_adopcion_pendientes)) {
             foreach ($solicitudes_adopcion_pendientes as $solicitud) {
+                echo '<div class="solicitud">';
                 echo '<p>Nombre y apellidos: ' . htmlspecialchars($solicitud['nombre_apellidos']) . '</p>';
                 echo '<p>Email: ' . htmlspecialchars($solicitud['email']) . '</p>';
                 echo '<p>Número de teléfono: ' . htmlspecialchars($solicitud['numero_telefono']) . '</p>';
@@ -267,6 +278,8 @@ include('navbar_usuario.php');
                 echo '<p>Propietario o inquilino: ' . htmlspecialchars($solicitud['propietario_inquilino']) . '</p>';
                 echo '<p>Motivaciones para adoptar: ' . htmlspecialchars($solicitud['motivaciones_adoptar']) . '</p>';
                 echo '<p>Info familia: ' . htmlspecialchars($solicitud['info_familia']) . '</p>';
+                echo '</div>';
+                echo '<hr>'; // Línea horizontal para separar cada solicitud
             }
         } else {
             echo '<p>No hay solicitudes de adopción pendientes.</p>';
@@ -274,8 +287,6 @@ include('navbar_usuario.php');
         ?>
     </div>
 </div>
-
-
 
 <!-- Mostrar solicitudes de voluntariado Pendientes -->
 <div class="card mt-3">
@@ -289,9 +300,12 @@ include('navbar_usuario.php');
         });
         if (!empty($solicitudes_voluntariado_pendientes)) {
             foreach ($solicitudes_voluntariado_pendientes as $solicitud) {
+                echo '<div class="solicitud">';
                 echo '<p>Nombre y apellidos: ' . htmlspecialchars($solicitud['nombre_apellidos']) . '</p>';
                 echo '<p>Email: ' . htmlspecialchars($solicitud['email']) . '</p>';
                 echo '<p>Número de teléfono: ' . htmlspecialchars($solicitud['numero_telefono']) . '</p>';
+                echo '</div>';
+                echo '<hr>'; // Línea horizontal para separar cada solicitud
             }
         } else {
             echo '<p>No hay solicitudes de voluntariado pendientes.</p>';
@@ -313,9 +327,12 @@ include('navbar_usuario.php');
         if (!empty($solicitudes_voluntariado_aceptadas)) {
             foreach ($solicitudes_voluntariado_aceptadas as $solicitud) {
                 // Mostrar cada solicitud de voluntariado aceptada
+                echo '<div class="solicitud">';
                 echo '<p>Nombre y apellidos: ' . htmlspecialchars($solicitud['nombre_apellidos']) . '</p>';
                 echo '<p>Email: ' . htmlspecialchars($solicitud['email']) . '</p>';
                 echo '<p>Número de teléfono: ' . htmlspecialchars($solicitud['numero_telefono']) . '</p>';
+                echo '</div>';
+                echo '<hr>'; // Línea horizontal para separar cada solicitud
             }
         } else {
             echo '<p>No hay solicitudes de voluntariado aceptadas.</p>';
@@ -336,9 +353,12 @@ include('navbar_usuario.php');
         });
         if (!empty($solicitudes_voluntariado_denegadas)) {
             foreach ($solicitudes_voluntariado_denegadas as $solicitud) {
+                echo '<div class="solicitud">';
                 echo '<p>Nombre y apellidos: ' . htmlspecialchars($solicitud['nombre_apellidos']) . '</p>';
                 echo '<p>Email: ' . htmlspecialchars($solicitud['email']) . '</p>';
                 echo '<p>Número de teléfono: ' . htmlspecialchars($solicitud['numero_telefono']) . '</p>';
+                echo '</div>';
+                echo '<hr>'; // Línea horizontal para separar cada solicitud
             }
         } else {
             echo '<p>No hay solicitudes de voluntariado denegadas.</p>';
@@ -347,8 +367,6 @@ include('navbar_usuario.php');
     </div>
 </div>
     </div>
-
-
 <?php
 include('../usuario/footer.php');
 ?>
