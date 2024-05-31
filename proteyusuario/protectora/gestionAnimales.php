@@ -1,49 +1,43 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="../usuario/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
 <?php
-include('../usuario/header.php');
 include('navbar_protectora.php');
 ?>
   
-
-<!-- Contenido principal -->
 <div class="container mt-5">
     <h1 class="mb-4 text-center">TUS ANIMALES:</h1>
     <div class="row">
         <div class="d-flex flex-wrap justify-content-center ms-5 me-2 text-center">
             <?php
-            // Iniciar la sesión si no ha sido iniciada
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-
-            // Verificar si 'id_protectora' está en la sesión
             if (!isset($_SESSION['id_protectora'])) {
-                // Manejar el caso en que 'id_protectora' no está establecido, por ejemplo, redirigir al usuario a la página de inicio de sesión
                 header("Location: login.php");
                 exit();
             }
-
-            // Obtener 'id_protectora' de la sesión
             $id_protectora = $_SESSION['id_protectora'];
-
-            // Incluir archivo de conexión
             require_once('conexion.php');
-
-            // Consultar la base de datos para obtener los nombres, las imágenes y los IDs de los animales que pertenecen a la protectora que ha iniciado sesión
             $sql = "SELECT id_animal, nombre, especie, raza, edad, sexo, info_adicional, ruta_imagen FROM animal WHERE id_protectora = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $id_protectora);
             $stmt->execute();
             $resultado = $stmt->get_result();
 
-            // Verificar si la consulta se ejecutó correctamente
             if ($resultado === false) {
                 die('Error en la consulta: ' . $conn->error);
             }
-
-            // Verificar si se encontraron resultados
             if ($resultado->num_rows > 0) {
-                // Mostrar cada animal en una tarjeta
                 while ($fila = $resultado->fetch_assoc()) {
                     echo '<div class="card ms-3 mb-3 me-5 border bg-light text-center" style="width: 18rem;" id="animal-' . $fila['id_animal'] . '">';
                     echo '<a href="../usuario/fichagato1.php?id=' . $fila['id_animal'] . '">';
@@ -58,7 +52,6 @@ include('navbar_protectora.php');
                     echo '</div>';
                     echo '</div>';
                 
-                    // Modal para editar animal
                     echo "<div class='modal fade' id='editarAnimalModal" . $fila['id_animal'] . "' tabindex='-1' aria-labelledby='editarAnimalModalLabel" . $fila['id_animal'] . "' aria-hidden='true'>";
                     echo "<div class='modal-dialog'>";
                     echo "<div class='modal-content'>";
@@ -68,7 +61,6 @@ include('navbar_protectora.php');
                     echo "</div>";
                     echo "<div class='modal-body'>";
                 
-                    // Formulario para editar el animal
                     echo "<form action='procesar_animal.php' method='post' enctype='multipart/form-data'>";
                     echo "<input type='hidden' name='id_protectora' value='" . $id_protectora . "'>";
                     echo "<input type='hidden' name='id_animal' value='" . $fila['id_animal'] . "'>";
@@ -119,7 +111,6 @@ include('navbar_protectora.php');
                 echo "<div class= 'text-center'> No se encontraron animales. </div>";
             }
 
-            // Cerrar la conexión a la base de datos
             ?>
         </div>
     </div>
@@ -164,7 +155,6 @@ include('navbar_protectora.php');
 
 <script>
     $(document).ready(function(){
-        // Función para cargar los animales al inicio
         function cargarAnimales() {
             $.ajax({
                 url: 'opciones_animal_eliminar.php',
@@ -186,12 +176,9 @@ include('navbar_protectora.php');
             });
         }
 
-        // Cargar los animales al cargar la página
         cargarAnimales();
-
         $('#eliminarBtn').click(function() {
             var idAnimal = $('#animalSelect').val();
-
             $.ajax({
                 url: 'eliminarAnimal.php',
                 type: 'POST',
@@ -199,13 +186,8 @@ include('navbar_protectora.php');
                 success: function(response) {
                     var resultado = JSON.parse(response);
                     if (resultado.success) {
-                        // Eliminar la tarjeta del DOM
                         $('#animal-' + idAnimal).remove();
-                        
-                        // Limpiar y actualizar el select
                         cargarAnimales();
-                        
-                        // Cerrar el modal
                         $('#eliminarAnimalModal').modal('hide');
                         
                     } else {
@@ -226,4 +208,4 @@ include('navbar_protectora.php');
   
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
-  </html>
+  </html>

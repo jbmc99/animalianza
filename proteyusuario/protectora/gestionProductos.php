@@ -1,8 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="../usuario/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
 
 <?php
-include('../usuario/header.php');
 include('navbar_protectora.php');
 ?>
+  
+
   
 <div class="container mt-5">
     <h1 class="text-center mb-5">TUS PRODUCTOS</h1>
@@ -11,17 +24,13 @@ include('navbar_protectora.php');
 <?php
 
 session_start();
-
     require_once('conexion.php');
-    $id_protectora = $_SESSION['id_protectora'];
 
-    //hacemos una consulta sql para obtener todos los productos de la protectora q inició sesion
+    $id_protectora = $_SESSION['id_protectora'];
     $sql = "SELECT * FROM producto WHERE id_protectora = '$id_protectora'";
     $result = $conn->query($sql);
 
-    //si se han encontrado productos
     if ($result->num_rows > 0) {
-        //los mostramos en las cards
         while($row = $result->fetch_assoc()) {
             echo '<div class="col-lg-4 mb-4 ">';
             echo '<div class="card border-0 rounded-3 shadow-sm">';
@@ -31,7 +40,6 @@ session_start();
             echo '<h6 class="card-subtitle mb-2 text-muted">$' . $row['precio'] . '</h6>';
             echo '<div class="d-flex justify-content-center">';
             echo '<a href="../usuario/infoproducto.php?id_producto=' . $row['id_producto'] . '" class="btn btn-success me-2">Más información</a>';
-            //el boton este hace que se abra el modal para editar el producto
             echo '<button type="button" class="btn btn-success editarProducto" data-bs-toggle="modal" data-bs-target="#editarProductoModal" data-id="' . $row['id_producto'] . '">Editar producto</button>';
             echo '</div>';
             echo '</div>';
@@ -45,7 +53,6 @@ session_start();
     $conn->close();
 ?>
 
-               <!-- modal para editar-->
 <div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="editarProductoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -106,7 +113,6 @@ session_start();
                     <div class="form-group">
                         <label for="productoSelect">Selecciona el producto a eliminar:</label>
                         <select class="form-select" id="productoSelect" name="id_producto">
-                            <!--en este select se cargan los productos de la protectora-->
                         </select>
                     </div>
                 </form>
@@ -124,8 +130,6 @@ session_start();
     include('../usuario/footer.php');
     ?>
 
-<!-- con este script se obtiene el id del producto que se quiere editar y se lo asigna a un input hidden -->
-
 <script>
 $(document).ready(function() {
     $('.editarProducto').on('click', function() {
@@ -138,14 +142,12 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
-    //cuando se abre el modal de eliminar se cargan los productos de la protectora
     $('#eliminarProductoModal').on('show.bs.modal', function() {
         $.ajax({
             url: 'opciones_producto_eliminar.php',
             type: 'GET',
             dataType: 'json',
             success: function(response) {
-                //se vacía el select y se cargan las opciones
                 $('#productoSelect').empty();
                 $.each(response, function(index, producto) {
                     $('#productoSelect').append('<option value="' + producto.id + '">' + producto.nombre + '</option>');
